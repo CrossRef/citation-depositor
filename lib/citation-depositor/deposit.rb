@@ -51,7 +51,8 @@ module CitationDepositor
               xml.doi @doi
             }
             xml.citation_list {
-              
+              Resolve.find(@citations).each do |citation|
+                
             }
           }
         }

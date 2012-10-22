@@ -1,5 +1,6 @@
 require 'json'
 require 'mongo'
+require 'resque'
 
 module CitationDepositor
 
