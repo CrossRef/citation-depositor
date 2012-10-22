@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 gem 'sinatra'
-gem 'erb'
 gem 'json'
 gem 'faraday'
 gem 'nokogiri'

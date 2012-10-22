@@ -35,14 +35,14 @@ class App
     def activate_licence!
       member = auth_doc[:user]
 
-      Pony.mail(:to => settings.licence_attr,
+      Pony.mail(:to => settings.licence_addr,
                 :from => 'labs@crossref.org',
                 :subject => "Member #{member} has accepted the citation deposit licence.",
                 :body => "Member #{member} has acepted the citation deposut licence.")
 
       member_doc = {
         :licence_activated => true,
-        :licence_acceupted => true,
+        :licence_accepted => true,
       }
       
       members = Config.collection('members')
