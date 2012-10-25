@@ -3,6 +3,11 @@ require_relative 'config'
 module CitationDepositor
 
   class RecordedJob
+
+    def self.get kind, id
+      collection = Config.collection(kind)
+      collection.find_one({:_id => id})
+    end
     
     def mark_started info = {}
       status_doc = {

@@ -38,3 +38,8 @@ cr-red-light-bg {
 cr-blue-light-bg {
 }
 
+.lead li {
+  padding: .2em;
+  line-height: 1.2em;
+}
+

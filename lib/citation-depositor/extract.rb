@@ -20,8 +20,12 @@ module CitationDepositor
       mark_started({:filename => filename})
 
       begin
-        refs = PdfExtract.parse(filename) { |pdf| pdf.references }
-        mark_finished(refs)
+        result = PdfExtract.parse(filename) do |pdf| 
+          pdf.references
+          pdf.dois
+        end
+        mark_finished(:citations => result[:references], 
+                      :doi => result[:dois].first)
       rescue StandardError => e
         mark_failed(e)
       end      

@@ -1,7 +1,10 @@
 source 'http://rubygems.org'
-gem 'sinatra'
+gem 'sinatra', :require => 'sinatra/base'
 gem 'json'
 gem 'faraday'
 gem 'nokogiri'
 gem 'pdf-extract'
-
+gem 'pony'
+gem 'mongo'
+gem 'bson_ext'
+gem 'resque'

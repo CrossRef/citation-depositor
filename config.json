@@ -1,0 +1,5 @@
+{
+  "mongo_server": "localhost",
+  "mongo_db": "depositor",
+  "redis_server": "localhost:6379"
+}
