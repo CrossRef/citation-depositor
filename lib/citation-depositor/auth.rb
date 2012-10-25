@@ -14,10 +14,6 @@ module CitationDepositor
       def auth_info
         request.env[:session]
       end
-
-      def authorize? user, pass
-        raise StandardError.new('Please override authorize helper')
-      end
     end
 
     def self.registered app
@@ -33,7 +29,7 @@ module CitationDepositor
       end
 
       app.post '/auth/login' do
-        if authorize?(params[:user], params[:pass])
+        if settings.authorize(params[:user], params[:pass])
           token = SecureRandom.uuid
           sessions = Config.collection 'sessions'
           sessions.insert({:user => params[:user], :pass => params[:pass], :token => token})
