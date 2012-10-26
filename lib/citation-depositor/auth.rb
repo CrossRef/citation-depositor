@@ -8,7 +8,7 @@ module CitationDepositor
 
     module Helpers
       def has_authed?
-        !request.env[:session].nil?
+        !auth_info.nil?
       end
 
       def auth_info
@@ -19,24 +19,29 @@ module CitationDepositor
     def self.registered app
       app.helpers SimpleSessionAuth::Helpers
 
-      app.set :sessions, true
-      app.set :auth_redirect, '/'
+      app.set :auth_ok_redirect, '/'
+      app.set :auth_failed_redirect, '/'
       app.set(:auth) { |val| condition { has_authed? } }
 
       app.before do
         sessions = Config.collection 'sessions'
-        request.env[:session] = sessions.find_one({:token => session[:token]})
+        token = request.cookies['token']
+        request.env[:session] = sessions.find_one({:token => token})
       end
 
       app.post '/auth/login' do
         if settings.authorize(params[:user], params[:pass])
           token = SecureRandom.uuid
           sessions = Config.collection 'sessions'
-          sessions.insert({:user => params[:user], :pass => params[:pass], :token => token})
-          session[:token] = token
-        end
+          sessions.update({:user => params[:user]}, 
+                          {:user => params[:user], :pass => params[:pass], :token => token},
+                          {:upsert => true})
+          response.set_cookie('token', {:value => token, :path => '/'})
 
-        redirect(params[:to] || settings.auth_redirect)
+          redirect(params[:to] || settings.auth_redirect)
+        else
+          redirect(settings.auth_failed_redirect)
+        end
       end
 
       app.post '/auth/logout' do

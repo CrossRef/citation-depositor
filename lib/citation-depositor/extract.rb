@@ -1,4 +1,4 @@
-require 'pdfextract'
+require 'pdf-extract'
 
 require_relative 'recorded_job'
 

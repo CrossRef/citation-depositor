@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+require 'resque'
+
 require_relative 'config'
+require_relative 'extract'
+require_relative 'recorded_job'
 
 # TODO Requires auth and licence
 
@@ -11,10 +15,10 @@ module CitationDepositor
         if pdf[:extraction_job]
           RecordedJob.get(pdf[:extraction_job])
         else
-          id = Resque.enqueue(CitationDepositor::Extract, pdf[:filename])
+          id = Resque.enqueue(Extract, pdf[:filename])
           pdf[:extraction_job] = id
           Config.collection('pdfs').save(pdf)
-        RecordedJob.get(id)
+          RecordedJob.get(id)
         end
       end
     end

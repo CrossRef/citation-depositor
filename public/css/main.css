@@ -21,25 +21,39 @@ cr-blue-dark {
 }
 
 cr-yellow-light {
+  color: rgb(265, 275, 197);
 }
 
 cr-red-light {
+  color: rgb(197, 91, 104);
 }
 
 cr-blue-light {
+  color: rgb(137, 193, 227);
 }
 
 cr-yellow-light-bg {
+  background-color: rgb(265, 275, 197);
 }
 
 cr-red-light-bg {
+  background-color: rgb(197, 91, 104);
 }
 
 cr-blue-light-bg {
+  background-color: rgb(137, 193, 227);
 }
 
 .lead li {
   padding: .2em;
   line-height: 1.2em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.very-tall {
+  height: 15em;
 }
 

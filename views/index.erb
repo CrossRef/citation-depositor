@@ -13,14 +13,15 @@
       </div>
     </div>
     <div class="span4 offset1">
-      <form class="form-horizontal">
+      <form method="post" action="/auth/login" class="form-horizontal">
         <legend>Come on in!</legend>
         <div class="control-group">
-	  <input class="input-xlarge" placeholder="Username" name="user"/>
+	  <input type="text" class="input-xlarge" placeholder="Username" name="user"/>
 	</div>
 	<div class="control-group">
-	  <input class="input-xlarge" placeholder="Password" name="pass"/>
+	  <input type="password" class="input-xlarge" placeholder="Password" name="pass"/>
         </div>
+	<input type="hidden" name="to" value="/licence"/>
 	<button class="btn" type="submit">Sign in</button>
       </form>
       <p>Don't have a username? You must be a CrossRef member to use our Citation

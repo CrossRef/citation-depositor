@@ -15,7 +15,7 @@ class App < Sinatra::Base
 
   set(:alive) { true }
   set(:stats) { {} }
-  set(:authorized) { |user, pass| true }
+  set(:authorize) { |user, pass| true }
 
   get '/' do
     erb :index
