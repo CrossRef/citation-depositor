@@ -7,6 +7,8 @@ require_relative 'lib/citation-depositor/auth'
 require_relative 'lib/citation-depositor/licence'
 require_relative 'lib/citation-depositor/depositor'
 
+require_relative 'lib/citation-depositor/dummy_auth'
+
 class App < Sinatra::Base
   register CitationDepositor::LabsBase
   register CitationDepositor::SimpleSessionAuth
@@ -15,7 +17,7 @@ class App < Sinatra::Base
 
   set(:alive) { true }
   set(:stats) { {} }
-  set(:authorize) { |user, pass| true }
+  set(:authorize) { |user, pass| CitationDepositor::DummyAuth.can_auth?(user, pass) }
 
   get '/' do
     erb :index

@@ -20,8 +20,8 @@ module CitationDepositor
         user = auth_info['user']
         Resque.enqueue(CitationDepositor::ActivateLicence, user)
         licences = Config.collection('licences')
-        licences.update({:user => user}, 
-                        {:user => user, :active => true, :activated_at => Time.now}, 
+        licences.update({:user => user},
+                        {:user => user, :active => true, :activated_at => Time.now},
                         {:upsert => true})
       end
     end
@@ -32,7 +32,16 @@ module CitationDepositor
       app.set :licence_fail_redirect, '/licence'
       app.set :licence_ok_redirect, '/deposit'
 
-      app.set(:licence) { |val| condition { is_licenced? } }
+      app.set(:licence) do |val| 
+        condition do
+          if is_licenced?
+            true
+          else
+            redirect(settings.licence_fail_redirect)
+            false
+          end
+        end
+      end
 
       app.before do
         unless auth_info.nil?

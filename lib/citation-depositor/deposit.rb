@@ -1,4 +1,5 @@
 require 'faraday'
+require 'stringio'
 
 require_relative 'recorded_job'
 
@@ -23,17 +24,30 @@ module CitationDepositor
       mark_started({:citations => @citations, :user => @user, :doi => @doi})
 
       begin
-        @@doi_service ||= Faraday.new(:url => 'http://doi.crosref.org')
-        @@doi_service.get do |req|
-          req.url '/servlet/deposit'
-          req.params[:operation] = 'doDOICitUpload'
-          req.params[:area] = 'live'
-          req.params[:login_id] = @user
-          req.params[:login_passwd] = @passwd
-          req.body = to_deposit_xml
+        @@doi_service ||= Faraday.new(:url => 'http://doi.crosref.org') do |conn|
+          conn.request :multipart
+          conn.request :url_encoded
+          conn.adapter :net_http
         end
+        
+        params = {
+          :operation = 'doDOICitUpload',
+          :login_id => @user,
+          :login_passwd => @passwd,
+          :area => 'live'
+        }
 
-        mark_finished
+        query = params.map {|k, v| "#{k}=#{URI.escape(v)}"}.join('&')
+        url = "/servlet/deposit?#{query}"
+        file = Faraday::UploadIO.new(StringIO.new(to_deposit_xml), 'application/xml')
+
+        res = @@doi_service.post url, {:fname => file}
+
+        if res.status == 200
+          mark_finished
+        else
+          mark_failed(res.status)
+        end
       rescue StandardError => e
         mark_failed(e)
       end
@@ -51,8 +65,10 @@ module CitationDepositor
               xml.doi @doi
             }
             xml.citation_list {
-              Resolve.find(@citations).each do |citation|
-                
+              @citations.each do |citation|
+                xml.unstructured_citation citation[:text]
+                xml.DOI(citation[:doi]) if citation.has_key?(:doi)
+              end
             }
           }
         }

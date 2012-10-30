@@ -57,3 +57,17 @@ cr-blue-light-bg {
   height: 15em;
 }
 
+.step-tab p {
+  font-size: 1.3em;
+}
+
+.step-number {
+  font-size: 1.6em;
+}
+
+.step-tab.off {
+  color: grey;
+  background-color: white;
+}
+ 
+

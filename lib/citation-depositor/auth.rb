@@ -21,7 +21,18 @@ module CitationDepositor
 
       app.set :auth_ok_redirect, '/'
       app.set :auth_failed_redirect, '/'
-      app.set(:auth) { |val| condition { has_authed? } }
+      app.set :auth_logout_redirect, '/'
+      
+      app.set(:auth) do |val| 
+        condition do 
+          if has_authed?
+            true
+          else
+            redirect(settings.auth_failed_redirect)
+            false
+          end
+        end
+      end
 
       app.before do
         sessions = Config.collection 'sessions'
@@ -33,7 +44,7 @@ module CitationDepositor
         if settings.authorize(params[:user], params[:pass])
           token = SecureRandom.uuid
           sessions = Config.collection 'sessions'
-          sessions.update({:user => params[:user]}, 
+          sessions.update({:user => params[:user]},
                           {:user => params[:user], :pass => params[:pass], :token => token},
                           {:upsert => true})
           response.set_cookie('token', {:value => token, :path => '/'})
@@ -44,13 +55,13 @@ module CitationDepositor
         end
       end
 
-      app.post '/auth/logout' do
-        session[:token] = nil
-        redirect(params[:to] || settings.auth_redirect)
+      app.get '/auth/logout' do
+        response.delete_cookie('token')
+        redirect(params[:to] || settings.auth_logout_redirect)
       end
 
       app.get '/auth/me' do
-        request.env[:session].to_json
+        auth_info.to_json
       end
     end
   end

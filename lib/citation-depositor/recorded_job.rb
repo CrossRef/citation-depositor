@@ -8,6 +8,11 @@ module CitationDepositor
       collection = Config.collection(kind)
       collection.find_one({:_id => id})
     end
+
+    def self.get_where kind, query
+      collection = Config.collection(kind)
+      collection.find_one(query)
+    end
     
     def mark_started info = {}
       status_doc = {
