@@ -5,7 +5,6 @@ $(document).ready(function() {
     setTimeout(function() {
       var val = $("#doi-input").val();
       $.get("/search/dois?q=" + encodeURIComponent(val)).done(function(data) {
-	data = $.parseJSON(data);
 	if (data.length > 0) {
 	  $("#search-result").html(data[0]["fullCitation"]);
         } else {
@@ -19,9 +18,8 @@ $(document).ready(function() {
     clearTimeout();
     setTimeout(function() {
       var val = $("#citation-textarea").text();
-      $("#results-table").html();
+      $("#results-table").html('');
       $.get("/search/dois?q=" + encodeURIComponent(val)).done(function(data) {
-	data = $.parseJSON(data);
 	$.each(data, function(i, result) {
 	  var row = $("<tr>");
 	  row.append($("<td>").html(result["fullCitation"]));

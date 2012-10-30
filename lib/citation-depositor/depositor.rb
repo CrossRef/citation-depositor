@@ -163,7 +163,9 @@ module CitationDepositor
       # Shadow cr-search /dois
       app.get '/search/dois' do
         res = settings.search_service.get('/dois', :q => params[:q])
-        json(res.body, res.status)
+        content_type 'application/json', :charset => 'utf-8'
+        status res.status
+        res.body
       end
     end
 
