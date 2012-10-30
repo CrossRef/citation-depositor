@@ -2,6 +2,7 @@
 require 'resque'
 require 'securerandom'
 require 'rack/multipart/parser'
+require 'faraday'
 
 require_relative 'config'
 require_relative 'extract'
@@ -29,7 +30,8 @@ module CitationDepositor
       app.helpers Depositor::Helpers
 
       app.set :repo_path, File.join(app.settings.root, 'pdfs')
-
+      app.set :search_service, Faraday.new('http://search.labs.crossref.org')
+      
       app.get '/deposit', :auth => true, :licence => true do
         erb :upload
       end
@@ -106,20 +108,62 @@ module CitationDepositor
   
         if pdf['doi']
           locals[:doi] = pdf['doi']
+        else
+          locals[:doi] = ''
         end
 
         erb :doi, :locals => locals
       end
 
-      app.get '/deposit/:id/citations', :auth => true, :licence => true do
+      app.post '/deposit/:name/doi', :auth => true, :licence => true do
         pdfs = Config.collection('pdfs')
-        pdf = pdfs.find_one({:id => params[:id]})
+        pdf = pdfs.find_one({:name => params[:name]})
+
+        if pdf.nil?
+          redirect '/deposit'
+        else
+          pdf[:doi] = params[:doi]
+          pdfs.save pdf
+          redirect("/deposit/#{params[:name]}/citations")
+        end
       end
 
-      app.get '/deposit/:id/status', :auth => true, :licence => true do
+      app.get '/deposit/:name/citations', :auth => true, :licence => true do
+        name = params[:name]
+        pdfs = Config.collection('pdfs')
+        pdf = pdfs.find_one({:name => name})
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+        locals = {}
+
+        if extraction_job && extraction_job.has_key?('citations')
+          locals[:citations] = extraction_job['citations']
+        else
+          locals[:citations] = []
+        end
+
+        erb :citations, :locals => locals
       end
 
-      app.get '/deposit/:id/citations/:index', :auth => true, :licence => true do
+      app.get '/deposit/:name/status', :auth => true, :licence => true do
+      end
+
+      app.get '/deposit/:name/citations/:index', :auth => true, :licence => true do
+        name = params[:name]
+        index = params[:index].to_i
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+        locals = {}
+
+        if extraction_job && extraction_job.has_key?('citations')
+          locals[:citation] = extraction_job['citations'][index]
+        end
+
+        erb :citation, :locals => locals
+      end
+
+      # Shadow cr-search /dois
+      app.get '/search/dois' do
+        res = settings.search_service.get('/dois', :q => params[:q])
+        json(res.body, res.status)
       end
     end
 

@@ -3,7 +3,6 @@ require_relative 'config'
 module CitationDepositor
 
   class RecordedJob
-
     def self.get kind, id
       collection = Config.collection(kind)
       collection.find_one({:_id => id})
@@ -21,8 +20,8 @@ module CitationDepositor
       }
 
       status_doc.merge!(info)
-      status_doc[:_id] = @status_id unless @status_id.nil?
-      collection = Config.collection(@kind)
+      status_doc['_id'] = @status_id unless @status_id.nil?
+      collection = Config.collection(job_kind)
       @status_id = collection.save(status_doc)
     end
 
@@ -38,8 +37,8 @@ module CitationDepositor
         update['$set'][k] = v
       end
 
-      collection = Config.collection(@kind)
-      collection.find_and_modify({:query => {:_id => @status_id}, :update => update})
+      collection = Config.collection(job_kind)
+      collection.find_and_modify({:query => {'_id' => @status_id}, :update => update})
     end
 
     def mark_failed error
@@ -51,8 +50,8 @@ module CitationDepositor
         }
       }
 
-      collection = Config.collection(@kind)
-      collection.find_and_modify({:query => {:_id => @status_id}, :update => update})
+      collection = Config.collection(job_kind)
+      collection.find_and_modify({:query => {'_id' => @status_id}, :update => update})
     end
   end
 

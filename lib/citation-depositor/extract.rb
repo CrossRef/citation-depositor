@@ -1,16 +1,23 @@
+# -*- coding: utf-8 -*-
 require 'pdf-extract'
+require 'json'
+require 'faraday'
 
 require_relative 'recorded_job'
 require_relative 'config'
+require_relative 'resolve'
 
 module CitationDepositor
 
   class Extract < RecordedJob
     @queue = :extract
-    @kind = :extractions
+
+    def job_kind
+      :extractions
+    end
 
     def self.perform filename, name
-      Extract.new(filename).perform
+      Extract.new(filename, name).perform
     end
 
     def initialize filename, name
@@ -18,16 +25,39 @@ module CitationDepositor
       @name = name
     end
 
-    def perform filename, name
-      mark_started({:filename => filename, :name => name})
+    def resolve citations
+      @@search_service ||= Faraday.new(:url => 'http://search.labs.crossref.org')
+      res = @@search_service.post do |req|
+        req.url '/links'
+        req.headers['Content-Type'] = 'application/json'
+        req.body = citations.to_json
+      end
+
+      if res.status == 200
+        json = JSON.parse(res.body)
+        if json['query_ok']
+          json['results']
+        end
+      end
+    end
+
+    def perform
+      mark_started({:filename => @filename, :name => @name})
 
       begin
-        result = PdfExtract.parse(filename) do |pdf|
+        result = PdfExtract.parse(@filename) do |pdf|
           pdf.references
-          pdf.dois
+          #pdf.dois
         end
-        mark_finished(:citations => result[:references], 
-                      :doi => result[:dois].first)
+
+        unresolved_citations = result.spatial_objects[:references].map {|r| r[:content]}
+        citations = resolve(unresolved_citations)
+
+        #mark_finished(:citations => citations,
+        #              :doi => result[:dois].first)
+        # TODO Find doi once doi spatial implemented in
+        # pdf-extract.
+        mark_finished(:citations => citations)
       rescue StandardError => e
         mark_failed(e)
       end      

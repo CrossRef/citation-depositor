@@ -1,0 +1,13 @@
+<div>
+  <% citations.each_index do |i| %>	
+    <% citation = citations[i] %>
+    <div>
+      <textarea><%= citation['text'] %></textarea>
+      <% if citation.has_key?('doi') %>
+        <span><%= citation['doi'] %></span>
+      <% else %>
+        <span>Unable to match a DOI</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

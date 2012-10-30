@@ -7,7 +7,10 @@ module CitationDepositor
 
   class Deposit < RecordedJob
     @queue = :deposit
-    @kind = :deposits
+
+    def job_kind
+      :deposits
+    end
 
     def initialize user, passwd, doi, citations
       @user = user
@@ -31,7 +34,7 @@ module CitationDepositor
         end
         
         params = {
-          :operation = 'doDOICitUpload',
+          :operation => 'doDOICitUpload',
           :login_id => @user,
           :login_passwd => @passwd,
           :area => 'live'
