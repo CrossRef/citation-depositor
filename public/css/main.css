@@ -1,47 +1,47 @@
-cr-yellow {
-  color: rgb(235, 245, 167);
+.cr-yellow {
+  color: rgb(195, 205, 127);
 }
 
-cr-red {
+.cr-red {
   color: rgb(167, 81, 74);
 }
 
-cr-blue {
+.cr-blue {
   color: rgb(107, 163, 197);
 }
 
-cr-yellow-dark {
+.cr-yellow-dark {
 }
 
-cr-red-dark {
+.cr-red-dark {
 }
 
-cr-blue-dark {
+.cr-blue-dark {
   color: rgb(6, 116, 153);
 }
 
-cr-yellow-light {
+.cr-yellow-light {
   color: rgb(265, 275, 197);
 }
 
-cr-red-light {
+.cr-red-light {
   color: rgb(197, 91, 104);
 }
 
-cr-blue-light {
+.cr-blue-light {
   color: rgb(137, 193, 227);
 }
 
-cr-yellow-light-bg {
-  background-color: rgb(265, 275, 197);
+.cr-yellow-light-bg {
+  background-color: rgb(215, 225, 147);
 }
 
-cr-red-light-bg {
-  background-color: rgb(197, 91, 104);
+.cr-red-light-bg {
+  background-color: rgb(217, 111, 124);
 }
 
-cr-blue-light-bg {
-  background-color: rgb(137, 193, 227);
+.cr-blue-light-bg {
+  background-color: rgb(157, 213, 247);
 }
 
 .lead li {
@@ -51,23 +51,58 @@ cr-blue-light-bg {
 
 .full-width {
   width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .very-tall {
   height: 15em;
 }
 
-.step-tab p {
+.step-tab.off {
+  color: grey;
+  background-color: white;
+}
+
+.circle {
+  padding: .1em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+}
+
+.header-row img {
+  width: 15em;
+}
+
+.step-tab {
   font-size: 1.3em;
+  padding: .5em;
 }
 
 .step-number {
   font-size: 1.6em;
 }
 
-.step-tab.off {
-  color: grey;
-  background-color: white;
+.steps-row {
+  margin-bottom: 3em;
 }
- 
 
+.bg-grey {
+  background-color: #efefef;
+}
+
+.citation-row:hover {
+  background-color: #efefef;
+  cursor: pointer;
+} 
+
+.result-row:hover {
+  background-color: #efefef;
+  cursor: pointer;
+}
+
+table.table {
+  border-top: none;
+}

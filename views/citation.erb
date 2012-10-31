@@ -1,8 +1,38 @@
-<div>
-  <% if !citation.nil? %>
-    <textarea id="citation-textarea"><%= citation['text'] %></textarea>
-    <button class="btn">Choose</button>
-    <table id="results-table">
+<%= partial :header %>
+
+<div class="row">
+  <div class="span10 offset1">
+    <textarea id="citation-textarea" name="text" class="lead full-width" rows="4">
+      <%= citation['text'] %>
+    </textarea>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span7 offset1">
+    <% if citation.has_key?('doi') %>
+      <div class="alert alert-success">
+        Matched to <%= citation['doi'] %>
+      </div>
+    <% else %>
+      <div class="alert alert-error">
+        Not matched to a DOI
+      </div>
+    <% end %>
+  </div>
+  <div class="span3">
+    <div class="pull-right">
+      <button class="btn">Accept</button>
+    </div>
+    <a href="/deposit/<%= name %>/citations">Forget changes</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
+    <h3 class="muted">Suggestions</h3>
+
+    <table class="table" id="results-table">
     </table>
-  <% end %>  
+  </div>
 </div>

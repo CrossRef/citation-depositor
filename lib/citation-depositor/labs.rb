@@ -22,6 +22,10 @@ module CitationDepositor
       def json o, status = 200
         [status, {'Content-Type' => 'application/json'}, o.to_json]
       end
+
+      def partial template, locals = {}
+        erb template.to_sym, :layout => false, :locals => locals
+      end
     end
 
     def self.registered app

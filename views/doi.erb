@@ -1,8 +1,15 @@
-<div>
-  <form method="post">
-    <input id="doi-input" type="text" name="doi" value="<%= doi %>"/>
-    <button class="btn">Next</button>
-  </form>
+<%= partial :header %>
+
+<div class="row">
+  <div class="span10 offset1">
+    <%= partial :steps, :position => :doi %>
+
+    <form method="post">
+      <input id="doi-input" type="text" name="doi" value="<%= doi %>"/>
+      <button class="btn">Next</button>
+    </form>   
+    <div id="search-result"></div>
+  </div>
 </div>
-<div id="search-result"></div>
+
 

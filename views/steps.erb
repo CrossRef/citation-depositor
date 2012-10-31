@@ -1,0 +1,36 @@
+<div class="row steps-row">    
+
+  <% if position == :upload %>
+    <div class="span3 step-tab cr-red circle bg-grey">
+  <% else %>
+    <div class="span3 step-tab off">
+  <% end %>
+    <center>
+      <span class="step-number">1</span>
+      <span>Upload a PDF</span>
+    </center>
+  </div>
+
+  <% if position == :doi %>
+    <div class="span3 step-tab cr-blue circle bg-grey">
+  <% else %>
+    <div class="span3 step-tab off">
+  <% end %>
+    <center>
+      <span class="step-number">2</span>
+      <span>Select a DOI</span>
+    </center>
+  </div>
+
+  <% if position == :citations %>
+    <div class="span3 step-tab cr-yellow circle bg-grey">
+  <% else %>
+    <div class="span3 step-tab off">
+  <% end %>
+    <center>
+      <span class="step-number">3</span>
+      <span>Review citations</span>
+    </center>
+  </div>
+
+</div>

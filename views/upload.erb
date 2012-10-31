@@ -1,18 +1,11 @@
+<%= partial :header %>
+
 <div class="row">
-    <div class="span4 step-tab cr-red-light-bg cr-red">
-      <span class="step-number">1</span>
-      <span>Upload a PDF</span>
-    </div>
-    <div class="span4 step-tab off">
-      <span class="step-number">2</span>
-      <span>Select a DOI</span>
-    </div>
-    <div class="span4 step-tab off">
-      <span class="step-number">3</span>
-      <span>Review citations</span>
-    </div>
+  <div class="span10 offset1">
+    <%= partial :steps, :position => :upload %>
     <form method="post" enctype="multipart/form-data" encoding="multipart/form-data">
       <input class="input-file" type="file" name="file"/>
       <button class="btn">Upload</button>
     </form>
+  </div>
 </div>

@@ -21,13 +21,19 @@ $(document).ready(function() {
       $("#results-table").html('');
       $.get("/search/dois?q=" + encodeURIComponent(val)).done(function(data) {
 	$.each(data, function(i, result) {
-	  var row = $("<tr>");
+	  var row = $("<tr>").addClass("result-row");
+	  row.append($("<td>").text(result["doi"]));
 	  row.append($("<td>").html(result["fullCitation"]));
-	  row.append($("<td>").html("<button class=\"btn\">Choose</button>"));
 	  $("#results-table").append(row);
         });
       });
     });
+  });
+
+  $(".citation-row").click(function(e) {
+    window.location = window.location + "/" + $(this).attr("id");
+    e.preventDefault();
+    return false;
   });
 
 });

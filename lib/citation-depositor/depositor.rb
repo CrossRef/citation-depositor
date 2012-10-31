@@ -151,13 +151,29 @@ module CitationDepositor
         name = params[:name]
         index = params[:index].to_i
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
-        locals = {}
+        locals = {:name => name, :index => index}
 
         if extraction_job && extraction_job.has_key?('citations')
           locals[:citation] = extraction_job['citations'][index]
         end
 
         erb :citation, :locals => locals
+      end
+
+      app.post '/deposit/:name/citations/:index', :auth => true, :licence => true do
+        name = params[:name]
+        index = params[:index].to_i
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+        
+        extraction_job['citations'][index]['text'] = params[:text]
+
+        if params.has_key?(:doi)
+          extraction_job['citations'][index]['doi'] = params[:doi]
+        end
+
+        Config.collection('extractions').save(extraction_job)
+
+        redirect "/deposit/#{name}/citations/#{index}"
       end
 
       # Shadow cr-search /dois
