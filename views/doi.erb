@@ -5,10 +5,14 @@
     <%= partial :steps, :position => :doi %>
 
     <form method="post">
-      <input id="doi-input" type="text" name="doi" value="<%= doi %>"/>
-      <button class="btn">Next</button>
-    </form>   
-    <div id="search-result"></div>
+      <textarea class="lead full-width" rows="1" id="doi-input" name="doi"
+	     placeholder="Enter a DOI"><%= doi %></textarea>
+      <div id="search-result">
+      </div>
+      <div class="pull-right">
+      	 <button class="btn">Next</button>
+      </div>
+    </form>
   </div>
 </div>
 

@@ -166,14 +166,15 @@ module CitationDepositor
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
         
         extraction_job['citations'][index]['text'] = params[:text]
-
-        if params.has_key?(:doi)
+        extraction_job['citations'][index]['modified_at'] = Time.now
+        
+        if params.has_key?('doi') && !params[:doi].strip.empty?
           extraction_job['citations'][index]['doi'] = params[:doi]
         end
 
         Config.collection('extractions').save(extraction_job)
 
-        redirect "/deposit/#{name}/citations/#{index}"
+        redirect "/deposit/#{name}/citations"
       end
 
       # Shadow cr-search /dois
