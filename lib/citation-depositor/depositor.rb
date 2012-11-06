@@ -6,6 +6,7 @@ require 'faraday'
 
 require_relative 'config'
 require_relative 'extract'
+require_relative 'deposit'
 require_relative 'recorded_job'
 
 # TODO Requires auth and licence
@@ -31,7 +32,7 @@ module CitationDepositor
 
       app.set :repo_path, File.join(app.settings.root, 'pdfs')
       app.set :search_service, Faraday.new('http://search.labs.crossref.org')
-      
+
       app.get '/deposit', :auth => true, :licence => true do
         erb :upload
       end
@@ -48,7 +49,7 @@ module CitationDepositor
             file << buff
           end
         end
-      
+
         Config.collection('pdfs').insert({:name => pdf_name, :uploaded_at => Time.now})
         Resque.enqueue(Extract, repo_file, pdf_name)
 
@@ -75,7 +76,7 @@ module CitationDepositor
             # If the pdf has a deposit job then show the result page.
             # This will indicate either a complete deposit or
             # processing deposit.
-            redirect "/deposit/#{name}/status"
+            redirect "/deposit/#{name}/deposit"
           elsif extraction_job && pdf['doi']
             # If the pdf has an extraction job and DOI then show the citations
             # page. This will show either citations or a loading
@@ -144,7 +145,25 @@ module CitationDepositor
         erb :citations, :locals => locals
       end
 
-      app.get '/deposit/:name/status', :auth => true, :licence => true do
+      app.get '/deposit/:name/deposit', :auth => true, :licence => true do
+        erb :deposit
+      end
+
+      app.post '/deposit/:name/deposit', :auth => true, :licence => true do
+        name = params[:name]
+        extraction = RecordedJob.get_where('extractions', {:name => name})
+        pdf = Config.collection('pdfs').find_one({:name => name})
+        
+        unless extraction.nil? || !extraction.has_key?('citations')
+          Resque.enqueue(Deposit,
+                         name,
+                         auth_info['user'],
+                         auth_info['pass'],
+                         pdf['doi'],
+                         extraction['citations'])
+        end
+
+        erb :deposit
       end
 
       app.get '/deposit/:name/citations/:index', :auth => true, :licence => true do
@@ -183,6 +202,18 @@ module CitationDepositor
         content_type 'application/json', :charset => 'utf-8'
         status res.status
         res.body
+      end
+
+      # Citations for widget
+      app.get '/citations' do
+        doi = params[:doi]
+        extraction_job = RecordedJob.get_where('extractions', {:doi => doi})
+
+        if extraction_job.nil?
+          json([])
+        else
+          json(extraction_job['citations'].map {|c| {:text => c['text'], :doi => c['doi']} })
+        end
       end
     end
 

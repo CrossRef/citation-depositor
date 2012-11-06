@@ -47,14 +47,20 @@ $(document).ready(function() {
     });
   }
 
+  var timeIt = (function() {
+    var timer = 0;
+    return function(callback, ms) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
+      }
+  })();
+
   $("#doi-input").bind('paste keyup', function(e) {
-    clearTimeout();
-    setTimeout(refreshDoiResult, 500);
+    timeIt(refreshDoiResult, 500);
   });
 
   $("#citation-textarea").bind('paste keyup', function(e) {
-    clearTimeout();
-    setTimeout(refreshResultList, 500);
+    timeIt(refreshResultList, 500);
   });
 
   $(".citation-row").click(function(e) {
@@ -62,7 +68,6 @@ $(document).ready(function() {
     e.preventDefault();
     return false;
   });
-
 
   if ($("#doi-input").length != 0) {
     refreshDoiResult();
@@ -72,3 +77,4 @@ $(document).ready(function() {
     refreshResultList();
   }
 });
+

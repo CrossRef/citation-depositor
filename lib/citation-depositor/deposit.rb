@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 require 'faraday'
 require 'stringio'
 
 require_relative 'recorded_job'
+require_relative 'config'
 
 module CitationDepositor
 
@@ -12,21 +14,28 @@ module CitationDepositor
       :deposits
     end
 
-    def initialize user, passwd, doi, citations
+    def initialize name, user, passwd, doi, citations
+      @name = name
       @user = user
       @passwd = passwd
       @doi = doi
       @citations = citations
     end
 
-    def self.perform citations
-      Deposit.new(citations).perform
+    def self.perform name, user, passwd, doi, citations
+      Deposit.new(name, user, passwd, doi, citations).perform
     end
 
     def perform
-      mark_started({:citations => @citations, :user => @user, :doi => @doi})
+      mark_started({:citations => @citations, :name => @name, :doi => @doi})
 
       begin
+        # Store a local copy of final deposited citations.
+        citations_coll = Config.collection('citations')
+        citations_coll.update({:doi => @doi},
+                              {:doi => @doi, :citations => @citations},
+                              {:upsert => true})
+
         @@doi_service ||= Faraday.new(:url => 'http://doi.crosref.org') do |conn|
           conn.request :multipart
           conn.request :url_encoded
@@ -54,7 +63,7 @@ module CitationDepositor
       rescue StandardError => e
         mark_failed(e)
       end
-    end 
+    end
 
     def to_deposit_xml
       builder = Nokogiri::XML::Builder.new do |xml|
