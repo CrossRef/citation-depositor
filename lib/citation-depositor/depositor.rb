@@ -203,18 +203,6 @@ module CitationDepositor
         status res.status
         res.body
       end
-
-      # Citations for widget
-      app.get '/citations' do
-        doi = params[:doi]
-        extraction_job = RecordedJob.get_where('extractions', {:doi => doi})
-
-        if extraction_job.nil?
-          json([])
-        else
-          json(extraction_job['citations'].map {|c| {:text => c['text'], :doi => c['doi']} })
-        end
-      end
     end
 
   end

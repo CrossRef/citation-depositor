@@ -1,0 +1,10 @@
+<ol>
+  <% citations.each do |citation| %>
+    <li>
+      <%= citation[:text] %>
+      <a href="http://dx.doi.org/<%= citation[:doi] %>">
+        http://dx.doi.org/<%= citation[:doi] %>
+      </a>
+    </li>
+  <% end %>
+</ol>
