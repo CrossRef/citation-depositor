@@ -36,7 +36,7 @@ module CitationDepositor
                               {:doi => @doi, :citations => @citations},
                               {:upsert => true})
 
-        @@doi_service ||= Faraday.new(:url => 'http://doi.crosref.org') do |conn|
+        @@doi_service ||= Faraday.new(:url => 'http://doi.crossref.org') do |conn|
           conn.request :multipart
           conn.request :url_encoded
           conn.adapter :net_http

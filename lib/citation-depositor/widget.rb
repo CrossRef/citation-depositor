@@ -14,16 +14,16 @@ module CitationDepositor
         citations = []
         
         unless citations_record.nil?
-          citations = citations_record['citations'].map do |c| 
+          citations = citations_record['citations'].map do |c|
             hsh = {:text => c['text']}
             hsh[:doi] = c['doi'] if c.has_key?('doi')
             hsh
           end
         end
          
-        content = erb :widget_with_id, :locals => {:citations => citations}
+        content = erb :widget_with_id, :layout => :none, :locals => {:citations => citations}
         escaped_content = content.gsub('"', '\"').gsub("\n", ' ')
-        
+
         "__depositor_callback(\"#{escaped_content}\");"
       end
     end

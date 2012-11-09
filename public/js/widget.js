@@ -1,3 +1,8 @@
+function __depositor_callback(content) {
+  var containerTag = document.getElementById("__depositor");
+  containerTag.innerHTML = content;
+}
+
 (function() {
   var headTag = document.getElementsByTagName("head")[0];
   var bodyTag = document.getElementsByTagName("body")[0];
@@ -25,10 +30,5 @@
     dataScriptTag.setAttribute("src", "http://localhost:9393/widget/noid");
   }
 
-  bodyTag.appendChild(dataScriptTag);
-
-  function __depositor_callback(content) {
-    var containerTag = document.getElementById("__depositor");
-    containerTag.innerHTML = content;
-  }
+  bodyTag.appendChild(dataScriptTag);  
 })();
