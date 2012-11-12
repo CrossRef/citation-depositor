@@ -1,11 +1,30 @@
 <%= partial :header %>
 
+<script src="https://api.filepicker.io/v1/filepicker.js"></script>
+<script type="text/javascript">
+  filepicker.setKey('AXid9uyt4Tva7JAusFkHBz');
+</script>
+
 <div class="row">
   <div class="span10 offset1">
     <%= partial :steps, :position => :upload %>
-    <form method="post" enctype="multipart/form-data" encoding="multipart/form-data">
-      <input class="input-file" type="file" name="file"/>
-      <button class="btn">Upload</button>
-    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
+    <div id="pick-button" class="well dashed-well">
+      <center>
+        <h3 class="muted">Click to upload a PDF...</h3>
+      </center>
+    </div>
+  </div>
+</div>
+
+<div style="display: none;" class="row after-upload">
+  <div class="span10 offset1">
+    <div class="pull-right">
+      <a id="next-link" class="btn">Next</a>
+    </div>
   </div>
 </div>

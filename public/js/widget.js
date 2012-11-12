@@ -10,8 +10,14 @@ function __depositor_callback(content) {
   var identifier = null;
 
   for (var i=0; i<metaTags.length; i++) {
-    if (metaTags[i].name === "dc.identifier") {
-      identifier = metaTags[i].content;
+    if (metaTags[i].name.toLowerCase() === "dc.identifier") {
+      var metaValue = metaTags[i].content;
+      var trimmedMetaValue = metaValue.replace(/^\s+|\s+$/g, '');
+      if (trimmedMetaValue.slice(0, 4).toLowerCase() === 'doi:') {
+        identifier = trimmedMetaValue.slice(4);
+      } else {
+	identifier = trimmedMetaValue;
+      }
       break;
     }
   }
@@ -19,15 +25,15 @@ function __depositor_callback(content) {
   var cssLinkTag = document.createElement("link");
   cssLinkTag.setAttribute("rel", "stylesheet");
   cssLinkTag.setAttribute("type", "text/css");
-  cssLinkTag.setAttribute("href", "http://localhost:9393/css/widget.css");
+  cssLinkTag.setAttribute("href", "http://depositor.labs.crossref.org/css/widget.css");
   headTag.appendChild(cssLinkTag);
 
   var dataScriptTag = document.createElement("script");
 
   if (identifier != null) {
-    dataScriptTag.setAttribute("src", "http://localhost:9393/widget?doi=" + identifier);
+    dataScriptTag.setAttribute("src", "http://depositor.labs.crossref.org/widget?doi=" + identifier);
   } else {
-    dataScriptTag.setAttribute("src", "http://localhost:9393/widget/noid");
+    dataScriptTag.setAttribute("src", "http://depositor.labs.crossref.org/widget/noid");
   }
 
   bodyTag.appendChild(dataScriptTag);  

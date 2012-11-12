@@ -16,11 +16,12 @@ module CitationDepositor
       :extractions
     end
 
-    def self.perform filename, name
-      Extract.new(filename, name).perform
+    def self.perform url, filename, name
+      Extract.new(url, filename, name).perform
     end
 
-    def initialize filename, name
+    def initialize url, filename, name
+      @url = url
       @filename = filename
       @name = name
     end
@@ -42,9 +43,15 @@ module CitationDepositor
     end
 
     def perform
-      mark_started({:filename => @filename, :name => @name})
+      mark_started({:url => @url, :filename => @filename, :name => @name})
 
       begin
+        conn = Faraday.new
+        response = conn.get @url
+        File.open(@filename, 'wb') do |file|
+          file.write(response.body)
+        end
+
         result = PdfExtract.parse(@filename) do |pdf|
           pdf.references
           #pdf.dois

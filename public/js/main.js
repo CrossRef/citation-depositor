@@ -56,11 +56,33 @@ $(document).ready(function() {
   })();
 
   $("#doi-input").bind('paste keyup', function(e) {
+    $("#search-result").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
     timeIt(refreshDoiResult, 500);
   });
 
   $("#citation-textarea").bind('paste keyup', function(e) {
+    $("#results-table").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
     timeIt(refreshResultList, 500);
+  });
+
+  function afterFileUpload(pdfFilename, pdfName) {
+    $("#next-link").attr("href", "/deposit/" + pdfName + "/doi");
+    $(".after-upload").show();
+    $(".before-upload").hide();
+    $("#pick-button").unbind("click");
+    $("#pick-button").html("<center><h3 class=\"text-success\">" + pdfFilename + " uploaded!</h3>");
+    $("#pick-button").removeClass("dashed-well").addClass("success-dashed-well");
+  };
+
+  $("#pick-button").click(function(e) {
+    filepicker.pick({mimetypes: ['application/pdf']},
+		    function(FPFile) {
+		      $.post("/deposit", {url: FPFile.url}).done(function(data) {
+			afterFileUpload(FPFile.filename, data['pdf_name']);
+		      });
+		    });
+    e.preventDefault();
+    return false;
   });
 
   $(".citation-row").click(function(e) {

@@ -1,0 +1,524 @@
+/**
+ * common.css
+ *
+ * Copyright (c) 2000-2012 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * PKP-wide shared stylesheet.
+ */
+
+/**
+ * Common HTML elements
+ */
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #FBFBF3;
+	color: #111;
+	font-family: Verdana, sans-serif;
+}
+
+p {
+	margin: 1em 0; /* Making default stylesheet explicit - fixes IE7 margin collapsing. */
+}
+
+table {
+	border: 0;
+	border-spacing: 0;
+	font-size: 1.0em;
+}
+
+a {
+	text-decoration: underline;
+}
+
+a.plain {
+	text-decoration: none;
+}
+
+a img {
+    border-width: 0;
+}
+
+ul {
+	margin: 0.25em 0 0.75em 0;
+	padding: 0 0 0 2.5em;
+}
+
+tt {
+	font-size: 1.25em;
+}
+
+label {
+}
+
+label.error {
+	color: #900;
+}
+
+input.textField, select.selectMenu, textarea.textArea, input.uploadField {
+	background-color: #FFF;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	border-top: 2px solid #666;
+	border-left: 2px solid #666;
+	border-bottom: 2px solid #E8E8E1;
+	border-right: 2px solid #E8E8E1;
+	font-size: 1em;
+}
+
+input.button, a.button:link, a.button:visited {
+	padding: 0.1em 0.8em 0.2em;
+	font-size: 1em;
+        color: #fff;
+        border-width: 0;
+        box-shadow: 1px 1px 1px 0px rgba(80,80,80,0.4);
+        text-decoration: none;
+}
+
+input.button:hover, a.button:hover {
+    background-image: none;
+}
+
+a.large-btn:link, a.large-btn:visited {
+    display: inline-block;
+    margin: 1em 0;
+    padding: 0.2em 2em 0.3em;
+    font-size: 1.15384em;
+}
+
+input.defaultButton {
+	background-color: #375;
+	color: #FBFBF3;
+	font-weight: bold;
+}
+
+
+/**
+ * Main layout elements
+ */
+
+#container {
+    min-width: 680px;
+    margin: 0px auto;
+    font-size: 0.8125em;
+    line-height: 1.3846em;
+}
+
+#globalnav, #headerTitle, #navbar ul {
+    min-width: 700px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#topbar, #topbar a {
+    color: #fff;
+}
+
+#topbar {
+    height: 42px;
+}
+
+#globalnav {
+}
+
+#globalnav ul {
+    margin: 0; padding: 0;
+    list-style-type: none;
+    float: left;
+}
+
+#globalnav li {
+    float: left;
+    margin-left: 15px;
+    line-height: 34px;
+}
+
+#globalnav a:link, #globalnav a:visited {
+    display: block;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #054C22;
+}
+
+a#logo {
+    display: block;
+    float: left;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px #054C22;
+    line-height: 34px;
+    margin-right: 20px;
+}
+
+
+
+#header {
+	width: 100%;
+}
+
+#header h1 {
+    font-size: 2.07692em;
+    margin: 0;
+    padding: 16px 0 17px;
+}
+
+#navbar ul {
+    height: 30px;
+}
+
+#navbar ul li {
+    display: block;
+    float: left;
+    line-height: 25px;
+    padding: 0;
+    margin-right: 10px;
+}
+
+#navbar ul li a {
+    display: block;
+    padding: 0 6px;
+    margin: 0;
+}
+
+#navbar ul li a:link, #navbar ul li a:visited {
+    color: #fff;
+}
+
+#body {
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1000px;
+    overflow: auto;
+    clear: both;
+}
+
+#main, #rightSidebar {
+    padding-top: 16px;
+}
+
+h1, h2, h3, h4, .blockTitle {
+        display: block;
+        font-size: 1.384615em;
+	font-family: Georgia, serif;
+	font-weight: normal;
+        margin: 23px 0 13px;
+}
+
+h1 {
+    font-size: 1.61538em;
+    line-height: 1.2em;
+}
+
+h4 {
+    font-size: 1.230769em;
+}
+
+#sidebar h3 {
+}
+
+#breadcrumb {
+}
+
+#content {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+/**
+ * Breadcrumbs
+ */
+
+#breadcrumb {
+    font-size: 0.8461538em;
+}
+
+#breadcrumb a {
+}
+
+#breadcrumb a.current {
+    text-decoration: none;
+    color: #111;
+}
+
+
+/**
+ * Footer elements
+ */
+
+#footer div.debugStats {
+	font-size: 0.6em;
+}
+
+
+/**
+ * Additional text styles
+ */
+
+span.disabled, label.disabled {
+	color: #666;
+}
+
+a.action, a.file {
+	font-size: 0.85em;
+	text-transform: uppercase;
+}
+
+a.icon {
+	text-decoration: none;
+}
+
+a.icon img {
+	border: 0;
+}
+
+a.icon:hover {
+	background: none;
+}
+
+span.formRequired {
+	color: #333;
+	font-size: 0.9em;
+}
+
+span.instruct {
+}
+
+span.heading {
+	font-size: 0.85em;
+	text-transform: uppercase;
+}
+
+span.highlight {
+	border-bottom: 1px dotted #999;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+/**
+ * Table styles
+ */
+
+table.info td {
+	padding: 0;
+	padding-bottom: 0.5em;
+	padding-right: 0.5em;
+}
+
+table.listing td {
+	padding: 0.25em 1.5em 0.25em 0.5em;
+}
+
+table.listing tr.heading td, table.listing td.heading, table.info td.heading {
+	font-size: 0.85em;
+	text-transform: uppercase;
+	font-weight: normal;
+	padding: 0.75em 1.5em 1em 0.5em;
+}
+
+table.info td.heading {
+	padding-left: 0;
+}
+
+
+table.listing td.nodata, table.info td.nodata {
+	text-align: center;
+	font-style: italic;
+}
+
+table.listing td.headseparator {
+	border-top: 1px dotted #999;
+	font-size: 0.1em;
+	line-height: 1%;
+}
+
+table.listing td.endseparator {
+	border-top: 1px dotted #999;
+	font-size: 0.25em;
+	line-height: 10%;
+}
+
+table.listing td.separator, table.info td.separator {
+	border-top: 1px dotted #DDDDD0;
+	font-size: 0.1em;
+	line-height: 1%;
+}
+
+table.data tr {
+}
+
+table.data td {
+	padding-bottom: 0.25em;
+}
+
+table.data td.label {
+	padding-right: 1em;
+}
+
+table.data td.value {
+}
+
+table.data td.separator {
+	padding: 0.5em;
+	font-size: 0.1em;
+	line-height: 1%;
+}
+
+table.data td.heading {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+table.nested tr {
+	padding: 0;
+	margin: 0;
+}
+
+span.nested {
+	padding: 0 4px 0 0;
+	font-size: 1.2em;
+}
+
+/**
+ * Form-specific elements
+ */
+
+form, .highlight {
+    margin: 6px 0;
+    padding: 10px 6px;
+}
+
+fieldset { border: 0; margin: 0; padding: 0; }
+
+form td {
+    padding-bottom: 4px;
+}
+
+label { cursor: pointer; }
+
+legend { border: 0; *margin-left: -7px; padding: 0; }
+
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content
+-box; }
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+
+span.formError {
+	color: #900;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+span.formSuccess {
+	color: #090;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+ul.formErrorList {
+	color: #900;
+}
+
+
+/**
+ * Other organizational elements
+ */
+
+ul.menu {
+	margin: 0;
+	padding: 0;
+}
+
+ul.menu li {
+	margin: 0;
+	padding: 0;
+	padding-right: 1.5em;
+	display: inline;
+}
+
+ul.menu a {
+	text-decoration: none;
+}
+
+ul.steplist {
+	margin: 0;
+	padding: 0;
+	list-style-type: decimal;
+}
+
+ul.steplist li {
+	margin: 0;
+	padding: 0;
+	font-size: 0.85em;
+	padding-right: 0.5em;
+	display: inline;
+	text-transform: uppercase;
+}
+
+ul.steplist li.current {
+	font-weight: bold;
+}
+
+ul.steplist a {
+	text-decoration: none;
+}
+
+ul.plain {
+	list-style-type: none;
+	padding-left: 1.5em;
+}
+
+ul.filter {
+	margin: 0;
+	padding: 1.5em 0 1.5em 0;
+	list-style-type: none;
+}
+
+ul.filter li {
+	padding-right: 1.5em;
+	display: inline;
+}
+
+
+/**
+ * Other organizational elements
+ */
+
+div.separator {
+	width: 100%;
+	margin-top: 1em;
+	margin-bottom: 0.25em;
+	padding: 0;
+	border-bottom: 1px dotted #999;
+	font-size: 0.5em;
+	line-height: 25%;
+}
+
+#homepageContent {
+    padding: 18px 0;
+}
+
+#homepageImage img {
+    display: block;
+    float: left;
+    margin-bottom: 18px;
+}
+
+#homepageTxt {
+    margin-left: 290px;
+}
+
+#footer {
+    clear: both;
+    padding: 1px 10px;
+    margin: 18px 0;
+}
+

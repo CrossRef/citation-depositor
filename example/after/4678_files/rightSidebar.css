@@ -1,0 +1,29 @@
+/**
+ * rightSidebar.css
+ *
+ * Copyright (c) 2003-2012 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * Site-wide shared elements for pages including a right-hand sidebar.
+ *
+ * $Id$
+ */
+
+/**
+ * Common HTML elements
+ */
+
+
+#rightSidebar {
+	float: right;
+	width: 28%;
+        padding-left: 16px;
+        padding-bottom: 18px;
+        background: #fff url(../public/site/images/divider-vertical.png) left bottom no-repeat;
+}
+
+#main {
+	float: left;
+	width: 67%;
+        padding-bottom: 18px;
+}

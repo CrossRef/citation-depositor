@@ -1,0 +1,58 @@
+/* Styles for Sljol installation of OJS
+ * Ben Hayes, April 2012
+ * These must inherit from styles/common.css which have also been edited for the new JOL family of themes
+ * */
+
+body {
+}
+
+h1, h2, h3, h4, h5 {
+    color: #30151B;
+}
+
+a:link, a:visited {
+    color: #75001D;
+}
+
+a:hover, a:active {
+    color: #BD405D;
+}
+
+#globalnav a:link, #globalnav a:visited {
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+}
+
+#globalnav li a:hover, #globalnav li.current a:link, #globalnav li.current a:visited {
+        background: transparent url(images/globalnav-on.png) center top no-repeat;
+}
+
+form, .highlight {
+    background: #F5E9EB;
+    border: 1px solid #E6D6D9;
+}
+
+.button, input.defaultButton {
+    background: #B83D5B url(images/btn-bkgd.png) left bottom repeat-x;
+}
+
+#topbar {
+    background: #B83D5B url(images/topbar.png) left bottom repeat-x;
+}
+
+#header {
+    background: #EBD8DC url(images/header-shadow.png) left bottom repeat-x;
+}
+
+#navbar {
+    background: #B36276 url(images/header-shadow.png) left bottom repeat-x;
+}
+
+#navbar li a {
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+#navbar li.current a:link, #navbar li.current a:visited,
+#navbar li a:hover, #navbar li a:active {
+    background-color: #96384E;
+}
+

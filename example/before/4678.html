@@ -1,0 +1,411 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<title>Towards Designing a Routing Protocol for Opportunistic Networks |
+ Kathiravelu | International Journal on Advances in ICT for Emerging 
+Regions (ICTer)</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Towards Designing a Routing Protocol for Opportunistic Networks">
+			<meta name="keywords" content="Opportunistic networks; Adaptive routing protocol; PRoPHET routing protocol; Epidemic routing protocol">
+	
+	
+	<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+
+	<meta name="DC.Contributor.Sponsor" xml:lang="en" content="">
+	<meta name="DC.Coverage" xml:lang="en" content="">
+	<meta name="DC.Coverage.spatial" xml:lang="en" content="">
+	<meta name="DC.Coverage.temporal" xml:lang="en" content="">
+	<meta name="DC.Creator.PersonalName" content="Thabotharan Kathiravelu">
+	<meta name="DC.Creator.PersonalName" content="Arnold Pears">
+	<meta name="DC.Date.created" scheme="ISO8601" content="2012-09-21">
+	<meta name="DC.Date.dateSubmitted" scheme="ISO8601" content="2012-09-21">
+	<meta name="DC.Date.issued" scheme="ISO8601" content="2012-09-21">
+	<meta name="DC.Date.modified" scheme="ISO8601" content="2012-09-21">
+	<meta name="DC.Description" xml:lang="en" content=" Intermittently connected opportunistic networks experience frequent disconnections and shorter contact durations. Therefore routing of messages towards their destinations needs to be handled from various points of view. Predictability and connectedness are two features which can be determined by participating mobile nodes of an opportunistic content distribution network using their past contacts. Epidemic or probabilistic routing protocols such as PRoPHET do not fully utilize these features to route messages towards their destinations. In this paper we describe the design, implementation, experiment set up and the performance validation of a new, adaptive routing protocol which utilizes the predictability and connectedness features to route messages efficiently. Simulation based comparative studies show that the proposed routing protocol outperforms existing Epidemic and Probabilistic routing protocols in delivering messages.   DOI:  http://dx.doi.org/10.4038/icter.v4i3.4678     International Journal on Advances in ICT for Emerging Regions 2011 04 (03) :50 – 55  ">
+	<meta name="DC.Format" scheme="IMT" content="application/pdf">		
+	<meta name="DC.Identifier" content="4678">
+	<meta name="DC.Identifier.pageNumber" content="50-55">
+		<meta name="DC.Identifier.DOI" content="10.4038/icter.v4i3.4678">
+	<meta name="DC.Identifier.URI" content="http://www.sljol.info/index.php/ICTER/article/view/4678">
+	<meta name="DC.Language" scheme="ISO639-1" content="en">
+	<meta name="DC.Rights" content="A completed ICTer Copyright Form should accompany any original material when it is first submitted. In any event, an author must transfer copyright to ICTer upon being notified of the acceptance of his/her paper if the transfer has not been done prior to acceptance. ICTer will not insist on a transfer of copyright rights (other than a license to print, reprint, and distribute) in any computer programs set out in the text of the material.">
+	<meta name="DC.Source" content="International Journal on Advances in ICT for Emerging Regions (ICTer)">
+	<meta name="DC.Source.ISSN" content="1800-4156">
+	<meta name="DC.Source.Issue" content="3">
+	<meta name="DC.Source.URI" content="http://www.sljol.info/index.php/ICTER">
+	<meta name="DC.Source.Volume" content="4">
+						<meta name="DC.Subject" xml:lang="en" content="Opportunistic networks">
+								<meta name="DC.Subject" xml:lang="en" content="Adaptive routing protocol">
+								<meta name="DC.Subject" xml:lang="en" content="PRoPHET routing protocol">
+								<meta name="DC.Subject" xml:lang="en" content="Epidemic routing protocol">
+				<meta name="DC.Title" content="Towards Designing a Routing Protocol for Opportunistic Networks">
+		<meta name="DC.Type" content="Text.Serial.Journal">
+	<meta name="DC.Type.articleType" content="Articles">	
+		<meta name="gs_meta_revision" content="1.1">
+	<meta name="citation_journal_title" content="International Journal on Advances in ICT for Emerging Regions (ICTer)">
+	<meta name="citation_issn" content="1800-4156">
+        <meta name="citation_author" content="Thabotharan Kathiravelu">
+        <meta name="citation_author_institution" content="University of Colombo School of Computing, Colombo 07">
+        <meta name="citation_author" content="Arnold Pears">
+        <meta name="citation_author_institution" content="Uppsala University, Uppsala">
+	
+<meta name="citation_title" content="Towards Designing a Routing Protocol for Opportunistic Networks">
+
+	<meta name="citation_date" content="2012/09/21">
+
+	<meta name="citation_volume" content="4">
+	<meta name="citation_issue" content="3">
+	<meta name="citation_firstpage" content="50-55">
+		<meta name="citation_doi" content="10.4038/icter.v4i3.4678">
+	<meta name="citation_abstract_html_url" content="http://www.sljol.info/index.php/ICTER/article/view/4678">
+	<meta name="citation_language" content="en">
+						<meta name="citation_keywords" xml:lang="en" content="Opportunistic networks">
+								<meta name="citation_keywords" xml:lang="en" content="Adaptive routing protocol">
+								<meta name="citation_keywords" xml:lang="en" content="PRoPHET routing protocol">
+								<meta name="citation_keywords" xml:lang="en" content="Epidemic routing protocol">
+				<meta name="citation_pdf_url" content="http://www.sljol.info/index.php/ICTER/article/download/4678/3778">
+	
+
+	<link rel="stylesheet" href="4678_files/pkp.css" type="text/css">
+	<link rel="stylesheet" href="4678_files/common.css" type="text/css">
+	<link rel="stylesheet" href="4678_files/common_002.css" type="text/css">
+	<link rel="stylesheet" href="4678_files/articleView.css" type="text/css">
+			<link rel="stylesheet" href="4678_files/rtEmbedded.css" type="text/css">
+	
+	
+	
+	<link rel="stylesheet" href="4678_files/sidebar.css" type="text/css">		<link rel="stylesheet" href="4678_files/rightSidebar.css" type="text/css">	
+			<link rel="stylesheet" href="4678_files/sitestyle.css" type="text/css">
+	
+	<!-- Base Jquery -->
+	<script type="text/javascript" src="4678_files/jsapi.js"></script>
+	<script type="text/javascript">
+		// Provide a local fallback if the CDN cannot be reached
+		if (typeof google == 'undefined') {
+			document.write(unescape("%3Cscript src='http://www.sljol.info/lib/pkp/js/lib/jquery/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+			document.write(unescape("%3Cscript src='http://www.sljol.info/lib/pkp/js/lib/jquery/plugins/jqueryUi.min.js' type='text/javascript'%3E%3C/script%3E"));
+		} else {
+			google.load("jquery", "1.4.2");
+			google.load("jqueryui", "1.8.1");
+		}
+	</script><script src="4678_files/jquery_002.js" type="text/javascript"></script><script src="4678_files/jquery-ui.js" type="text/javascript"></script>
+	
+	<script type="text/javascript" src="4678_files/jquery.js"></script>
+	<script type="text/javascript" src="4678_files/fontController.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			fontSize("#sizer", "body", 9, 16, 32, ""); // Initialize the font sizer
+		});
+	</script>
+
+
+	<script type="text/javascript" src="4678_files/general.js"></script>
+	
+	<script language="javascript" type="text/javascript" src="4678_files/articleView.js"></script>
+	<script language="javascript" type="text/javascript" src="4678_files/pdfobject.js"></script>
+
+</head>
+<body>
+
+<div id="container">
+<div id="fade" class="black_overlay"></div><!-- new markup: -->
+<div id="topbar">
+    <div id="globalnav">
+	<a id="logo" href="http://www.sljol.info/index.php/index">Sri Lanka Journals Online</a>
+    <ul>
+        <li><a href="http://www.sljol.info/index.php/index">Home</a></li>
+	<li><a href="http://www.sljol.info/index.php/index/about">About</a></li>
+        <li><a href="http://www.sljol.info/index.php/index/search/categories">Subjects</a></li>
+        <li><a href="http://www.sljol.info/index.php/index/search">Search</a></li>
+    </ul>
+</div><!-- /globalnav -->
+</div><!-- /topbar -->
+<!-- end new markup -->
+
+<div id="header">
+<div id="headerTitle">
+<h1>
+	International Journal on Advances in ICT for Emerging Regions (ICTer)
+</h1>
+</div>
+
+<div id="navbar">
+	<ul class="menu">
+		<li id="home"><a href="http://www.sljol.info/index.php/ICTER/index">Journal Home</a></li>
+		<li><a href="http://www.sljol.info/index.php/ICTER/about">About</a></li>
+
+					<li id="login"><a href="http://www.sljol.info/index.php/ICTER/login">Log In</a></li>
+							<li id="register"><a href="http://www.sljol.info/index.php/ICTER/user/register">Register</a></li>
+										<li id="search"><a href="http://www.sljol.info/index.php/ICTER/search">Search</a></li>
+		
+					<li id="current"><a href="http://www.sljol.info/index.php/ICTER/issue/current">Current</a></li>
+			<li id="archives"><a href="http://www.sljol.info/index.php/ICTER/issue/archive">Archives</a></li>
+		
+				
+
+								</ul>
+</div>
+
+</div>
+
+<div id="body">
+
+	<div id="sidebar">
+							<div id="rightSidebar">
+				<div class="block" id="sidebarDevelopedBy">
+	<img id="jollogo" src="4678_files/jol-logo-small.png" alt="" height="40" width="82">
+    <span id="jolcredit">Part of the <a href="http://www.inasp.info/file/4fd988568504d4bcfa2f4cd855a07d45/jols.html" title="Find out more about the Journals Online Project">JOL Project</a><br>Supported by <a href="http://www.inasp.info/" title="Visit the INASP website">INASP</a></span>
+    <p><em>Sri Lanka Journals OnLine (SLJOL)</em> is a service to provide access to Sri Lankan published research, and increase worldwide knowledge of indigenous scholarship. <a href="http://www.sljol.info/index.php/ICTER/about">Read more</a>.</p>
+</div><div class="block" id="sidebarUser">
+		<!--	<span class="blockTitle">User</span>-->
+		
+						 <h3>Log in</h3>
+			<form method="post" action="http://www.sljol.info/index.php/ICTER/login/signIn">
+				<table>
+					<tbody><tr>
+						<td><label for="sidebar-username">Username</label></td>
+						<td><input id="sidebar-username" name="username" size="12" maxlength="32" class="textField" type="text"></td>
+					</tr>
+					<tr>
+						<td><label for="sidebar-password">Password</label></td>
+						<td><input id="sidebar-password" name="password" value="" size="12" maxlength="32" class="textField" type="password"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input id="remember" name="remember" value="1" type="checkbox"> <label for="remember">Remember me</label></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input value="Log In" class="button" type="submit"></td>
+					</tr>
+				</tbody></table>
+			</form>
+			</div><div class="block" id="sidebarNavigation">
+	<h3>Search Journal Content</h3>
+	
+	<form method="post" action="http://www.sljol.info/index.php/ICTER/search/results">
+	<table>
+	<tbody><tr>
+		<td><input id="query" name="query" size="15" maxlength="255" class="textField" type="text"></td>
+	</tr>
+	<tr>
+		<td><select name="searchField" size="1" class="selectMenu">
+			<option selected="selected" label="All" value="">All</option>
+<option label="Authors" value="1">Authors</option>
+<option label="Title" value="2">Title</option>
+<option label="Abstract" value="4">Abstract</option>
+<option label="Index terms" value="120">Index terms</option>
+<option label="Full Text" value="128">Full Text</option>
+
+		</select></td>
+	</tr>
+	<tr>
+		<td><input value="Search" class="button" type="submit"></td>
+	</tr>
+	</tbody></table>
+	</form>
+	
+		<h3>Browse</h3>
+	<ul>
+		<li><a href="http://www.sljol.info/index.php/ICTER/issue/archive">By Issue</a></li>
+		<li><a href="http://www.sljol.info/index.php/ICTER/search/authors">By Author</a></li>
+		<li><a href="http://www.sljol.info/index.php/ICTER/search/titles">By Title</a></li>
+				<li><a href="http://www.sljol.info/index.php/index">Other Journals</a></li>
+			</ul>
+	</div>
+<div class="block" id="sidebarFontSize">
+	<h3>Font Size</h3>
+	<div id="sizer"><a href="javascript:void(0);" class="smallFont" title="Make font size smaller">Make font size smaller</a> <a href="javascript:void(0);" class="defaultFont" title="Make font size default">Make font size default</a> <a href="javascript:void(0);" class="largeFont" title="Make font size larger">Make font size larger</a> </div>
+</div>
+<br><div class="block" id="sidebarInformation">
+	<h3 class="blockTitle">Information</h3>
+	<ul>
+		<li><a href="http://www.sljol.info/index.php/ICTER/information/readers">For Readers</a></li>		<li><a href="http://www.sljol.info/index.php/ICTER/information/authors">For Authors</a></li>		<li><a href="http://www.sljol.info/index.php/ICTER/information/librarians">For Librarians</a></li>	</ul>
+</div>
+
+<div class="block" id="sidebarRTAuthorBios">
+	<span class="blockTitle">
+					About The Authors
+			</span>
+		<div id="authorBio">
+	<p>
+		<em>Thabotharan Kathiravelu</em><br>
+						University of Colombo School of Computing, Colombo 07		<br>Sri Lanka	</p>
+
+	<p></p>
+	</div>
+	<div class="separator"></div>
+		<div id="authorBio">
+	<p>
+		<em>Arnold Pears</em><br>
+						Uppsala University, Uppsala		<br>Sweden	</p>
+
+	<p></p>
+	</div>
+	
+	</div>
+
+
+<script type="text/javascript">
+	initRelatedItems();
+</script>
+
+
+<div class="block" id="sidebarRTRelatedItems">
+	<span class="blockTitle">Related Items</span>
+		<table width="100%">
+			<tbody><tr>
+				<td style="width:26px;" valign="top">
+					<img src="4678_files/lookupTerms.png" class="articleToolIcon">
+				</td>
+				<td valign="top">
+					<div style="display: none;" id="relatedItems">
+						<ul class="plain">
+																					<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2524');">Author's work</a></li>
+																																									<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2526');">Related studies</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2527');">Book searches</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2528');">Databases</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2529');">Pay-per-view</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2530');">Tech. reports</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2531');">Patents</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2532');">Standards</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2533');">Online forums</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2534');">Multimedia</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2535');">Teaching files</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2536');">Government policy</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2537');">Media reports</a></li>
+																												<li><a href="javascript:openRTWindowWithToolbar('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2538');">Web search</a></li>
+																			</ul>
+					</div>
+					<div style="display: block;" id="toggleRelatedItems">
+						<span id="hideRelatedItems" style="display:none;"><img src="4678_files/magnifier_zoom_out.png"> Hide</span>
+						<span id="showRelatedItems"><img src="4678_files/magnifier_zoom_in.png"> Show all</span>
+					</div>
+				</td>
+			</tr>
+		</tbody></table>
+</div>
+
+
+
+<div class="block" id="sidebarRTArticleTools">
+
+	<span class="blockTitle">Article Tools</span>
+				<div class="articleToolItem">
+			<img src="4678_files/printArticle.png" class="articleToolIcon"> <a href="javascript:openRTWindow('http://www.sljol.info/index.php/ICTER/rt/printerFriendly/4678/0');">Print this article</a>
+		</div>
+				<div class="articleToolItem">
+			<img src="4678_files/metadata.png" class="articleToolIcon"> <a href="javascript:openRTWindow('http://www.sljol.info/index.php/ICTER/rt/metadata/4678/0');">Indexing metadata</a><br>
+		</div>
+				<div class="articleToolItem">
+			<img src="4678_files/citeArticle.png" class="articleToolIcon"> <a href="javascript:openRTWindow('http://www.sljol.info/index.php/ICTER/rt/captureCite/4678/0');">How to cite item</a><br>
+		</div>
+					<div class="articleToolItem">
+			<img src="4678_files/findingReferences.png" class="articleToolIcon"> <a href="javascript:openRTWindow('http://www.sljol.info/index.php/ICTER/rt/findingReferences/4678/0');">Finding References</a>
+		</div>
+		<div class="articleToolItem">
+		<img src="4678_files/editorialPolicies.png" class="articleToolIcon"> <a href="http://www.sljol.info/index.php/ICTER/about/editorialPolicies#peerReviewProcess" target="_parent">Review policy</a>
+	</div>
+			<div class="articleToolItem">
+			<img src="4678_files/emailArticle.png" class="articleToolIcon">
+			Email this article <span style="font-size: 0.8em">(Login required)</span>		</div>
+				<div class="articleToolItem">
+			<img src="4678_files/emailArticle.png" class="articleToolIcon">
+			Email the author <span style="font-size: 0.8em">(Login required)</span>		</div>
+		</div>
+
+			</div>
+			</div>
+
+<div id="main">
+
+<div id="breadcrumb">
+	<a href="http://www.sljol.info/index.php/index">Home</a> &gt;
+	<a href="http://www.sljol.info/index.php/ICTER">International Journal on Advances in ICT for Emerging Regions (ICTer)</a> &gt;
+	<a href="http://www.sljol.info/index.php/ICTER/issue/view/436" target="_parent">Vol 4, No 3 (2012)</a> &gt;	<a href="http://www.sljol.info/index.php/ICTER/article/view/4678/0" class="current" target="_parent">Kathiravelu</a>
+</div>
+
+<div id="content">
+
+
+	<div id="topBar">
+					</div>
+		
+	<div id="articleTitle"><h1>Towards Designing a Routing Protocol for Opportunistic Networks</h1></div>
+	<div id="authorString"><em>Thabotharan Kathiravelu, Arnold Pears</em></div>
+			<div id="articleAbstract">
+		<h3>Abstract</h3>
+		<div><p>Intermittently connected opportunistic networks experience 
+frequent disconnections and shorter contact durations. Therefore routing
+ of messages towards their destinations needs to be handled from various
+ points of view. Predictability and connectedness are two features which
+ can be determined by participating mobile nodes of an opportunistic 
+content distribution network using their past contacts. Epidemic or 
+probabilistic routing protocols such as PRoPHET do not fully utilize 
+these features to route messages towards their destinations. In this 
+paper we describe the design, implementation, experiment set up and the 
+performance validation of a new, adaptive routing protocol which 
+utilizes the predictability and connectedness features to route messages
+ efficiently. Simulation based comparative studies show that the 
+proposed routing protocol outperforms existing Epidemic and 
+Probabilistic routing protocols in delivering messages.</p> <p>DOI: <a href="http://dx.doi.org/10.4038/icter.v4i3.4678">http://dx.doi.org/10.4038/icter.v4i3.4678</a></p> <p><em>International Journal on Advances in ICT for Emerging Regions 2011 04 (03) :50 – 55</em></p></div>
+		</div>
+	
+			<div id="articleSubject">
+		<h3>Keywords</h3>
+		<div>Opportunistic networks; Adaptive routing protocol; PRoPHET routing protocol; Epidemic routing protocol</div>
+		</div>
+	
+	
+				
+			Full Text:
+									<a href="http://www.sljol.info/index.php/ICTER/article/view/4678/3778" class="file" target="_parent">PDF</a>
+													
+
+
+
+
+<br><br>
+<div id="footer"><p>International Journal on Advances in ICT for Emerging Regions (ICTer) ISSN 1800-4156 <br><a href="http://www.sljol.info/index.php/ICTER/about/contact">Contact journal editor</a></p></div>
+<!-- Google Analytics -->
+<script src="4678_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2851319-5";
+urchinTracker();
+</script>
+<!-- /Google Analytics -->
+
+</div><!-- content -->
+</div><!-- main -->
+</div><!-- body -->
+
+<script type="text/javascript">
+
+<!--
+	// Open "Define Terms" context when double-clicking any text
+	function openSearchTermWindow(url) {
+		var term;
+		if (window.getSelection) {
+			term = window.getSelection();
+		} else if (document.getSelection) {
+			term = document.getSelection();
+		} else if(document.selection && document.selection.createRange && document.selection.type.toLowerCase() == 'text') {
+			var range = document.selection.createRange();
+			term = range.text;
+		}
+		if (url.indexOf('?') > -1) openRTWindowWithToolbar(url + '&defineTerm=' + term);
+		else openRTWindowWithToolbar(url + '?defineTerm=' + term);
+	}
+
+	if(document.captureEvents) {
+		document.captureEvents(Event.DBLCLICK);
+	}
+	document.ondblclick = new Function("openSearchTermWindow('http://www.sljol.info/index.php/ICTER/rt/context/4678/0/2525')");
+// -->
+
+</script>
+
+
+</div> <!-- container -->
+
+
+</body></html>

@@ -111,3 +111,21 @@ table.table {
   font-size: 1.6em;
   line-height: 1.1em;
 }
+
+.loader {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.dashed-well {
+  margin-top: 4em;
+  border: 2px dashed grey;
+  cursor: pointer;
+}
+
+.success-dashed-well {
+  margin-top: 4em;
+  border: 2px dashed green;
+}

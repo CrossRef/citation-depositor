@@ -38,25 +38,13 @@ module CitationDepositor
       end
 
       app.post '/deposit', :auth => true, :licence => true do
-        Rack::Multipart::Parser.new(env).parse
-        
+        pdf_url = params[:url]
         pdf_name = SecureRandom.uuid
-        temp_file = params[:file][:tempfile]
-        repo_file = File.join(settings.repo_path, pdf_name)
-
-        File.open(repo_file, 'w') do |file|
-          while buff = temp_file.read(65536)
-            file << buff
-          end
-        end
-
+        pdf_filename = File.join(settings.repo_path, pdf_name)
         Config.collection('pdfs').insert({:name => pdf_name, :uploaded_at => Time.now})
-        Resque.enqueue(Extract, repo_file, pdf_name)
+        Resque.enqueue(Extract, pdf_url, pdf_filename, pdf_name)
 
-        # TODO Once async, do this instead:
-        # json({:id => pdf_name})
-
-        redirect("/deposit/#{pdf_name}")
+        json({:pdf_name => pdf_name})
       end
 
       app.get '/deposit/:name', :auth => true, :licence => true do
