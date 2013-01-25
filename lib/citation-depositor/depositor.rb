@@ -243,6 +243,13 @@ module CitationDepositor
         redirect "/deposit/#{name}/citations"
       end
 
+      app.get '/deposit/:name/status' do
+        name = params[:name]
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+
+        json({:status => extraction_job['status']})
+      end
+
       # Shadow doi search
       app.get '/dois/search' do
         res = settings.search_service.get('/dois', :q => params[:q])

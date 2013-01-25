@@ -21,9 +21,11 @@ $(document).ready(function() {
 	$("#search-result-prefix").text(data['owner_prefix']);
 	$("#search-result").html(data['info']['fullCitation']);
 	$("#search-result-info").removeClass('hidden');
+	$("#btn-next").removeClass('disabled');
       } else {
 	$("#search-result").text("DOI doesn't exist");
 	$("#search-result-info").addClass('hidden');
+	$("#btn-next").addClass('disabled');
       }
     });
   }
@@ -62,6 +64,7 @@ $(document).ready(function() {
   $("#doi-input").bind('paste keyup', function(e) {
     $("#search-result").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
     $("#search-result-info").addClass("hidden");
+    $("#btn-next").addClass('disabled');
     timeIt(refreshDoiResult, 500);
   });
 

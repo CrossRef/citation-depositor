@@ -2,6 +2,7 @@
 require 'pdf-extract'
 require 'json'
 require 'faraday'
+require 'nokogiri'
 
 require_relative 'recorded_job'
 require_relative 'config'
@@ -26,10 +27,10 @@ module CitationDepositor
       @name = name
     end
 
-    def resolve citations
+    def resolve_citations citations
       @@search_service ||= Faraday.new(:url => 'http://search.labs.crossref.org')
       res = @@search_service.post do |req|
-        req.url '/links'
+        req.url('/links')
         req.headers['Content-Type'] = 'application/json'
         req.body = citations.to_json
       end
@@ -39,6 +40,21 @@ module CitationDepositor
         if json['query_ok']
           json['results']
         end
+      end
+    end
+
+    def parse_citations
+      @@pdfx_service ||= Faraday.new(:url => 'http://pdfx.cs.man.ac.uk')
+      res = @@pdfx_service.post do |req|
+        req.url('/')
+        req.headers['Content-Type'] = 'application/pdf'
+        File.open(@filename, 'rb') {|file| req.body = file.read}
+      end
+
+      if res.status == 200
+        puts res.body
+        doc = Nokogiri::XML(res.body)
+        doc.css('ref').map {|ref_loc| ref_loc.text}
       end
     end
 
@@ -52,13 +68,7 @@ module CitationDepositor
           file.write(response.body)
         end
 
-        result = PdfExtract.parse(@filename) do |pdf|
-          pdf.references
-          #pdf.dois
-        end
-
-        unresolved_citations = result.spatial_objects[:references].map {|r| r[:content]}
-        citations = resolve(unresolved_citations)
+        citations = resolve_citations(parse_citations)
 
         #mark_finished(:citations => citations,
         #              :doi => result[:dois].first)
