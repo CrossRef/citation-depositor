@@ -3,6 +3,7 @@ require 'resque'
 require 'securerandom'
 require 'rack/multipart/parser'
 require 'faraday'
+require 'nokogiri'
 
 require_relative 'config'
 require_relative 'extract'
@@ -25,13 +26,68 @@ module CitationDepositor
           RecordedJob.get(id)
         end
       end
+
+      def fetch_method error_result
+        begin
+          yield
+        rescue TimeoutError => e
+          error_result
+        rescue StandardError => e
+          error_result
+        end
+      end
+
+      def fetch_owner_name owner_prefix
+        fetch_method('') do
+          resp = settings.cr_service.get("/getPrefixPublisher/?prefix=#{owner_prefix}")
+
+          if resp.status != 200
+            ''
+          else
+            doc = Nokogiri::XML(resp.body)
+            doc.at_css('publisher_name').text
+          end
+        end
+      end
+
+      def fetch_owner_prefix doi
+        fetch_method('') do
+          resp = settings.doi_data_service.get("/#{doi}")
+
+          if resp.status != 200
+            ""
+          else
+            doc = Nokogiri::XML(resp.body)
+            doc.at_css('doi_record')['owner']
+          end
+        end
+      end
+
+      def fetch_doi_info doi
+        fetch_method({}) do
+          resp = settings.search_service.get('/dois', :q => doi)
+          result = {}
+
+          if resp.status == 200
+            doi_json = JSON.parse(resp.body)
+            result = doi_json.first unless doi_json.count.zero?
+          end
+
+          result
+        end
+      end
     end
 
     def self.registered app
       app.helpers Depositor::Helpers
 
+      data_service = Faraday.new('http://data.crossref.org')
+      data_service.headers[:accept] = 'application/vnd.crossref.unixref+xml'
+
       app.set :repo_path, File.join(app.settings.root, 'pdfs')
       app.set :search_service, Faraday.new('http://search.labs.crossref.org')
+      app.set :doi_data_service, data_service
+      app.set :cr_service, Faraday.new('http://www.crossref.org')
 
       app.get '/deposit', :auth => true, :licence => true do
         erb :upload
@@ -51,7 +107,7 @@ module CitationDepositor
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
-    
+
         # Put us in the right place depending on where in the process
         # this deposit has got to in the past.
         if pdf.nil?
@@ -94,7 +150,7 @@ module CitationDepositor
         if extraction_job && extraction_job['doi']
           locals[:extracted_doi] = extraction_job['doi']
         end
-  
+
         if pdf['doi']
           locals[:doi] = pdf['doi']
         else
@@ -134,14 +190,17 @@ module CitationDepositor
       end
 
       app.get '/deposit/:name/deposit', :auth => true, :licence => true do
-        erb :deposit
+        name = params[:name]
+        deposit = RecordedJob.get_where('deposits', {:name => name})
+
+        erb :deposit, :locals => {:deposit => deposit}
       end
 
       app.post '/deposit/:name/deposit', :auth => true, :licence => true do
         name = params[:name]
         extraction = RecordedJob.get_where('extractions', {:name => name})
         pdf = Config.collection('pdfs').find_one({:name => name})
-        
+
         unless extraction.nil? || !extraction.has_key?('citations')
           Resque.enqueue(Deposit,
                          name,
@@ -171,10 +230,10 @@ module CitationDepositor
         name = params[:name]
         index = params[:index].to_i
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
-        
+
         extraction_job['citations'][index]['text'] = params[:text]
         extraction_job['citations'][index]['modified_at'] = Time.now
-        
+
         if params.has_key?('doi') && !params[:doi].strip.empty?
           extraction_job['citations'][index]['doi'] = params[:doi]
         end
@@ -184,12 +243,33 @@ module CitationDepositor
         redirect "/deposit/#{name}/citations"
       end
 
-      # Shadow cr-search /dois
-      app.get '/search/dois' do
+      # Shadow doi search
+      app.get '/dois/search' do
         res = settings.search_service.get('/dois', :q => params[:q])
         content_type 'application/json', :charset => 'utf-8'
         status res.status
         res.body
+      end
+
+      # Shadow data proxy
+      app.get '/dois/info' do
+        response_data = {}
+        doi = params[:doi]
+        owner_prefix = fetch_owner_prefix(doi)
+        owner_name = fetch_owner_name(owner_prefix)
+        doi_info = fetch_doi_info(doi)
+
+        if owner_name.empty? || doi_info.empty?
+          json({:status => 'error'})
+        else
+          doc = {
+            :status => 'ok',
+            :owner_name => owner_name,
+            :owner_prefix => owner_prefix,
+            :info => doi_info
+          }
+          json(doc)
+        end
       end
     end
 

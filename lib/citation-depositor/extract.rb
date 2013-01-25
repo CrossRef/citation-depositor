@@ -67,7 +67,7 @@ module CitationDepositor
         mark_finished(:citations => citations)
       rescue StandardError => e
         mark_failed(e)
-      end      
+      end
     end
   end
 

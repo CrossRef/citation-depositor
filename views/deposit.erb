@@ -1,3 +1,19 @@
-<div>
- I has done deposit.
+<%= partial :header %>
+
+<div class="row">
+  <div class="span10 offset1">
+    <span class="lead">
+      Citation deposit for <%= deposit['doi'] %>
+    </span>
+    <% if deposit['status'] == 'finished' %>
+      <span class="alert alert-success">Deposit completed successfully.</span>
+    <% elsif deposit['status'] == 'failed' %>
+      <% if deposit['error']['type'] == 'no_ownership' %>
+      <% elsif deposit['error']['type'] == 'no_service' %>
+      <% else %>
+      <% end %>
+      <span class="alert alert-important">Deposit failed.</span>
+    <% end %>
+  </div>
 </div>
+

@@ -41,7 +41,7 @@ module CitationDepositor
           conn.request :url_encoded
           conn.adapter :net_http
         end
-        
+
         params = {
           :operation => 'doDOICitUpload',
           :login_id => @user,
@@ -58,7 +58,11 @@ module CitationDepositor
         if res.status == 200
           mark_finished
         else
-          mark_failed(res.status)
+          # TODO Determine the type of error
+          # Must distinguish between "can't deposit for that DOI",
+          # service not available, and anything else.
+          error_type = :no_ownership # :no_service :other
+          mark_failed({:type => error_type, :http_status => res.status})
         end
       rescue StandardError => e
         mark_failed(e)

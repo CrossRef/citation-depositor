@@ -8,7 +8,7 @@ module CitationDepositor
     def self.init
       filename = File.join(File.dirname(__FILE__), '..', '..', 'config.json')
       @@json = JSON.parse(File.read(filename))
-      
+
       @@db = Mongo::Connection.new(@@json['mongo_server'])[@@json['mongo_db']]
 
       Resque.redis = @@json['redis_server']

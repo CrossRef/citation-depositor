@@ -22,9 +22,9 @@ module CitationDepositor
       app.set :auth_ok_redirect, '/'
       app.set :auth_failed_redirect, '/'
       app.set :auth_logout_redirect, '/'
-      
-      app.set(:auth) do |val| 
-        condition do 
+
+      app.set(:auth) do |val|
+        condition do
           if has_authed?
             true
           else

@@ -5,7 +5,7 @@ require 'json'
 # helper.
 
 module CitationDepositor
-  module LabsBase 
+  module LabsBase
     @api_routes = {}
 
     def api type, version, path, &block
@@ -33,7 +33,7 @@ module CitationDepositor
 
       app.set(:alive) { true }
       app.set(:stats) { {} }
-      
+
       app.get '/heartbeat' do
         if settings.alive
           json({:status => 'ok'}.merge(settings.stats))
@@ -41,11 +41,11 @@ module CitationDepositor
           json({:status => 'bad'}.merge(settings.stats), 400)
         end
       end
-      
+
       app.get '/doc' do
         erb :documentation, :locals => {:routes => @api_routes}
       end
     end
   end
 end
-  
+

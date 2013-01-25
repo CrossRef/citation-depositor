@@ -26,6 +26,7 @@
     <% citations.each_index do |i| %>
       <% citation = citations[i] %>
       <tr class="citation-row" id="<%= i %>">
+        <span>
         <td><%= (i+1) %>.</td>
 	<td>
           <p class="lead"><%= citation['text'] %></p>

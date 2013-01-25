@@ -12,7 +12,7 @@ module CitationDepositor
       collection = Config.collection(kind)
       collection.find_one(query)
     end
-    
+
     def mark_started info = {}
       status_doc = {
         :status => :started,
@@ -56,4 +56,4 @@ module CitationDepositor
   end
 
 end
-      
+

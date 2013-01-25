@@ -2,7 +2,7 @@ $(document).ready(function() {
   function refreshResultList() {
     var val = $("#citation-textarea").text();
     $("#results-table").html('');
-    $.get("/search/dois?q=" + encodeURIComponent(val)).done(function(data) {
+    $.get("/dois/search?q=" + encodeURIComponent(val)).done(function(data) {
       $.each(data, function(i, result) {
 	var row = $("<tr>").addClass("result-row");
 	row.append($("<td>").addClass("result-doi").text(result["doi"]));
@@ -15,11 +15,15 @@ $(document).ready(function() {
 
   function refreshDoiResult() {
     var val = $("#doi-input").val();
-    $.get("/search/dois?q=" + encodeURIComponent(val)).done(function(data) {
-      if (data.length > 0) {
-	$("#search-result").html(data[0]["fullCitation"]);
+    $.get("/dois/info?doi=" + encodeURIComponent(val)).done(function(data) {
+      if (data['status'] == 'ok') {
+	$("#search-result-owner").text(data['owner_name']);
+	$("#search-result-prefix").text(data['owner_prefix']);
+	$("#search-result").html(data['info']['fullCitation']);
+	$("#search-result-info").removeClass('hidden');
       } else {
 	$("#search-result").text("DOI doesn't exist");
+	$("#search-result-info").addClass('hidden');
       }
     });
   }
@@ -52,11 +56,12 @@ $(document).ready(function() {
     return function(callback, ms) {
       clearTimeout(timer);
       timer = setTimeout(callback, ms);
-      }
+    }
   })();
 
   $("#doi-input").bind('paste keyup', function(e) {
     $("#search-result").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
+    $("#search-result-info").addClass("hidden");
     timeIt(refreshDoiResult, 500);
   });
 
