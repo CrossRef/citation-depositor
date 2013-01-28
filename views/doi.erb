@@ -4,7 +4,7 @@
   <div class="span10 offset1">
     <%= partial :steps, :position => :doi %>
 
-    <form method="post">
+    <form id="form-doi" method="post">
       <textarea class="lead full-width" rows="1" id="doi-input" name="doi"
 	     placeholder="Enter a DOI"><%= doi %></textarea>
       <h3 class="muted">DOI resolves to:</h3>
@@ -20,9 +20,9 @@
       </div>
 
       <div class="pull-right">
-	<button id="btn-back" class="btn">Forget</button>
-      	<button id="btn-next" class="btn btn-success disabled">Next</button>
+      	<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
       </div>
+      <button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
     </form>
 
   </div>

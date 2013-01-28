@@ -21,11 +21,11 @@ $(document).ready(function() {
 	$("#search-result-prefix").text(data['owner_prefix']);
 	$("#search-result").html(data['info']['fullCitation']);
 	$("#search-result-info").removeClass('hidden');
-	$("#btn-next").removeClass('disabled');
+	$("#btn-next-citations").removeClass('disabled');
       } else {
 	$("#search-result").text("DOI doesn't exist");
 	$("#search-result-info").addClass('hidden');
-	$("#btn-next").addClass('disabled');
+	$("#btn-next-citations").addClass('disabled');
       }
     });
   }
@@ -64,7 +64,7 @@ $(document).ready(function() {
   $("#doi-input").bind('paste keyup', function(e) {
     $("#search-result").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
     $("#search-result-info").addClass("hidden");
-    $("#btn-next").addClass('disabled');
+    $("#btn-next-citations").addClass('disabled');
     timeIt(refreshDoiResult, 500);
   });
 
@@ -73,9 +73,33 @@ $(document).ready(function() {
     timeIt(refreshResultList, 500);
   });
 
+  $("#btn-next-citations").click(function(e) {
+    if (!$(this).hasClass('disabled')) {
+      $('#form-doi').submit();
+    }
+    e.preventDefault();
+    return false;
+  });
+
+  $("#btn-back-upload").click(function(e) {
+    window.location.href = "/deposit";
+    e.preventDefault();
+    return false;
+  });
+
+  $("#btn-back-doi").click(function(e) {
+    window.location.href = "doi";
+    e.preventDefault();
+    return false;
+  });
+
   function afterFileUpload(pdfFilename, pdfName) {
-    $("#next-link").attr("href", "/deposit/" + pdfName + "/doi");
-    $(".after-upload").show();
+    $("#btn-next-doi").click(function(e) {
+      window.location.href = "/deposit/" + pdfName + "/doi";
+      e.preventDefault();
+      return false;
+    });
+    $("#btn-next-doi").removeClass('disabled');
     $(".before-upload").hide();
     $("#pick-button").unbind("click");
     $("#pick-button").html("<center><h3 class=\"text-success\">" + pdfFilename + " uploaded!</h3>");

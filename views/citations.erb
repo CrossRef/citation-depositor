@@ -33,7 +33,7 @@
 	  <% if citation.has_key?('doi') %>
 	    <span class="label label-success">
               <i class="icon-ok-circle icon-white"></i> 
-              Matched to 
+              Matched to
               <strong><%= citation['doi'] %></strong>
             </span>
 	  <% else %>
@@ -47,10 +47,11 @@
     <% end %>
     </table>
 
-    <form method="post" action="deposit" class="form-horizontal">
+    <form id="form-deposit" method="post" action="deposit" class="form-horizontal">
       <div class="control-group pull-right">
-        <button class="btn btn-success">Deposit</button>
+        <button id="btn-next-deposit" class="btn btn-success"><i class="icon-upload-alt"></i> Deposit</button>
       </div>
+      <button id="btn-back-doi" class="btn"><i class="icon-circle-arrow-left"></i> Pick a different DOI</button>
     </form>
   </div>
 </div>
