@@ -1,0 +1,45 @@
+<%= partial :header %>
+
+<div class="row">
+  <div class="span10 offset1">
+    <div class="well lead">
+      <div class="pull-right">
+        <a href="/deposit" class="btn btn-success"><i class="icon-plus-sign"></i> New deposit</a>
+      </div>
+      <span>Create a new citation deposit from a PDF</span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
+    <h3>Recent PDFs</h3>
+   
+    <table class="table table-striped">
+      <% pdfs.each do |pdf| %>
+        <tr>
+          <td>
+	    <span class="row-time-info">
+	      <i class="icon-time"></i> 
+	      <span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
+	    </span>
+	    <a href="<%= '/deposit/' + pdf['name'] %>"><i class="icon-link"></i> <%= pdf['upload_filename'] %></a>
+	  </td>
+          <td>
+	    <% if [:uploaded, :extracted].include?(pdf['status']) %>
+	      <span class="label label-info"><i class="icon-thumbs-up"></i> <%= pdf['status'].capitalize %></span>
+            <% elsif [:extracting, :depositing].include?(pdf['status']) %>
+	      <span class="label label-warning"><i class="icon-cog"></i> <%= pdf['status'].capitalize %></span>
+            <% elsif [:extract_failed, :deposit_failed].include?(pdf['status']) %>
+	      <span class="label label-important"><i class="icon-thumbs-down"></i> <%= pdf['status'].capitalize %></span>
+	    <% elsif pdf['status'] == :deposited %>
+	      <span class="label label-success"><i class="icon-thumbs-up"></i> <%= pdf['status'].capitalize %></span>
+            <% else %>
+              <span class="label"><%= pdf['status'].capitalize %></span>
+	    <% end %>
+	  </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -109,7 +109,7 @@ $(document).ready(function() {
   $("#pick-button").click(function(e) {
     filepicker.pick({mimetypes: ['application/pdf']},
 		    function(FPFile) {
-		      $.post("/deposit", {url: FPFile.url}).done(function(data) {
+		      $.post("/deposit", {url: FPFile.url, filename: FPFile.filename}).done(function(data) {
 			afterFileUpload(FPFile.filename, data['pdf_name']);
 		      });
 		    });
@@ -130,5 +130,7 @@ $(document).ready(function() {
   if ($("#citation-textarea").length != 0) {
     refreshResultList();
   }
+
+  $('.timeago').timeago();
 });
 

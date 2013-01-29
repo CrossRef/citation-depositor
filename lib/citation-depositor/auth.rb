@@ -37,7 +37,9 @@ module CitationDepositor
       app.before do
         sessions = Config.collection 'sessions'
         token = request.cookies['token']
-        request.env[:session] = sessions.find_one({:token => token})
+        if !token.nil?
+          request.env[:session] = sessions.find_one({:token => token})
+        end
       end
 
       app.post '/auth/login' do

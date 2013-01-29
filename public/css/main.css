@@ -129,3 +129,8 @@ table.table {
   margin-top: 4em;
   border: 2px dashed green;
 }
+
+.row-time-info {
+  margin-right: 3em;
+  color: #777;
+}

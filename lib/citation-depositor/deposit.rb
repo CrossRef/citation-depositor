@@ -28,6 +28,7 @@ module CitationDepositor
 
     def perform
       mark_started({:citations => @citations, :name => @name, :doi => @doi})
+      mark_pdf_status(@name, :depositing)
 
       begin
         # Store a local copy of final deposited citations.
@@ -57,15 +58,18 @@ module CitationDepositor
 
         if res.status == 200
           mark_finished
+          mark_pdf_status(@name, :deposited)
         else
           # TODO Determine the type of error
           # Must distinguish between "can't deposit for that DOI",
           # service not available, and anything else.
           error_type = :no_ownership # :no_service :other
           mark_failed({:type => error_type, :http_status => res.status})
+          mark_pdf_status(@name, :deposit_failed)
         end
       rescue StandardError => e
         mark_failed(e)
+        mark_pdf_status(@name, :deposit_failed)
       end
     end
 

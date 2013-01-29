@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require_relative 'config'
 
 module CitationDepositor
@@ -52,6 +53,20 @@ module CitationDepositor
 
       collection = Config.collection(job_kind)
       collection.find_and_modify({:query => {'_id' => @status_id}, :update => update})
+    end
+
+    # One of:
+    # :uploaded
+    # :extracting
+    # :extracted
+    # :extract_failed
+    # :depositing
+    # :deposited
+    # :deposit_failed
+    def mark_pdf_status name, status
+      update = {'$set' => {:status => status, :status_at => Time.now}}
+      query = {:name => name}
+      Config.collection('pdfs').find_and_modify({:query => query, :update => update})
     end
   end
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'sinatra/base'
 require 'erb'
+require 'time'
 
 require_relative 'lib/citation-depositor/labs'
 require_relative 'lib/citation-depositor/auth'
@@ -22,7 +23,11 @@ class App < Sinatra::Base
   set(:authorize) { |user, pass| CitationDepositor::DummyAuth.can_auth?(user, pass) }
 
   get '/' do
-    erb :index
+    if has_authed?
+      redirect '/activity'
+    else
+      erb :index
+    end
   end
 end
 

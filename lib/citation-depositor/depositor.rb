@@ -95,9 +95,22 @@ module CitationDepositor
 
       app.post '/deposit', :auth => true, :licence => true do
         pdf_url = params[:url]
+        pdf_upload_filename = params[:filename]
         pdf_name = SecureRandom.uuid
         pdf_filename = File.join(settings.repo_path, pdf_name)
-        Config.collection('pdfs').insert({:name => pdf_name, :uploaded_at => Time.now})
+        now = Time.now
+
+        doc = {
+          :name => pdf_name,
+          :uploaded_at => now,
+          :user => auth_info['user'],
+          :local_filename => pdf_filename,
+          :upload_filename => pdf_upload_filename,
+          :status => :uploaded,
+          :status_at => now
+        }
+
+        Config.collection('pdfs').insert(doc)
         Resque.enqueue(Extract, pdf_url, pdf_filename, pdf_name)
 
         json({:pdf_name => pdf_name})
@@ -182,8 +195,10 @@ module CitationDepositor
 
         if extraction_job && extraction_job.has_key?('citations')
           locals[:citations] = extraction_job['citations']
+          locals[:status] = extraction_job['status']
         else
           locals[:citations] = []
+          locals[:status] = :no_extraction
         end
 
         erb :citations, :locals => locals
@@ -248,6 +263,13 @@ module CitationDepositor
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
 
         json({:status => extraction_job['status']})
+      end
+
+      app.get '/activity', :auth => true, :licence => true do
+        opts = {:sort => [[:status_at, -1]]}
+        pdfs = Config.collection('pdfs').find({:user => auth_info['user']}, opts)
+
+        erb :activity, :locals => {:pdfs => pdfs}
       end
 
       # Shadow doi search

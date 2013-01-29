@@ -60,6 +60,7 @@ module CitationDepositor
 
     def perform
       mark_started({:url => @url, :filename => @filename, :name => @name})
+      mark_pdf_status(@name, :extracting)
 
       begin
         conn = Faraday.new
@@ -75,8 +76,10 @@ module CitationDepositor
         # TODO Find doi once doi spatial implemented in
         # pdf-extract.
         mark_finished(:citations => citations)
+        mark_pdf_status(@name, :extracted)
       rescue StandardError => e
         mark_failed(e)
+        mark_pdf_status(@name, :extract_failed)
       end
     end
   end

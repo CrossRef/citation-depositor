@@ -4,54 +4,33 @@
   <div class="span10 offset1">
     <%= partial :steps, :position => :citations %>
 
-    <% matched = citations.reject { |c| !c.has_key?('doi') }.count %>
-    <% not_matched = citations.count - matched %>
+    <% if status == :finished %>
+      <%= partial :citations_finished, :citations => citations %>
+    <% elsif status == :started || status == :no_extraction %>
+      <div class="well lead">
+	<i class="icon-refresh icon-spin"></i> Extracting citations. This could take a few minutes...
+      </div>
 
-    <div class="well">
-      <p>
-        <span class="badge badge-info"><%= citations.count %></span> citations
-        <span class="badge badge-success"><%= matched %></span> matched to DOIs
-        <span class="badge badge-important"><%= not_matched %></span> unmatched
-      </p>
-      <% if !not_matched.zero? %>
-        <p>
-         <i class="icon-warning-sign"></i>
-         Some citations are not matched to DOIs. You should try to match unmatched
-         citations by clicking on them and editing the citation text.
-        </p>
-      <% end %>   
-    </div>
-
-    <table class="table">
-    <% citations.each_index do |i| %>
-      <% citation = citations[i] %>
-      <tr class="citation-row" id="<%= i %>">
-        <span>
-        <td><%= (i+1) %>.</td>
-	<td>
-          <p class="lead"><%= citation['text'] %></p>
-	  <% if citation.has_key?('doi') %>
-	    <span class="label label-success">
-              <i class="icon-ok-circle icon-white"></i> 
-              Matched to
-              <strong><%= citation['doi'] %></strong>
-            </span>
-	  <% else %>
-            <span class="label label-important">
-              <i class="icon-remove-circle icon-white"></i>
-              Not matched to a DOI
-            </span>
-          <% end %>
-	</td>
-      </tr>
+      <script>
+        var refresh = function() {
+          window.location.reload(true);
+        };
+        setTimeout(refresh, 10000);
+      </script>
+    <% elsif status == :failed %>
+      <div class="well lead">
+        <i class="icon-warning-sign"></i> Failed to extract citations. Please try uploading this PDF again.
+      </div>
     <% end %>
-    </table>
 
     <form id="form-deposit" method="post" action="deposit" class="form-horizontal">
-      <div class="control-group pull-right">
-        <button id="btn-next-deposit" class="btn btn-success"><i class="icon-upload-alt"></i> Deposit</button>
-      </div>
+      <% if status == :finished %>
+        <div class="control-group pull-right">
+          <button id="btn-next-deposit" class="btn btn-success"><i class="icon-upload-alt"></i> Deposit</button>
+        </div>
+      <% end %>
       <button id="btn-back-doi" class="btn"><i class="icon-circle-arrow-left"></i> Pick a different DOI</button>
     </form>
+
   </div>
 </div>
