@@ -23,19 +23,33 @@
 	      <i class="icon-time"></i> 
 	      <span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
 	    </span>
+          </td>
+          <td>
 	    <a href="<%= '/deposit/' + pdf['name'] %>"><i class="icon-link"></i> <%= pdf['upload_filename'] %></a>
 	  </td>
           <td>
 	    <% if [:uploaded, :extracted].include?(pdf['status']) %>
-	      <span class="label label-info"><i class="icon-thumbs-up"></i> <%= pdf['status'].capitalize %></span>
+	      <span class="label label-info">
+		<i class="icon-thumbs-up"></i> 
+		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	      </span>
             <% elsif [:extracting, :depositing].include?(pdf['status']) %>
-	      <span class="label label-warning"><i class="icon-cog"></i> <%= pdf['status'].capitalize %></span>
+	      <span class="label label-warning">
+		<i class="icon-cog"></i> 
+		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	      </span>
             <% elsif [:extract_failed, :deposit_failed].include?(pdf['status']) %>
-	      <span class="label label-important"><i class="icon-thumbs-down"></i> <%= pdf['status'].capitalize %></span>
+	      <span class="label label-important">
+		<i class="icon-thumbs-down"></i> 
+		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	      </span>
 	    <% elsif pdf['status'] == :deposited %>
-	      <span class="label label-success"><i class="icon-thumbs-up"></i> <%= pdf['status'].capitalize %></span>
+	      <span class="label label-success">
+		<i class="icon-thumbs-up"></i> 
+		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	      </span>
             <% else %>
-              <span class="label"><%= pdf['status'].capitalize %></span>
+              <span class="label"><%= pdf['status'].to_s.gsub('_', ' ').capitalize %></span>
 	    <% end %>
 	  </td>
         </tr>

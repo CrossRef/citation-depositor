@@ -132,5 +132,16 @@ $(document).ready(function() {
   }
 
   $('.timeago').timeago();
+
+  if (requiresRefresh) {
+    var refresh = function() {
+      $.get('status').done(function(data) {
+	if (data['status'] == 'finished' || data['status'] == 'failed') {
+          window.location.reload(true);
+	}
+      }); 
+    };
+    setTimeout(refresh, 5000);
+  }
 });
 

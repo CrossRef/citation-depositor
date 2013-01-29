@@ -193,7 +193,7 @@ module CitationDepositor
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
         locals = {}
 
-        if extraction_job && extraction_job.has_key?('citations')
+        if extraction_job
           locals[:citations] = extraction_job['citations']
           locals[:status] = extraction_job['status']
         else
@@ -261,6 +261,13 @@ module CitationDepositor
       app.get '/deposit/:name/status' do
         name = params[:name]
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
+        result = {}
+
+        if extraction_job
+          result[:status] = extraction_job['status']
+        else
+          result[:status] = :no_extraction
+        end
 
         json({:status => extraction_job['status']})
       end

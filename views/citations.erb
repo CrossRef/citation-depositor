@@ -10,12 +10,8 @@
       <div class="well lead">
 	<i class="icon-refresh icon-spin"></i> Extracting citations. This could take a few minutes...
       </div>
-
       <script>
-        var refresh = function() {
-          window.location.reload(true);
-        };
-        setTimeout(refresh, 10000);
+	var requiresRefresh = true;
       </script>
     <% elsif status == :failed %>
       <div class="well lead">
