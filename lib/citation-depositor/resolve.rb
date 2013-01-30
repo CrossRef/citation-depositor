@@ -32,4 +32,4 @@ module CitationDepositor
   end
 
 end
-      
+

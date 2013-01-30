@@ -58,7 +58,7 @@ module CitationDepositor
       end
 
       app.get '/auth/logout' do
-        response.delete_cookie('token')
+        response.delete_cookie('token', :path => '/')
         redirect(params[:to] || settings.auth_logout_redirect)
       end
 

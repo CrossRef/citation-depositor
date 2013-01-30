@@ -151,7 +151,7 @@ $(document).ready(function() {
 
       if (data['has_meta']) {
 	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
-	$succ.append('The dc.identifier meta tag present with a correctly formatted DOI.');
+	$succ.append('The dc.identifier meta tag is present with a correctly formatted DOI.');
 	$content.append($succ);
       } else {
 	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));

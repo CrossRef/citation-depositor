@@ -30,7 +30,7 @@ module CitationDepositor
       app.helpers Licence::Helpers
 
       app.set :licence_fail_redirect, '/licence'
-      app.set :licence_ok_redirect, '/deposit'
+      app.set :licence_ok_redirect, '/activity'
 
       app.set(:licence) do |val|
         condition do

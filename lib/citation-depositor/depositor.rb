@@ -348,8 +348,12 @@ module CitationDepositor
           script['src'].nil? || script['src'] != 'http://depositor.labs.crossref.org/js/widget.js'
         end
 
+        divs = html.css('div')
+        contents = divs.reject {|div| div['id'].nil? || div['id'] != '__depositor'}
+
         result[:has_citations] = !fetch_citations(doi).empty? unless doi.nil?
         result[:has_citations] = false if doi.nil?
+        result[:has_content] = !contents.empty?
         result[:has_widget] = !widgets.empty?
         result[:has_meta] = !doi.nil?
         result[:doi] = doi
