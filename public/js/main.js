@@ -131,6 +131,77 @@ $(document).ready(function() {
     refreshResultList();
   }
 
+  $('#btn-check').click(function(e) {
+    var $btn = $(this);
+    if ($btn.hasClass('disabled') || $('#input-url').val() == '') {
+      e.preventDefault();
+      return false;
+    }
+
+    $btn.addClass('disabled');
+    $btn.find('i').addClass('icon-spin');
+
+    $.get('/help/check', {url: $('#input-url').val()}).done(function(data) {
+      $btn.removeClass('disabled');
+      $btn.find('i').removeClass('icon-spin');
+
+      $container = $('#check-result');
+      $content = $('<ul>').addClass('icons').attr('style', 'margin-top: 1em;');
+      $container.html('');
+
+      if (data['has_meta']) {
+	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
+	$succ.append('The dc.identifier meta tag present with a correctly formatted DOI.');
+	$content.append($succ);
+      } else {
+	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
+	$fail.append('The dc.identifier meta tag is missing, or it is not correctly formatted.');
+	$content.append($fail);
+      }
+
+      if (data['has_widget']) {
+	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
+	$succ.append('The references widget script tag is present.');
+	$content.append($succ);
+      } else {
+	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
+	$fail.append('The references widget script tag is missing.');
+	$content.append($fail);
+      }
+
+      if (data['has_content']) {
+	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
+	$succ.append('The references widget content div tag is present.');
+	$content.append($succ);
+      } else {
+	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
+	$fail.append('The references widget content div tag is missing.');
+	$content.append($fail);
+      }
+
+      if (data['doi']) {
+	if (data['has_citations']) {
+	  $succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
+	  $succ.append('The DOI has citations deposited with CrossRef.');
+	  $content.append($succ);
+	} else {
+	  $fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
+	  $fail.append('The DOI has no citations deposited. You may not have deposited any citations for this DOI, or the deposit may be queued for processing into the CrossRef database.');
+	  $content.append($fail);
+	}
+
+	$info = $('<li>').addClass('text-info').append($('<i>').addClass('icon-info-sign'));
+	$info.append('The DOI on this landing page is ' + data['doi']);
+	$content.append($info);
+      }
+
+      $container.append($content);
+    });
+
+    e.preventDefault();
+    return false;
+  });
+
   $('.timeago').timeago();
 
   if (requiresRefresh) {

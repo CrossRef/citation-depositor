@@ -147,3 +147,16 @@ ul.inline > li {
   padding-right: 5px;
   display: inline-block;
 }
+
+ul.dropdown-menu a {
+  line-height: 1.6em;
+  font-size: .8em;
+}
+
+.slim {
+  margin-top: 0px;
+}
+
+#header-logo {
+  width: 12em;
+}

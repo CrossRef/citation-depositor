@@ -4,6 +4,7 @@ require 'securerandom'
 require 'rack/multipart/parser'
 require 'faraday'
 require 'nokogiri'
+require 'open-uri'
 
 require_relative 'config'
 require_relative 'extract'
@@ -74,6 +75,19 @@ module CitationDepositor
           end
 
           result
+        end
+      end
+
+      def fetch_citations doi
+        fetch_method([]) do
+          resp = settings.doi_data_service.get("/#{doi}")
+
+          if resp.status != 200
+            []
+          else
+            doc = Nokogiri::XML(resp.body)
+            doc.css('citation')
+          end
         end
       end
     end
@@ -308,6 +322,43 @@ module CitationDepositor
           }
           json(doc)
         end
+      end
+
+      app.get '/help/widget' do
+        erb :widget_help
+      end
+
+      app.get '/help/check' do
+        page_url = params[:url]
+        page_url = "http://#{page_url}" if !(params[:url] =~ /\Ahttps?:\/\//)
+
+        html = Nokogiri::HTML(open(page_url))
+        result = {}
+
+        # We're going to check the page for a DOI meta tag, then check for a script
+        # tag with the correct src. Finally, if we find a meta tag, we'll check
+        # the DOI for citations.
+
+        metas = html.css('meta')
+        dci_metas = metas.reject {|meta| meta['name'].nil? || meta['name'].downcase != 'dc.identifier'}
+        doi = dci_metas.map {|meta| meta['content'].sub('info:doi/', '').sub('doi:', '')}.first
+
+        scripts = html.css('script')
+        widgets = scripts.reject do |script|
+          script['src'].nil? || script['src'] != 'http://depositor.labs.crossref.org/js/widget.js'
+        end
+
+        result[:has_citations] = !fetch_citations(doi).empty? unless doi.nil?
+        result[:has_citations] = false if doi.nil?
+        result[:has_widget] = !widgets.empty?
+        result[:has_meta] = !doi.nil?
+        result[:doi] = doi
+
+        json(result)
+      end
+
+      app.get '/help' do
+        erb :help
       end
     end
 

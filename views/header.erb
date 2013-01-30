@@ -2,24 +2,26 @@
   <div class="span12">
 
     <div class="pull-right">
-      <ul class="nav nav-pills" style="font-size: 1.4em; line-height: 1.6em;">
+      <ul class="nav nav-pills" style="font-size: 1.4em; margin-top: .3em; margin-bottom: .7em;">
+	<li><a href="/help/widget"><i class="icon-cogs"></i> Widget</a></li>
         <li><a href="/help"><i class="icon-question-sign"></i> Help</a></li>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-group"></i> 
-	    <%= auth_info['user'] %>
-	    <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="/activity"><i class="icon-tasks"></i> Activity</a></li>
-            <li><a href="/auth/logout"><i class="icon-signout"></i> Sign out</a></li>
-          </ul>
-        </li>
+	<% if has_authed? %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-group"></i> 
+	      <%= auth_info['user'] %>
+	      <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/activity"><i class="icon-tasks"></i> Activity</a></li>
+              <li><a href="/auth/logout"><i class="icon-signout"></i> Sign out</a></li>
+            </ul>
+          </li>
+        <% end %>
       </ul>
-    </div> 
+    </div>
     
-    <img src="/img/logo.png"/>
+    <img id="header-logo" src="/img/logo.png"></img>
   </div>
 </div>
-<hr/>
+<hr class="slim"></hr>
