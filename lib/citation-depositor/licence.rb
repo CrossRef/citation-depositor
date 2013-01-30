@@ -15,7 +15,7 @@ module CitationDepositor
       def is_licenced?
         !licence_info.nil? && licence_info['active']
       end
-    
+
       def activate_licence!
         user = auth_info['user']
         Resque.enqueue(CitationDepositor::ActivateLicence, user)
@@ -32,7 +32,7 @@ module CitationDepositor
       app.set :licence_fail_redirect, '/licence'
       app.set :licence_ok_redirect, '/deposit'
 
-      app.set(:licence) do |val| 
+      app.set(:licence) do |val|
         condition do
           if is_licenced?
             true

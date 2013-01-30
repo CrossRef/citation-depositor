@@ -274,9 +274,11 @@ module CitationDepositor
 
       app.get '/activity', :auth => true, :licence => true do
         opts = {:sort => [[:status_at, -1]]}
-        pdfs = Config.collection('pdfs').find({:user => auth_info['user']}, opts)
+        pdfs = Config.collection('pdfs')
+        deposited_pdfs = pdfs.find({:user => auth_info['user'], :status => :deposited}, opts)
+        undeposited_pdfs = pdfs.find({:user => auth_info['user'], :status => {'$ne' => :deposited}}, opts)
 
-        erb :activity, :locals => {:pdfs => pdfs}
+        erb :activity, :locals => {:deposited => deposited_pdfs, :undeposited => undeposited_pdfs}
       end
 
       # Shadow doi search

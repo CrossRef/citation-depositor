@@ -134,3 +134,16 @@ table.table {
   margin-right: 3em;
   color: #777;
 }
+
+.cell-left {
+  width: 11em;
+}
+
+.cell-right {
+  text-align: right;
+}
+
+ul.inline > li {
+  padding-right: 5px;
+  display: inline-block;
+}

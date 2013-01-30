@@ -63,7 +63,7 @@ module CitationDepositor
       end
 
       app.get '/auth/me' do
-        auth_info.to_json
+        json(auth_info)
       end
     end
   end

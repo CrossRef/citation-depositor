@@ -27,6 +27,6 @@ module CitationDepositor
 
       res.status == 200
     end
-    
+
   end
 end

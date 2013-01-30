@@ -13,47 +13,95 @@
 
 <div class="row">
   <div class="span10 offset1">
-    <h3>Recent PDFs</h3>
+    
+    <h3>PDFs Not Yet Deposited</h3>
    
     <table class="table table-striped">
-      <% pdfs.each do |pdf| %>
+      <% undeposited.each do |pdf| %>
         <tr>
-          <td>
+          <td class="cell-left">
 	    <span class="row-time-info">
 	      <i class="icon-time"></i> 
 	      <span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
 	    </span>
           </td>
           <td>
-	    <a href="<%= '/deposit/' + pdf['name'] %>"><i class="icon-link"></i> <%= pdf['upload_filename'] %></a>
+            <ul class="inline">
+              <li>
+                <a href="<%= '/deposit/' + pdf['name'] %>">
+		  <i class="icon-link"></i> <%= pdf['upload_filename'] %>
+                </a>
+              </li>
+	      <% if pdf['doi'] %>
+		<li class="muted"><%= pdf['doi'] %></li>
+              <% end %>
+            </ul>
 	  </td>
           <td>
-	    <% if [:uploaded, :extracted].include?(pdf['status']) %>
-	      <span class="label label-info">
-		<i class="icon-thumbs-up"></i> 
-		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-	      </span>
-            <% elsif [:extracting, :depositing].include?(pdf['status']) %>
-	      <span class="label label-warning">
-		<i class="icon-cog"></i> 
-		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-	      </span>
-            <% elsif [:extract_failed, :deposit_failed].include?(pdf['status']) %>
-	      <span class="label label-important">
-		<i class="icon-thumbs-down"></i> 
-		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-	      </span>
-	    <% elsif pdf['status'] == :deposited %>
-	      <span class="label label-success">
-		<i class="icon-thumbs-up"></i> 
-		<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-	      </span>
-            <% else %>
-              <span class="label"><%= pdf['status'].to_s.gsub('_', ' ').capitalize %></span>
-	    <% end %>
+            <div class="cell-right">
+	      <% if [:uploaded, :extracted].include?(pdf['status']) %>
+	        <span class="label label-info">
+		  <i class="icon-thumbs-up"></i> 
+		  <%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+		</span>
+	      <% elsif [:extracting, :depositing].include?(pdf['status']) %>
+	        <span class="label label-warning">
+		  <i class="icon-cog"></i> 
+	  	  <%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	        </span>
+              <% elsif [:extract_failed, :deposit_failed].include?(pdf['status']) %>
+	        <span class="label label-important">
+  		  <i class="icon-thumbs-down"></i> 
+		  <%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	        </span>
+	      <% elsif pdf['status'] == :deposited %>
+	        <span class="label label-success">
+		  <i class="icon-thumbs-up"></i> 
+		  <%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+	        </span>
+              <% else %>
+                <span class="label"><%= pdf['status'].to_s.gsub('_', ' ').capitalize %></span>
+	      <% end %>
+            </div>
 	  </td>
         </tr>
       <% end %>
     </table>
+
+    <h3>Deposited PDFs</h3>
+
+    <table class="table table-striped">
+      <% deposited.each do |pdf| %>
+        <tr>
+          <td class="cell-left">
+	    <span class="row-time-info">
+	      <i class="icon-time"></i> 
+	      <span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
+	    </span>
+          </td>
+          <td>
+            <ul class="inline">
+              <li>
+                <a href="<%= '/deposit/' + pdf['name'] %>">
+		  <i class="icon-link"></i> <%= pdf['upload_filename'] %>
+                </a>
+              </li>
+	      <% if pdf['doi'] %>
+		<li class="muted"><%= pdf['doi'] %></li>
+              <% end %>
+            </ul>
+	  </td>
+          <td>
+            <div class="cell-right">
+	      <span class="label label-success">
+		<i class="icon-thumbs-up"></i> 
+		Deposited
+	      </span>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
   </div>
 </div>
