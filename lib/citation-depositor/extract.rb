@@ -54,7 +54,7 @@ module CitationDepositor
       if res.status == 200
         puts res.body
         doc = Nokogiri::XML(res.body)
-        doc.css('ref').map {|ref_loc| ref_loc.text}
+        doc.css('ref').map {|ref_loc| ref_loc.text.sub(/\A\d+\.\s*/, '').sub(/\A\[\w+\]\s*/, '')}
       end
     end
 

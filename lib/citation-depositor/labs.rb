@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'json'
 
-# LabsBase provides a heartbeat route and a self-documenting API construction 
+# LabsBase provides a heartbeat route and a self-documenting API construction
 # helper.
 
 module CitationDepositor
