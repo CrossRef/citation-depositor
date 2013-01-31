@@ -15,27 +15,35 @@
         </p>
       <% end %>   
     </div>
-
-    <table class="table">
+    <table class="table table-bordered table-striped">
     <% citations.each_index do |i| %>
       <% citation = citations[i] %>
       <tr class="citation-row" id="<%= i %>">
         <span>
         <td><%= (i+1) %>.</td>
-	<td>
-          <p class="lead"><%= citation['text'] %></p>
+	<td style="position: relative;">
+          <p class="lead" <% if citation['removed'] %>style="text-decoration: line-through;"<% end %>><%= citation['text'] %></p>
 	  <% if citation.has_key?('doi') %>
-	    <span class="label label-success">
+	    <span class="text-success">
               <i class="icon-ok-circle icon-white"></i> 
               Matched to
               <strong><%= citation['doi'] %></strong>
             </span>
 	  <% else %>
-            <span class="label label-important">
+            <span class="text-error">
               <i class="icon-remove-circle icon-white"></i>
               Not matched to a DOI
             </span>
           <% end %>
+          <div class="citation-controls" style="text-align: right; position: absolute; right: 10px; bottom: 5px;">
+	    <div class="input-append input-prepend">
+	      <button class="btn btn-citation-edit"><i class="icon-edit"></i></button>
+	      <button class="btn btn-citation-add-up"><i class="icon-double-angle-up"></i></button>
+	      <button class="btn btn-citation-add-down"><i class="icon-double-angle-down"></i></button>
+	      <button class="btn btn-citation-unremove <% if !citation['removed'] %>hide<% end %>"><i class="icon-undo"></i></button>
+	      <button class="btn btn-citation-remove <% if citation['removed'] %>hide<% end %>"><i class="icon-remove"></i></button>
+	    </div>
+	  </div>
 	</td>
       </tr>
     <% end %>

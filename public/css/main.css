@@ -93,9 +93,12 @@
   background-color: #efefef;
 }
 
+.citation-row p {
+  font-size: 1.3em;
+}
+
 .citation-row:hover {
-  background-color: #efefef;
-  cursor: pointer;
+  border-color: rgb(58, 135, 173);
 } 
 
 .result-row:hover {
@@ -159,4 +162,8 @@ ul.dropdown-menu a {
 
 #header-logo {
   width: 12em;
+}
+
+.citation-controls {
+  display: none;
 }

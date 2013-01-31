@@ -272,6 +272,36 @@ module CitationDepositor
         redirect "/deposit/#{name}/citations"
       end
 
+      app.get '/deposit/:name/citations/:index/insert', :auth => true, :licence => true do
+        name = params[:name]
+        index = params[:index].to_i
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+        
+        
+      end
+
+      app.get '/deposit/:name/citations/:index/remove', :auth => true, :licence => true do
+        name = params[:name]
+        index = params[:index].to_i
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+
+        extraction_job['citations'][index]['removed'] = true
+        Config.collection('extractions').save(extraction_job)
+
+        json({:status => 'ok'})
+      end
+
+      app.get '/deposit/:name/citations/:index/unremove', :auth => true, :licence => true do
+        name = params[:name]
+        index = params[:index].to_i
+        extraction_job = RecordedJob.get_where('extractions', {:name => name})
+
+        extraction_job['citations'][index]['removed'] = false
+        Config.collection('extractions').save(extraction_job)
+
+        json({:status => 'ok'})
+      end
+
       app.get '/deposit/:name/status' do
         name = params[:name]
         extraction_job = RecordedJob.get_where('extractions', {:name => name})

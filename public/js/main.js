@@ -117,12 +117,6 @@ $(document).ready(function() {
     return false;
   });
 
-  $(".citation-row").click(function(e) {
-    window.location = window.location + "/" + $(this).attr("id");
-    e.preventDefault();
-    return false;
-  });
-
   if ($("#doi-input").length != 0) {
     refreshDoiResult();
   }
@@ -201,6 +195,52 @@ $(document).ready(function() {
     e.preventDefault();
     return false;
   });
+
+  $('.citation-row').hover(function(e) {
+    $(this).find('.citation-controls').show();
+    e.preventDefault();
+    return false;
+  }, function(e) {
+    $(this).find('.citation-controls').hide();
+    e.preventDefault();
+    return false;
+  });
+
+  $('.btn-citation-edit').click(function(e) {
+    window.location = window.location + "/" + $(this).parents('.citation-row').attr('id');
+    e.preventDefault();
+    return false;
+  });
+
+  $('.btn-citation-remove').click(function(e) {
+    var $citationRow = $(this).parents('.citation-row');
+    $citationRow.find('p').css('text-decoration', 'line-through');
+    $citationRow.find('.btn-citation-unremove').show();
+    $(this).hide();
+
+    $.get('citations/' + $citationRow.attr('id') + '/remove');
+
+    e.preventDefault();
+    return false;
+  });
+
+  $('.btn-citation-unremove').click(function(e) {
+    var $citationRow = $(this).parents('.citation-row');
+    $citationRow.find('p').css('text-decoration', 'none');
+    $citationRow.find('.btn-citation-remove').show();
+    $(this).hide();
+
+    $.get('citations/' + $citationRow.attr('id') + '/unremove');
+
+    e.preventDefault();
+    return false;
+  });
+
+  $('.btn-citation-edit').tooltip({title: 'Edit'});
+  $('.btn-citation-add-up').tooltip({title: 'Add above'});
+  $('.btn-citation-add-down').tooltip({title: 'Add below'});
+  $('.btn-citation-remove').tooltip({title: 'Remove'});
+  $('.btn-citation-unremove').tooltip({title: 'Undo remove'});
 
   $('.timeago').timeago();
 
