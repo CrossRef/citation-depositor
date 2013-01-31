@@ -215,6 +215,7 @@ $(document).ready(function() {
   $('.btn-citation-remove').click(function(e) {
     var $citationRow = $(this).parents('.citation-row');
     $citationRow.find('p').css('text-decoration', 'line-through');
+    $citationRow.find('p').addClass('text-error');
     $citationRow.find('.btn-citation-unremove').show();
     $(this).hide();
 
@@ -227,6 +228,7 @@ $(document).ready(function() {
   $('.btn-citation-unremove').click(function(e) {
     var $citationRow = $(this).parents('.citation-row');
     $citationRow.find('p').css('text-decoration', 'none');
+    $citationRow.find('p').removeClass('text-error');
     $citationRow.find('.btn-citation-remove').show();
     $(this).hide();
 

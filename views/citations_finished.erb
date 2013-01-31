@@ -19,10 +19,15 @@
     <% citations.each_index do |i| %>
       <% citation = citations[i] %>
       <tr class="citation-row" id="<%= i %>">
-        <span>
         <td><%= (i+1) %>.</td>
 	<td style="position: relative;">
-          <p class="lead" <% if citation['removed'] %>style="text-decoration: line-through;"<% end %>><%= citation['text'] %></p>
+          <% if citation['removed'] %>
+	  <p class="lead text-error" style="text-decoration: line-through;">
+          <% else %>
+          <p class="lead">
+          <% end %>
+            <%= citation['text'] %>
+          </p>
 	  <% if citation.has_key?('doi') %>
 	    <span class="text-success">
               <i class="icon-ok-circle icon-white"></i> 
