@@ -166,18 +166,18 @@ $(document).ready(function() {
       if (data['has_widget']) {
 	lines.push(makeSucc('The references widget script tag is present.'));
       } else {
-	lines.push(makeFail(('The references widget script tag is missing.'));
+	lines.push(makeFail('The references widget script tag is missing.'));
       }
 
       if (data['has_content']) {
-	lines.push(makeSucc(('The references widget content div tag is present.'));
+	lines.push(makeSucc('The references widget content div tag is present.'));
       } else {
-	lines.push(makeFail(('The references widget content div tag is missing.'));
+	lines.push(makeFail('The references widget content div tag is missing.'));
       }
 
       if (data['doi']) {
 	if (data['has_citations']) {
-	  lines.push(makeSucc(('The DOI has citations deposited with CrossRef.'));
+	  lines.push(makeSucc('The DOI has citations deposited with CrossRef.'));
 	} else {
 	  lines.push(makeFail('The DOI has no citations deposited. You may not have deposited any citations for this DOI, or the deposit may be queued for processing into the CrossRef database.'));
 	}
@@ -194,53 +194,141 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.citation-row').hover(function(e) {
-    $(this).find('.citation-controls').show();
-    e.preventDefault();
-    return false;
-  }, function(e) {
-    $(this).find('.citation-controls').hide();
-    e.preventDefault();
-    return false;
-  });
+  var applyCitationRowCallbacks = function() {
+    $('.citation-row').unbind('hover');
+    $('.btn-citation-edit').unbind('click');
+    $('.btn-citation-remove').unbind('click');
+    $('.btn-citation-unremove').unbind('click');
+    $('.btn-citation-add-up').unbind('click');
+    $('.btn-citation-add-down').unbind('click');
 
-  $('.btn-citation-edit').click(function(e) {
-    window.location = window.location + "/" + $(this).parents('.citation-row').attr('id');
-    e.preventDefault();
-    return false;
-  });
+    $('.citation-row').hover(function(e) {
+      $(this).find('.citation-controls').show();
+      e.preventDefault();
+      return false;
+    }, function(e) {
+      $(this).find('.citation-controls').hide();
+      e.preventDefault();
+      return false;
+    });
+    
+    $('.btn-citation-edit').click(function(e) {
+      window.location = window.location + "/" + $(this).parents('.citation-row').attr('id');
+      e.preventDefault();
+      return false;
+    });
+    
+    $('.btn-citation-remove').click(function(e) {
+      var $citationRow = $(this).parents('.citation-row');
+      $citationRow.find('p').css('text-decoration', 'line-through');
+      $citationRow.find('p').addClass('text-error');
+      $citationRow.find('.btn-citation-unremove').show();
+      $(this).hide();
+      
+      $.get('citations/' + $citationRow.attr('id') + '/remove');
+      
+      e.preventDefault();
+      return false;
+    });
+    
+    $('.btn-citation-unremove').click(function(e) {
+      var $citationRow = $(this).parents('.citation-row');
+      $citationRow.find('p').css('text-decoration', 'none');
+      $citationRow.find('p').removeClass('text-error');
+      $citationRow.find('.btn-citation-remove').show();
+      $(this).hide();
+      
+      $.get('citations/' + $citationRow.attr('id') + '/unremove');
+      
+      e.preventDefault();
+      return false;
+    });
 
-  $('.btn-citation-remove').click(function(e) {
-    var $citationRow = $(this).parents('.citation-row');
-    $citationRow.find('p').css('text-decoration', 'line-through');
-    $citationRow.find('p').addClass('text-error');
-    $citationRow.find('.btn-citation-unremove').show();
-    $(this).hide();
+    var insertCitation = function($citationRow, above) {
+      var $newCitationRow = $citationRow.clone();
+      var $citationText = $newCitationRow.find('.citation-text');
+      
+      $newCitationRow.find('.citation-body').hide();
+      $newCitationRow.find('.citation-text').show();
+      $newCitationRow.find('.citation-number').text('');
 
-    $.get('citations/' + $citationRow.attr('id') + '/remove');
+      if (above) {
+	$newCitationRow.insertBefore($citationRow);
+      } else {
+	$newCitationRow.insertAfter($citationRow);
+      }
 
-    e.preventDefault();
-    return false;
-  });
+      var index = parseInt($citationRow.attr('id'));
 
-  $('.btn-citation-unremove').click(function(e) {
-    var $citationRow = $(this).parents('.citation-row');
-    $citationRow.find('p').css('text-decoration', 'none');
-    $citationRow.find('p').removeClass('text-error');
-    $citationRow.find('.btn-citation-remove').show();
-    $(this).hide();
+      if (!above) {
+	index = index + 1;
+      }
 
-    $.get('citations/' + $citationRow.attr('id') + '/unremove');
+      $citationText.removeAttr('disabled');
+      $citationText.focus();
+      $citationText.blur(function(e) {
+	if ($.trim($citationText.val()) == '') {
+	  $newCitationRow.remove();
+	} else {
+	  $newCitationRow.find('.citation-loading-text').show();
+	  $citationText.attr('disabled', 'disabled');
+	  $.post('citations/' + index + '/insert', {text: $citationText.val()}).done(function(data) {
+	    data = data['citation'];
+	    $newCitationRow.find('.citation-loading-text').hide();
+	    $citationText.hide();
+	    $newCitationRow.find('.citation-str').text(data['text']);
+	    $newCitationRow.find('.citation-body').show();
+	    $newCitationRow.find('.citation-controls').hide();
+	    var $doiText = $newCitationRow.find('.citation-doi-text');
+	    if (data['match']) {
+	      $doiText.html('');
+	      $doiText.addClass('text-success').removeClass('text-error');
+	      $doiText.append($('<i>').addClass('icon-ok-circle').addClass('icon-white'));
+	      $doiText.append(' Matched to ');
+	      $doiText.append($('<strong>').text(data['doi']));
+	    } else {
+	      $doiText.html('');
+	      $doiText.addClass('text-error').removeClass('text-success');
+	      $doiText.append($('<i>').addClass('icon-remove-circle').addClass('icon-white'));
+	      $doiText.append(' Not matched to a DOI');
+	    }
 
-    e.preventDefault();
-    return false;
-  });
+	    $('.citation-row').each(function(index) {
+	      $(this).find('.citation-number').text((index+1) + '.');
+	      $(this).attr('id', index);
+	    });
 
-  $('.btn-citation-edit').tooltip({title: 'Edit'});
-  $('.btn-citation-add-up').tooltip({title: 'Add above'});
-  $('.btn-citation-add-down').tooltip({title: 'Add below'});
-  $('.btn-citation-remove').tooltip({title: 'Remove'});
-  $('.btn-citation-unremove').tooltip({title: 'Undo remove'});
+	    applyCitationRowCallbacks();
+	  });
+	}
+	
+	e.preventDefault();
+	return false;
+      });
+    };
+
+    $('.btn-citation-add-up').click(function(e) {
+      var $citationRow = $(this).parents('.citation-row');
+      insertCitation($citationRow, true);
+      e.preventDefault();
+      return false;
+    });
+
+    $('.btn-citation-add-down').click(function(e) {
+      var $citationRow = $(this).parents('.citation-row');
+      insertCitation($citationRow, false);
+      e.preventDefault();
+      return false;
+    });
+
+    $('.btn-citation-edit').tooltip({title: 'Edit'});
+    $('.btn-citation-add-up').tooltip({title: 'Add above'});
+    $('.btn-citation-add-down').tooltip({title: 'Add below'});
+    $('.btn-citation-remove').tooltip({title: 'Remove'});
+    $('.btn-citation-unremove').tooltip({title: 'Undo remove'});
+  };
+
+  applyCitationRowCallbacks();
 
   $('.timeago').timeago();
 

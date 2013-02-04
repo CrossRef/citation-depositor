@@ -8,6 +8,7 @@ require_relative 'lib/citation-depositor/auth'
 require_relative 'lib/citation-depositor/licence'
 require_relative 'lib/citation-depositor/depositor'
 require_relative 'lib/citation-depositor/widget'
+require_relative 'lib/citation-depositor/help'
 
 require_relative 'lib/citation-depositor/dummy_auth'
 

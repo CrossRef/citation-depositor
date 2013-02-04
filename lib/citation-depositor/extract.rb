@@ -28,7 +28,7 @@ module CitationDepositor
     end
 
     def resolve_citations citations
-      @@search_service ||= Faraday.new(:url => 'http://search.labs.crossref.org')
+      @@search_service ||= Faraday.new(:url => 'http://search.crossref.org')
       res = @@search_service.post do |req|
         req.url('/links')
         req.headers['Content-Type'] = 'application/json'

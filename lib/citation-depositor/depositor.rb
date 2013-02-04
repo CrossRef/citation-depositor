@@ -88,6 +88,25 @@ module CitationDepositor
           end
         end
       end
+
+      def resolve_citation citation
+        resolved_citation = citation.merge({:match => false, :reason => 'No match attempt'})
+
+        fetch_method(resolved_citation) do
+          res = settings.search_service.post do |req|
+            req.url('/links')
+            req.headers['Content-Type'] = 'application/json'
+            req.body = [citation[:text]].to_json
+          end
+
+          if res.status == 200
+            json = JSON.parse(res.body)
+            resolved_citation = json['results'].first if json['query_ok']
+          end
+
+          resolved_citation
+        end
+      end
     end
 
     def self.registered app
@@ -97,7 +116,7 @@ module CitationDepositor
       data_service.headers[:accept] = 'application/vnd.crossref.unixref+xml'
 
       app.set :repo_path, File.join(app.settings.root, 'pdfs')
-      app.set :search_service, Faraday.new('http://search.labs.crossref.org')
+      app.set :search_service, Faraday.new('http://search.crossref.org')
       app.set :doi_data_service, data_service
       app.set :cr_service, Faraday.new('http://www.crossref.org')
 
@@ -270,12 +289,24 @@ module CitationDepositor
         redirect "/deposit/#{name}/citations"
       end
 
-      app.get '/deposit/:name/citations/:index/insert', :auth => true, :licence => true do
+      app.post '/deposit/:name/citations/:index/insert', :auth => true, :licence => true do
         name = params[:name]
         index = params[:index].to_i
+        text = params[:text]
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
-        
-        
+        citation = resolve_citation({:text => text, :modified_at => Time.now})
+
+        if index >= extraction_job['citations'].count
+          # Append to end
+          extraction_job['citations'] << citation
+        else
+          # Insert before index
+          extraction_job['citations'].insert(index, citation)
+        end
+
+        Config.collection('extractions').save(extraction_job)
+
+        json({:status => 'ok', :citation => citation})
       end
 
       app.get '/deposit/:name/citations/:index/remove', :auth => true, :licence => true do
