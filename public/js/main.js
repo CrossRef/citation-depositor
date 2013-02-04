@@ -277,6 +277,10 @@ $(document).ready(function() {
 	    $newCitationRow.find('.citation-loading-text').hide();
 	    $citationText.hide();
 	    $newCitationRow.find('.citation-str').text(data['text']);
+	    $newCitationRow.find('.citation-str').removeClass('text-error');
+	    $newCitationRow.find('.citation-str').css('text-decoration', 'none');
+	    $newCitationRow.find('.btn-citation-remove').show();
+	    $newCitationRow.find('.btn-citation-unremove').hide();
 	    $newCitationRow.find('.citation-body').show();
 	    $newCitationRow.find('.citation-controls').hide();
 	    var $doiText = $newCitationRow.find('.citation-doi-text');
