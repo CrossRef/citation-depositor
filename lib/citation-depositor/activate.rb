@@ -1,14 +1,20 @@
 require 'pony'
+require 'erb'
 
 module CitationDepositor
   class ActivateLicence
     @queue = :licence
 
     def self.perform user
-      Pony.mail(:to => 'depositlicence@crossref.org',
+      template = ERB.new(File.open('../../views/licence_email.erb').read)
+
+      to = 'Susan'
+      from = 'D.A.V.E.'
+
+      Pony.mail(:to => 'scollins@crossref.org',
                 :from => 'labs@crossref.org',
-                :subject => "Account #{user} has accepted the citation deposit licence.",
-                :body => "Account #{user} has acepted the citation deposit licence.")
+                :subject => "#{user} has accepted the citation deposit licence",
+                :body => template.result)
     end
   end
 end

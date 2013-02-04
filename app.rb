@@ -17,6 +17,7 @@ class App < Sinatra::Base
   register CitationDepositor::Licence
   register CitationDepositor::Depositor
   register CitationDepositor::Widget
+  register CitationDepositor::Help
 
   set(:alive) { true }
   set(:stats) { {} }

@@ -125,6 +125,18 @@ $(document).ready(function() {
     refreshResultList();
   }
 
+  var makeSucc = function(text) {
+    $succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
+    $succ.append(text);
+    $content.append($succ);
+  };
+
+  var makeFail = function(text) {
+    $fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
+    $fail.append(text);
+    $content.append($fail);
+  };
+
   $('#btn-check').click(function(e) {
     var $btn = $(this);
     if ($btn.hasClass('disabled') || $('#input-url').val() == '') {
@@ -139,49 +151,35 @@ $(document).ready(function() {
       $btn.removeClass('disabled');
       $btn.find('i').removeClass('icon-spin');
 
-      $container = $('#check-result');
-      $content = $('<ul>').addClass('icons').attr('style', 'margin-top: 1em;');
+      var $container = $('#check-result');
+      var $content = $('<ul>').addClass('icons').attr('style', 'margin-top: 1em;');
       $container.html('');
 
+      var lines = [];
+
       if (data['has_meta']) {
-	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
-	$succ.append('The dc.identifier meta tag is present with a correctly formatted DOI.');
-	$content.append($succ);
+	lines.push(makeSucc('The dc.identifier meta tag is present with a correctly formatted DOI.'));
       } else {
-	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
-	$fail.append('The dc.identifier meta tag is missing, or it is not correctly formatted.');
-	$content.append($fail);
+	lines.push(makeFail('The dc.identifier meta tag is missing, or it is not correctly formatted.'));
       }
 
       if (data['has_widget']) {
-	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
-	$succ.append('The references widget script tag is present.');
-	$content.append($succ);
+	lines.push(makeSucc('The references widget script tag is present.'));
       } else {
-	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
-	$fail.append('The references widget script tag is missing.');
-	$content.append($fail);
+	lines.push(makeFail(('The references widget script tag is missing.'));
       }
 
       if (data['has_content']) {
-	$succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
-	$succ.append('The references widget content div tag is present.');
-	$content.append($succ);
+	lines.push(makeSucc(('The references widget content div tag is present.'));
       } else {
-	$fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
-	$fail.append('The references widget content div tag is missing.');
-	$content.append($fail);
+	lines.push(makeFail(('The references widget content div tag is missing.'));
       }
 
       if (data['doi']) {
 	if (data['has_citations']) {
-	  $succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
-	  $succ.append('The DOI has citations deposited with CrossRef.');
-	  $content.append($succ);
+	  lines.push(makeSucc(('The DOI has citations deposited with CrossRef.'));
 	} else {
-	  $fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
-	  $fail.append('The DOI has no citations deposited. You may not have deposited any citations for this DOI, or the deposit may be queued for processing into the CrossRef database.');
-	  $content.append($fail);
+	  lines.push(makeFail('The DOI has no citations deposited. You may not have deposited any citations for this DOI, or the deposit may be queued for processing into the CrossRef database.'));
 	}
 
 	$info = $('<li>').addClass('text-info').append($('<i>').addClass('icon-info-sign'));
