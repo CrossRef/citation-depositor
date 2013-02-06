@@ -237,9 +237,13 @@ module CitationDepositor
 
       app.get '/deposit/:name/deposit', :auth => true, :licence => true do
         name = params[:name]
-        deposit = RecordedJob.get_where('deposits', {:name => name})
+        locals = {
+          :deposit => RecordedJob.get_where('deposits', {:name => name}),
+          :pdf => Config.collection('pdfs').find_one({:name => name}),
+          :extraction => RecordedJob.get_where('extractions', {:name => name})
+        }
 
-        erb :deposit, :locals => {:deposit => deposit}
+        erb(:deposit, {:locals => locals})
       end
 
       app.post '/deposit/:name/deposit', :auth => true, :licence => true do
@@ -256,7 +260,13 @@ module CitationDepositor
                          extraction['citations'])
         end
 
-        erb :deposit
+        locals = {
+          :pdf => pdf,
+          :extraction => extraction,
+          :deposit => nil
+        }
+
+        erb(:deposit, {:locals => locals})
       end
 
       app.get '/deposit/:name/citations/:index', :auth => true, :licence => true do

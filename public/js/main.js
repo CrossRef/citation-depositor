@@ -126,15 +126,15 @@ $(document).ready(function() {
   }
 
   var makeSucc = function(text) {
-    $succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
+    var $succ = $('<li>').addClass('text-success').append($('<i>').addClass('icon-ok-sign'));
     $succ.append(text);
-    $content.append($succ);
+    return $succ;
   };
 
   var makeFail = function(text) {
-    $fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
+    var $fail = $('<li>').addClass('text-error').append($('<i>').addClass('icon-remove-sign'));
     $fail.append(text);
-    $content.append($fail);
+    return $fail;
   };
 
   $('#btn-check').click(function(e) {
@@ -182,10 +182,14 @@ $(document).ready(function() {
 	  lines.push(makeFail('The DOI has no citations deposited. You may not have deposited any citations for this DOI, or the deposit may be queued for processing into the CrossRef database.'));
 	}
 
-	$info = $('<li>').addClass('text-info').append($('<i>').addClass('icon-info-sign'));
+	var $info = $('<li>').addClass('text-info').append($('<i>').addClass('icon-info-sign'));
 	$info.append('The DOI on this landing page is ' + data['doi']);
 	$content.append($info);
       }
+
+      $.each(lines, function(idx, e) {
+	$content.append(e);
+      });
 
       $container.append($content);
     });

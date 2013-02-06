@@ -50,11 +50,16 @@ module CitationDepositor
           :area => 'live'
         }
 
+        puts to_deposit_xml
+
         query = params.map {|k, v| "#{k}=#{URI.escape(v)}"}.join('&')
         url = "/servlet/deposit?#{query}"
         file = Faraday::UploadIO.new(StringIO.new(to_deposit_xml), 'application/xml')
 
         res = @@doi_service.post url, {:fname => file}
+
+        puts res.status
+        puts res.body
 
         if res.status == 200
           mark_finished
@@ -74,27 +79,40 @@ module CitationDepositor
     end
 
     def to_deposit_xml
+      ns = {
+        :xmlns => 'http://www.crossref.org/doi_resources_schema/4.3.0',
+        :'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+        :version => '4.3.0',
+        :'xsi:schemaLocation' => 'http://www.crossref.org/doi_resources_schema/4.3.0 http://www.crossref.org/schema/deposit/doi_resources4.3.0.xsd'
+      }
+
       builder = Nokogiri::XML::Builder.new do |xml|
-        xml.doi_batch {
+        xml.doi_batch(ns) {
           xml.head {
-            xml.doi_batch_id @status_id
-            xml.depositor 'CrossRef Citation Depositor'
+            xml.doi_batch_id(@name)
+            xml.depositor {
+              xml.name('CrossRef Citation Depositor')
+              xml.email_address('kward@crossref.org')
+            }
           }
           xml.body {
             xml.doi_citations {
-              xml.doi @doi
-            }
-            xml.citation_list {
-              @citations.each do |citation|
-                xml.unstructured_citation citation[:text]
-                xml.DOI(citation[:doi]) if citation.has_key?(:doi)
-              end
+              xml.doi(@doi)
+              xml.citation_list {
+                @citations.each_index do |i|
+                  citation = @citations[i]
+                  xml.citation(:key => "#{@name}-#{i}") {
+                    xml.unstructured_citation(citation['text'])
+                    xml.doi(citation['doi']) if citation.has_key?('doi')
+                  }
+                end
+              }
             }
           }
         }
       end
 
-      builder.to_s
+      builder.to_xml
     end
   end
 

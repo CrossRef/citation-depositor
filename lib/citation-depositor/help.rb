@@ -21,7 +21,10 @@ module CitationDepositor
         # the DOI for citations.
 
         metas = html.css('meta')
-        dci_metas = metas.reject {|meta| meta['name'].nil? || meta['name'].downcase != 'dc.identifier'}
+        dci_metas = metas.reject do |meta|
+          meta['name'].nil? || meta['name'].downcase != 'dc.identifier'
+        end
+
         doi = dci_metas.map {|meta| meta['content'].sub('info:doi/', '').sub('doi:', '')}.first
 
         scripts = html.css('script')
