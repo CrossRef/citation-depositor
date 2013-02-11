@@ -171,12 +171,13 @@ ul.dropdown-menu a {
 .field-label {
   text-transform: uppercase;
   color: #a3a3a3;
-  font-size: 1.1em;
+  font-size: 0.6em;
   text-align: right;
-  margin-right: 1.5em;
+  margin-right: 1em;
+  width: 6em;
 }
 
 .field-value {
-  font-size: 1.7em;
+  font-size: 1em;
 }
 

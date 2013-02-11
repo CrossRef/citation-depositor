@@ -1,40 +1,100 @@
 <%= partial :header %>
 
 <div class="row">
-  <div class="span10 offset1">
+  <div class="span5 offset1">
+
+    <div class="page-header">
+      <h4>Deposit</h4>
+    </div>
 
     <div class="lead">
-      <span class="field-label span3"><i class="icon-file"></i> File</span>
+      <span class="field-label"><i class="icon-file"></i> File</span>
       <span class="field-value"><%= pdf['upload_filename'] %></span>
     </div>
     <div class="lead">
-      <span class="field-label span3"><i class="icon-link"></i> DOI</span>
+      <span class="field-label"><i class="icon-link"></i> DOI</span>
       <span class="field-value"><%= pdf['doi'] %></span>
     </div>
     <div class="lead">
-      <span class="field-label span3"><i class="icon-time"></i> Uploaded</span>
-      <span class="field-value"><%= pdf['uploaded_at'] %></span>
+      <span class="field-label"><i class="icon-time"></i> Uploaded</span>
+      <span class="field-value timeago" title="<%= pdf['uploaded_at'].iso8601 %>"></span>
     </div>
     <div class="lead">
-      <span class="field-label span3"># Citations</span>
+      <span class="field-label"># Citations</span>
       <span class="field-value"><%= extraction['citations'].count %></span>
     </div>
   
+  </div>
+  <div class="span5">
+
     <div class="page-header">
       <h4>Status</h4>
     </div>
 
-    <% if deposit.nil? || deposit['status'] == 'started' %>
-      <span class="alert alert-warning">Deposit is processing.</span>
-    <% elsif deposit['status'] == 'finished' %>
-      <span class="alert alert-success">Deposit completed successfully.</span>
-    <% elsif deposit['status'] == 'failed' %>
-      <span class="alert alert-important">Deposit failed.</span>
+    <div class="text-success lead">
+      <div class="pull-right">
+	<i class="icon-ok"></i>
+      </div>
+      PDF uploaded
+    </div>
+
+    <div class="text-success lead">
+      <div class="pull-right">
+	<i class="icon-ok"></i>
+      </div>
+      DOI selected
+    </div>
+
+    <div class="text-success lead">
+      <div class="pull-right">
+	<i class="icon-ok"></i>
+      </div>
+      Citations extracted
+    </div>
+
+    <% if deposit.nil? || deposit['status'] == :started %>
+      <div class="text-warning lead">
+	<div class="pull-right">
+	  <i class="icon-refresh"></i>
+	  Deposit is processing
+	</div>
+      </div>
+    <% elsif deposit['status'] == :finished %>
+      <div class="text-success lead">
+	<div class="pull-right">
+	  <i class="icon-ok"></i>
+	</div>
+	Deposit completed successfully
+      </div>
+    <% elsif deposit['status'] == :failed %>
+      <div class="text-error lead">
+	<div class="pull-right">
+	  <i class="icon-error"></i>
+	</div>
+	Deposit failed
+      </div>
     <% end %>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="span10 offset1">
 
     <div class="page-header">
       <h4>Citations</h4>
     </div>
+
+    <table class="table">
+      <% deposit['citations'].each_index do |i| %>
+        <% citation = deposit['citations'][i] %>
+        <tr>
+          <td><%= (i+1) %>.</td>
+          <td><%= citation['text'] %></td>
+          <td><%= citation['doi'] %></td>
+        </tr>
+      <% end %>
+    </table>
 
   </div>
 </div>
