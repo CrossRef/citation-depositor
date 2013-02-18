@@ -345,6 +345,8 @@ $(document).ready(function() {
       $.get('status').done(function(data) {
 	if (data['status'] == 'finished' || data['status'] == 'failed') {
           window.location.reload(true);
+	} else {
+          setTimeout(refresh, 5000);
 	}
       }); 
     };

@@ -86,13 +86,15 @@
     </div>
 
     <table class="table">
-      <% deposit['citations'].each_index do |i| %>
-        <% citation = deposit['citations'][i] %>
-        <tr>
-          <td><%= (i+1) %>.</td>
-          <td><%= citation['text'] %></td>
-          <td><%= citation['doi'] %></td>
-        </tr>
+      <% unless deposit.nil? %>
+        <% deposit['citations'].each_index do |i| %>
+          <% citation = deposit['citations'][i] %>
+          <tr>
+            <td><%= (i+1) %>.</td>
+            <td><%= citation['text'] %></td>
+            <td><%= citation['doi'] %></td>
+          </tr>
+        <% end %>
       <% end %>
     </table>
 
