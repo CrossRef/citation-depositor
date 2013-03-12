@@ -20,15 +20,15 @@
   </div>
   <div class="span3">
     <div class="pull-right">
+      <a class="btn" href="/deposit/<%= name %>/citations">Forget changes</a>
       <form id="change-citation-form" method="post">
         <input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>">
-	</input>
+        </input>
         <input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>">
-	</input>
-        <button class="btn" type="submit">Accept</button>
+        </input>
+       <button class="btn btn-success" type="submit">Save</button>
       </form>
     </div>
-    <a href="/deposit/<%= name %>/citations">Forget changes</a>
   </div>
 </div>
 

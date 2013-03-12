@@ -15,17 +15,6 @@ module CitationDepositor
   module Depositor
 
     module Helpers
-      def ensure_extraction pdf
-        if pdf[:extraction_job]
-          RecordedJob.get(pdf[:extraction_job])
-        else
-          id = Resque.enqueue(Extract, pdf[:filename])
-          pdf[:extraction_job] = id
-          Config.collection('pdfs').save(pdf)
-          RecordedJob.get(id)
-        end
-      end
-
       def fetch_method error_result
         begin
           yield
@@ -115,7 +104,8 @@ module CitationDepositor
       data_service = Faraday.new('http://data.crossref.org')
       data_service.headers[:accept] = 'application/vnd.crossref.unixref+xml'
 
-      app.set :repo_path, File.join(app.settings.root, 'pdfs')
+      app.set :pdf_repo_path, File.join(app.settings.root, 'pdfs')
+      app.set :xml_repo_path, File.join(app.settings.root, 'xmls')
       app.set :search_service, Faraday.new('http://search.crossref.org')
       app.set :doi_data_service, data_service
       app.set :cr_service, Faraday.new('http://www.crossref.org')
@@ -128,7 +118,8 @@ module CitationDepositor
         pdf_url = params[:url]
         pdf_upload_filename = params[:filename]
         pdf_name = SecureRandom.uuid
-        pdf_filename = File.join(settings.repo_path, pdf_name)
+        pdf_filename = File.join(settings.pdf_repo_path, pdf_name)
+        xml_filename = File.join(settings.xml_repo_path, pdf_name)
         now = Time.now
 
         doc = {
@@ -136,13 +127,14 @@ module CitationDepositor
           :uploaded_at => now,
           :user => auth_info['user'],
           :local_filename => pdf_filename,
+          :xml_filename => xml_filename,
           :upload_filename => pdf_upload_filename,
           :status => :uploaded,
           :status_at => now
         }
 
         Config.collection('pdfs').insert(doc)
-        Resque.enqueue(Extract, pdf_url, pdf_filename, pdf_name)
+        Resque.enqueue(Extract, pdf_url, pdf_filename, xml_filename, pdf_name)
 
         json({:pdf_name => pdf_name})
       end

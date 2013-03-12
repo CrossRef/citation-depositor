@@ -8,24 +8,32 @@
       <%= partial :citations_finished, :citations => citations %>
     <% elsif status == :started || status == :no_extraction %>
       <div class="well lead">
-	<i class="icon-refresh icon-spin"></i> Extracting citations. This could take a few minutes...
+	<i class="icon-refresh icon-spin"></i>
+	Extracting citations. This could take a few minutes...
       </div>
       <script>
 	var requiresRefresh = true;
       </script>
     <% elsif status == :failed %>
       <div class="well lead">
-        <i class="icon-warning-sign"></i> Failed to extract citations. Please try uploading this PDF again.
+        <i class="icon-warning-sign"></i>
+	Failed to extract citations. Please try uploading this PDF again.
       </div>
     <% end %>
 
     <form id="form-deposit" method="post" action="deposit" class="form-horizontal">
       <% if status == :finished %>
         <div class="control-group pull-right">
-          <button id="btn-next-deposit" class="btn btn-success"><i class="icon-upload-alt"></i> Deposit</button>
+          <button id="btn-next-deposit" class="btn btn-success">
+	    <i class="icon-upload-alt"></i> 
+	    Deposit
+	  </button>
         </div>
       <% end %>
-      <button id="btn-back-doi" class="btn"><i class="icon-circle-arrow-left"></i> Pick a different DOI</button>
+      <button id="btn-back-doi" class="btn">
+	<i class="icon-circle-arrow-left"></i>
+	Pick a different DOI
+      </button>
     </form>
 
   </div>

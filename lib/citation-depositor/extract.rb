@@ -17,13 +17,14 @@ module CitationDepositor
       :extractions
     end
 
-    def self.perform url, filename, name
+    def self.perform url, pdf_filename, xml_filename, name
       Extract.new(url, filename, name).perform
     end
 
-    def initialize url, filename, name
+    def initialize url, pdf_filename, xml_filename, name
       @url = url
-      @filename = filename
+      @pdf_filename = pdf_filename
+      @xml_filename = xml_filename
       @name = name
     end
 
@@ -48,24 +49,24 @@ module CitationDepositor
       res = @@pdfx_service.post do |req|
         req.url('/')
         req.headers['Content-Type'] = 'application/pdf'
-        File.open(@filename, 'rb') {|file| req.body = file.read}
+        File.open(@pdf_filename, 'rb') {|file| req.body = file.read}
       end
 
       if res.status == 200
-        puts res.body
+        File.open(@xml_filename, 'w') {|file| file.write(res.body)}
         doc = Nokogiri::XML(res.body)
         doc.css('ref').map {|ref_loc| ref_loc.text.sub(/\A\d+\.\s*/, '').sub(/\A\[\w+\]\s*/, '')}
       end
     end
 
     def perform
-      mark_started({:url => @url, :filename => @filename, :name => @name})
+      mark_started({:url => @url, :filename => @pdf_filename, :xml_filename => @xml_filename, :name => @name})
       mark_pdf_status(@name, :extracting)
 
       begin
         conn = Faraday.new
         response = conn.get @url
-        File.open(@filename, 'wb') do |file|
+        File.open(@pdf_filename, 'wb') do |file|
           file.write(response.body)
         end
 
