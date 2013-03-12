@@ -8,6 +8,14 @@ require_relative 'config'
 module CitationDepositor
 
   class Deposit < RecordedJob
+    APP_NAME = 'CrossRef Citation Depositor'
+    APP_EMAIL = 'depositor@crossref.org'
+
+    UNIXREF_NS = 'http://www.crossref.org/doi_resources_schema/4.3.0'
+    XSI_NS = 'http://www.w3.org/2001/XMLSchema-instance'
+    UNIXREF_SCHEMA_LOC = 'http://www.crossref.org/doi_resources_schema/4.3.0 http://www.crossref.org/schema/deposit/doi_resources4.3.0.xsd'
+    UNIXREF_VERSION = '4.3.0'
+
     @queue = :deposit
 
     def job_kind
@@ -80,10 +88,10 @@ module CitationDepositor
 
     def to_deposit_xml
       ns = {
-        :xmlns => 'http://www.crossref.org/doi_resources_schema/4.3.0',
-        :'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-        :version => '4.3.0',
-        :'xsi:schemaLocation' => 'http://www.crossref.org/doi_resources_schema/4.3.0 http://www.crossref.org/schema/deposit/doi_resources4.3.0.xsd'
+        :xmlns => UNIXREF_NS,
+        :'xmlns:xsi' => XSI_NS,
+        :version => UNIXREF_VERSION,
+        :'xsi:schemaLocation' => UNIXREF_SCHEMA_LOC
       }
 
       builder = Nokogiri::XML::Builder.new do |xml|
@@ -91,8 +99,8 @@ module CitationDepositor
           xml.head {
             xml.doi_batch_id(@name)
             xml.depositor {
-              xml.name('CrossRef Citation Depositor')
-              xml.email_address('kward@crossref.org')
+              xml.name(APP_NAME)
+              xml.email_address(APP_EMAIL)
             }
           }
           xml.body {

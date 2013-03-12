@@ -20,7 +20,7 @@
     <% citation = citations[i] %>
     <tr class="citation-row" id="<%= i %>">
       <td class="citation-number"><%= (i+1) %>.</td>
-      <td style="position: relative;">
+      <td>
 	<textarea class="citation-text hide full-width lead" style="font-size: 1.3em;" rows="2">
         </textarea>
         <div class="citation-loading-text text-warning hide">
@@ -47,7 +47,7 @@
               Not matched to a DOI
             </span>
           <% end %>
-          <div class="citation-controls" style="text-align: right; position: absolute; right: 10px; bottom: 5px;">
+          <div class="citation-controls">
 	    <div class="input-append input-prepend">
 	      <button class="btn btn-citation-edit">
 	        <i class="icon-edit"></i>

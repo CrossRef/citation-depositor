@@ -166,6 +166,14 @@ ul.dropdown-menu a {
 
 .citation-controls {
   display: none;
+  text-align: right; 
+  position: absolute; 
+  right: 5px; 
+  bottom: 0px;
+}
+
+.citation-body {
+  position: relative;
 }
 
 .field-label {
