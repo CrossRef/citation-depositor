@@ -372,7 +372,7 @@ module CitationDepositor
         owner_name = fetch_owner_name(owner_prefix)
         doi_info = fetch_doi_info(doi)
 
-        if owner_name.empty? || doi_info.empty?
+        if owner_name.empty?
           json({:status => 'error'})
         else
           doc = {
