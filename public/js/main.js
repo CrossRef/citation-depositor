@@ -19,7 +19,9 @@ $(document).ready(function() {
       if (data['status'] == 'ok') {
 	$("#search-result-owner").text(data['owner_name']);
 	$("#search-result-prefix").text(data['owner_prefix']);
-	$("#search-result").html(data['info']['fullCitation']);
+	if (data['info']) {  
+	  $("#search-result").html(data['info']['fullCitation']);
+        }
 	$("#search-result-info").removeClass('hidden');
 	$("#btn-next-citations").removeClass('disabled');
       } else {
