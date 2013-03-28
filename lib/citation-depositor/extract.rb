@@ -18,7 +18,7 @@ module CitationDepositor
     end
 
     def self.perform url, pdf_filename, xml_filename, name
-      Extract.new(url, filename, name).perform
+      Extract.new(url, pdf_filename, xml_filename, name).perform
     end
 
     def initialize url, pdf_filename, xml_filename, name
