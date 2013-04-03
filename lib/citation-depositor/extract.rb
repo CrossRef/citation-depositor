@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'pdf-extract'
 require 'json'
 require 'faraday'
 require 'nokogiri'

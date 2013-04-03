@@ -1,1 +1,4 @@
 vendor
+rack.pid
+pdfs
+xmls

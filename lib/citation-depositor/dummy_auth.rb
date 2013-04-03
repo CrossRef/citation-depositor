@@ -4,6 +4,8 @@ require 'uri'
 module CitationDepositor
   module DummyAuth
 
+    DUMMY_FILE = File.join(File.dirname(__FILE__), '..', '..', 'dummy.xml')
+
     def self.doi_service
       @@doi_service ||= Faraday.new(:url => 'http://doi.crossref.org') do |conn|
         conn.request :multipart
@@ -22,7 +24,7 @@ module CitationDepositor
 
       query = params.map {|k, v| "#{k}=#{URI.escape(v)}"}.join('&')
       url = "/servlet/deposit?#{query}"
-      file = Faraday::UploadIO.new('dummy.xml', 'application/xml')
+      file = Faraday::UploadIO.new(DUMMY_FILE, 'application/xml')
       res = doi_service.post url, {:fname => file}
 
       res.status == 200
