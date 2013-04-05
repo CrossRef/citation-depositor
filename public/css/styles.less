@@ -1,0 +1,158 @@
+@linkColor: #2ec7e0;
+@linkColorNegative: #fff;
+@baseGrid : 12px;
+@baseFontSize : @baseGrid *1.25;
+
+
+// Bootstrap Overides
+html, body {
+  font-size: @baseFontSize;
+}
+
+a {
+  color: @linkColor;
+}
+
+.negative{
+  a {
+    color: @linkColorNegative;
+  }
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  width: 100%;
+  padding: 1.25em 0.5em;
+  -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
+  -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
+   box-sizing:        border-box;   /* Everything else */
+}
+
+// Resets
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: @baseFontSize * 3;
+  line-height: @baseFontSize * 5;
+}
+
+// Main CSS
+
+header {
+  background-color: @linkColor;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: #2ec7e0;
+}
+
+
+.masthead {
+  padding: @baseGrid * 4 0;
+  color: #fff;
+}
+
+.masthead h1 {
+  font-size: 5em;
+  line-height: 1.5em;
+}
+
+.masthead .byline {
+  font-size: 1.75em;
+  margin-bottom: 2em;
+  font-weight: 100;
+  letter-spacing: 0.07em;
+}
+
+.masthead .btn {
+  margin-bottom: @baseGrid;
+}
+
+.marketing {
+  text-align: center;
+}
+
+.marketing h2 {
+  font-size: 2em;
+  font-weight: 300;
+}
+
+.logo {
+  height: @baseGrid * 3;
+  padding: @baseGrid 0;
+  overflow: hidden;
+  float: left;
+
+}
+
+.logo img {
+  height: @baseGrid * 6;
+  position: relative;
+}
+
+.negative .logo img {
+  top: -@baseGrid *3;
+}
+
+.nav {
+  float: right;
+}
+
+// pages
+.doi-page .doi {
+  font-size: @baseFontSize *2;
+  line-height: 1.5em;
+  font-style: italic;
+}
+
+// Forms 
+
+.upload form {
+  max-width: @baseGrid * 40;
+  border: 1px solid #ccc;
+  padding: @baseGrid *3;
+  margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

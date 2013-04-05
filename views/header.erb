@@ -1,27 +1,42 @@
-<div class="row header-row">
-  <div class="span12">
+<!-- <div class="contain">
+  <div class="row header-row">
+	<div class="span12">
 
-    <div class="pull-right">
-      <ul class="nav nav-pills" style="font-size: 1.4em; margin-top: .3em; margin-bottom: .7em;">
+	  <div class="pull-right">
+		<ul class="nav nav-pills" style="font-size: 1.4em; margin-top: .3em; margin-bottom: .7em;">
 	<li><a href="/help/widget"><i class="icon-cogs"></i> Widget</a></li>
-        <li><a href="/help"><i class="icon-question-sign"></i> Help</a></li>
+		  <li><a href="/help"><i class="icon-question-sign"></i> Help</a></li>
 	<% if has_authed? %>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-group"></i> 
-	      <%= auth_info['user'] %>
-	      <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="/activity"><i class="icon-tasks"></i> Activity</a></li>
-              <li><a href="/auth/logout"><i class="icon-signout"></i> Sign out</a></li>
-            </ul>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    
-    <a href="/"><img id="header-logo" src="/img/logo.png"></img></a>
+			<li class="dropdown">
+			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="icon-group"></i> 
+		  <%= auth_info['user'] %>
+		  <b class="caret"></b>
+			  </a>
+			  <ul class="dropdown-menu">
+				<li><a href="/activity"><i class="icon-tasks"></i> Activity</a></li>
+				<li><a href="/auth/logout"><i class="icon-signout"></i> Sign out</a></li>
+			  </ul>
+			</li>
+		  <% end %>
+		</ul>
+	  </div>
+	  
+	  <a href="/"><img id="header-logo" src="/img/logo.png"></img></a>
+	</div>
   </div>
-</div>
-<hr class="slim"></hr>
+</div> -->
+
+<header class="row negative">
+	<div class="container">
+		<div class="logo">
+			<a href="/"><img id="header-logo" src="/img/logo.png"></img></a>
+		</div>
+		<ul class="nav nav-pills">
+			<li><a href="#">How it works</a></li>
+			<li><a href="/help">Support</a></li>
+			<li><a href="#">Sign in</a></li>
+		</ul>		
+	</div>
+
+</header>

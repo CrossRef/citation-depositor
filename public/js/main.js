@@ -104,8 +104,8 @@ $(document).ready(function() {
     $("#btn-next-doi").removeClass('disabled');
     $(".before-upload").hide();
     $("#pick-button").unbind("click");
-    $("#pick-button").html("<center><h3 class=\"text-success\">" + pdfFilename + " uploaded!</h3>");
-    $("#pick-button").removeClass("dashed-well").addClass("success-dashed-well");
+    $("#pick-button").html("<span class=\"text-success\">" + pdfFilename + " uploaded!</span>");
+    $("#pick-button").removeClass("btn").addClass("");
   };
 
   $("#pick-button").click(function(e) {

@@ -1,34 +1,49 @@
 <%= partial :header %>
 
-<div class="container" style="margin-top: 6em;">
-  <div class="row">
-    <div class="span5 offset1">
-      <div class="lead">
-        <ul>
-          <li>Create citation metadata directly from your PDFs.</li>
-  	  <li>Link citations to DOIs automatically.</li>
-  	  <li>Display linked citations on your article landing pages.</li>
-	  <li>Fulfil your CrossRef citation linking obligation!</li>
-        </ul>
-        <p>All without XML!</p>
-      </div>
-    </div>
-    <div class="span4 offset1">
-      <form method="post" action="/auth/login" class="form-horizontal">
-        <legend>Come on in!</legend>
-        <div class="control-group">
-	  <input type="text" class="input-xlarge" placeholder="Username" name="user"/>
+
+
+<div class="jumbotron masthead">
+	<div class="container">
+		<h1>Deposit your citations</h1>
+		<p class="byline">Automatically extract citations directly from .pdf files… <i>without</i> XML.</p>
+		<p>
+		  <a href="#" class="btn btn-primary btn-large">Sign up now</a>
+		</p>
+		<p>Already registered? <a href="#">Log-in</a></p>
 	</div>
-	<div class="control-group">
-	  <input type="password" class="input-xlarge" placeholder="Password" name="pass"/>
-        </div>
-	<input type="hidden" name="to" value="/licence"/>
-	<button class="btn" type="submit">Sign in</button>
-      </form>
-      <p>Don't have a username? You must be a CrossRef member to use our Citation
-         Depositor. Find out 
-	 <a href="http://www.crossref.org/01company/join_crossref.html">how to join</a>.
-      </p>
-    </div>
-  </div>
+</div>
+<div class="container">
+<div class="marketing">
+	<div class="row-fluid">
+		<div class="span4">
+			<h2>Metadata</h2>
+			<p>Create citation metadata directly from your PDFs.</p>
+		</div>
+		<div class="span4">
+			<h2>DOIs</h2>
+			<p>Link citations to DOIs automatically.</p>
+		</div>
+		<div class="span4">
+			<h2>Linked citation[</h2>
+			<p>Display linked citations on your article landing pages.</p>
+		</div>
+  	</div>
+</div>
+
+
+<div class="row">
+	<form method="post" action="/auth/login" class="form-horizontal">
+		<legend>Come on in!</legend>
+		<div class="control-group">
+		<input type="text" class="input-xlarge" placeholder="Username" name="user"/>
+	  </div>
+	  <div class="control-group">
+		<input type="password" class="input-xlarge" placeholder="Password" name="pass"/>
+			</div>
+	  <input type="hidden" name="to" value="/licence"/>
+	  <button class="btn" type="submit">Sign in</button>
+		  </form>
+		  <p>Don't have a username? You must be a CrossRef member to use our Citation
+			 Depositor. Find out 
+	   <a href="http://www.crossref.org/01company/join_crossref.html">how to join</a>.
 </div>

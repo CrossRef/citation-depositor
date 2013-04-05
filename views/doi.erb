@@ -1,31 +1,25 @@
 <%= partial :header %>
 
-<div class="row">
-  <div class="span10 offset1">
-    <%= partial :steps, :position => :doi %>
+<div class="row doi-page">
+	<div class="container">
 
-    <form id="form-doi" method="post">
-      <textarea class="lead full-width" rows="1" id="doi-input" name="doi"
-	     placeholder="Enter a DOI"><%= doi %></textarea>
-      <h3 class="muted">DOI resolves to:</h3>
-      <div class="well" id="search-result">
-      </div>
-      
-      <div id="search-result-info" class="lead hidden">
-        This DOI is maintained by
-        <b><span id="search-result-owner"></span></b>
-        with prefix
-	<b><span id="search-result-prefix"></span></b>.
-        Check these details match your organisation before continuing.
-      </div>
+		<div class="doi">DOI: <%= doi %></div>
+		<h1 id="search-result"></h1>
 
-      <div class="pull-right">
-      	<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
-      </div>
-      <button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
-    </form>
+		<form id="form-doi" method="post">
+			<label>DOI</label>
+			<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
+			<h2>Owner</h2>
+		</form>
+		
+		<span id="search-result-owner" class="owner"></span>
+		<span id="search-result-prefix" class="prefix"></span>
+		<div>
+			<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
+			<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
+		</div>
 
-  </div>
+	</div>
 </div>
 
 

@@ -2,29 +2,54 @@
 
 <script src="https://api.filepicker.io/v1/filepicker.js"></script>
 <script type="text/javascript">
-  filepicker.setKey('AXid9uyt4Tva7JAusFkHBz');
+filepicker.setKey('AXid9uyt4Tva7JAusFkHBz');
 </script>
+<div class="container upload">
+	<div class="row">
+		<h1>Upload a PDF</h1>
+		<form>
+			<label>PDF</label>
+			<div class="btn" id="pick-button">Choose a .pdf</div>
 
-<div class="row">
-  <div class="span10 offset1">
-    <%= partial :steps, :position => :upload %>
-  </div>
+			<label>Title</label> 
+			<input type="text">
+			
+			<label>Abbr.</label>
+			<input type="text">
+
+			<label>Journal DOI</label>
+			<input type="text">
+			
+			<label>Issue DOI </label>
+			<input type="text">
+
+			<label>URL</label>
+			<input type="url">
+
+			<label>ISSN</label>
+			<input type="text">
+
+<!--       <label>Volume</label>
+			<input type="text">
+
+			<label>Issue</label>
+			<input type="text">
+
+			<label>Media type</label>
+			<select>
+				<option>Print</option>
+				<option>Online</option>
+			</select> -->
+			
+			<label>Publication date</label>
+			<input type="date">
+			
+			<div>
+				<button id="btn-next-doi" class="btn btn-success disabled">Next</button>
+			</div>
+
+		</form>
+	</div>
 </div>
 
-<div class="row">
-  <div class="span10 offset1">
-    <div id="pick-button" class="well dashed-well">
-      <center>
-        <h3 class="muted">Click to upload a PDF...</h3>
-      </center>
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="span10 offset1">
-    <div class="pull-right">
-      <button id="btn-next-doi" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
-    </div>
-  </div>
-</div>
