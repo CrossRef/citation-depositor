@@ -2,11 +2,33 @@
 @linkColorNegative: #fff;
 @baseGrid : 12px;
 @baseFontSize : @baseGrid *1.25;
+@fontSerif:  'Open Sans', sans-serif;
+@fontSansSerif : Georgia, Times, "Times New Roman", serif;
+
+// colours
+@lightgrey : #ccc;
+@colorBeigeDark: #9c8c7d;
 
 
 // Bootstrap Overides
 html, body {
   font-size: @baseFontSize;
+  line-height: 1.5em;
+}
+
+// Mixins 
+
+.cite {
+  font-family: @fontSansSerif;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+
+.doi {
+  font-family: @fontSansSerif;
+  font-weight: 400;
+  color: @colorBeigeDark;
+  margin-bottom: 1em;
 }
 
 a {
@@ -52,7 +74,7 @@ ul, li {
 
 h1 {
   font-size: @baseFontSize * 3;
-  line-height: @baseFontSize * 5;
+  line-height: 1.5em;
 }
 
 // Main CSS
@@ -119,10 +141,49 @@ header {
 }
 
 // pages
-.doi-page .doi {
-  font-size: @baseFontSize *2;
-  line-height: 1.5em;
-  font-style: italic;
+
+// DOI page
+.doi-page h1 {
+  font-size: @baseFontSize * 3;
+  .cite;
+}
+
+.doi-page .content {
+  padding: @baseGrid*3 0;
+  .doi {
+    font-size: @baseFontSize *2;
+    line-height: 1.5em;
+    display: block;
+  }
+}
+.cite-list {
+  border-top: @baseGrid/3 solid @lightgrey;
+  padding: @baseGrid 0;
+  margin: @baseGrid 0;
+}
+
+.cite-list li {
+  border-bottom: 1px solid @lightgrey;
+  padding: @baseGrid*2 0;
+}
+
+.cite-list li:first-child {
+    border-top: 1px solid @lightgrey;
+}
+
+.cite-list .doi {
+  display: block;
+}
+
+.cite-title {
+  .cite;
+  display: block;
+  font-size: 1.25em;
+}
+
+// Activity
+.page-activity table {
+  margin: @baseGrid*2 0;
 }
 
 // Forms 
@@ -133,25 +194,6 @@ header {
   padding: @baseGrid *3;
   margin: 0 auto;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

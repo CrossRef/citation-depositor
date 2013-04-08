@@ -1,22 +1,61 @@
 <%= partial :header %>
 
 <div class="row doi-page">
+	
 	<div class="container">
+		<div class="content ">
 
-		<div class="doi">DOI: <%= doi %></div>
-		<h1 id="search-result"></h1>
+			<h1 id="search-result"><a href="#" class="cite-title" id="search-result"></a></h1>
+	    	<span class="doi"			><%= doi %></span>
+	    	<span class="author"		>Josiah Carberry</span> | 
+	    	<span class="publication"	>Journal of Psychoceramics</span> | 
+	    	<span class="issue"			>vol. 5, no. 11</span>
+			
+			<form id="form-doi" class="hidden" method="post">
+				<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
+			</form>
 
-		<form id="form-doi" method="post">
-			<label>DOI</label>
-			<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
-			<h2>Owner</h2>
-		</form>
-		
-		<span id="search-result-owner" class="owner"></span>
-		<span id="search-result-prefix" class="prefix"></span>
-		<div>
-			<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
-			<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
+			<p>Owned by
+			<a href="#" id="search-result-owner" class="owner"></a>
+			</p>
+			<!-- <div>
+				<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
+				<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
+			</div> -->
+		</div>
+
+		<a href="#" class="btn">Embed citations</a>
+	
+		<div class="cite-list">
+			<h2>Citations</h2>
+
+			<ul>
+				<li>	
+				    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+				    	<span class="doi"			>10.5555/12345678</span>
+				    	<span class="author"		>Josiah Carberry</span> | 
+				    	<span class="publication"	>Journal of Psychoceramics</span> | 
+				    	<span class="issue"			>vol. 5, no. 11</span>
+				    	
+			  	</li>
+
+			  	<li>	
+				    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+				    	<span class="doi"			>10.5555/12345678</span>
+				    	<span class="author"		>Josiah Carberry</span> | 
+				    	<span class="publication"	>Journal of Psychoceramics</span> | 
+				    	<span class="issue"			>vol. 5, no. 11</span>
+			  	</li>
+
+			  	<li>	
+				    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+				    	<span class="doi"			>10.5555/12345678</span>
+				    	<span class="author"		>Josiah Carberry</span> | 
+				    	<span class="publication"	>Journal of Psychoceramics</span> | 
+				    	<span class="issue"			>vol. 5, no. 11</span>
+			  	</li>
+
+			</ul>	
 		</div>
 
 	</div>
