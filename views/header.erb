@@ -28,15 +28,29 @@
 </div> -->
 
 <header class="row negative">
-	<div class="container">
+	<div class="container group">
 		<div class="logo">
 			<a href="/"><img id="header-logo" src="/img/logo.png"></img></a>
 		</div>
-		<ul class="nav nav-pills">
+		<ul class="nav group">
+			<li><a href="/activity">Deposits</a></li>
 			<li><a href="#">How it works</a></li>
 			<li><a href="http://depositor.labs.crossref.org/help">Support</a></li>
-			<li><a href="#">Sign in</a></li>
+			
+			<% if has_authed? %>
+				<li class="dropdown">
+				<a href="#"><%= auth_info['user'] %><span class="triangle">&#9660;</span></a>
+					<ul class="visuallyhidden">
+						<li><a href="/auth/logout">Sign out</a></li>
+						<li><a href="/auth/account">Account</a></li>
+					</li>
+				</ul>
+			<% else %>
+				<li><a href="/signin">Sign in</a></li>
+			<% end %>
+
 		</ul>		
 	</div>
 
 </header>
+

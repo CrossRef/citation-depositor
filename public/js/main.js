@@ -1,4 +1,10 @@
 $(document).ready(function() {
+
+  // Navigation
+  $(".dropdown a").click(function() {
+    $(this).parent().children('ul').toggleClass("visuallyhidden");
+  });
+
   function refreshResultList() {
     var val = $("#citation-textarea").text();
     $("#results-table").html('');

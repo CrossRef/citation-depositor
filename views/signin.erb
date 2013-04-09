@@ -1,3 +1,22 @@
 <%= partial :header %>
-
-<h1>Sign in</h1>
+<div class="main page-signin">
+	<div class="row">
+		<div class="container">
+		<h1>Sign in</h1>
+		<form method="post" action="/auth/login" class="form-horizontal">
+			<div class="control-group">
+			<label>Username</label>
+			<input type="text" class="input-xlarge" placeholder="Username" name="user"/>
+		  </div>
+		  <div class="control-group">
+		  	<label>Password</label>
+			<input type="password" class="input-xlarge" placeholder="Password" name="pass"/>
+				</div>
+		  <input type="hidden" name="to" value="/licence"/>
+		  <button class="btn primary" type="submit">Sign in</button>
+			  </form>
+			  <p>You must be a CrossRef member to use CiteDepo. 
+		   <a href="http://www.crossref.org/01company/join_crossref.html">Join CrossRef</a>
+		</div>
+	</div>
+</div>

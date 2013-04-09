@@ -1,76 +1,76 @@
 <%= partial :header %>
+<div class="main">
+<div class="row">
+	<div class="container page-activity">
+
+		<h1>Deposits</h1>
+		<div>
+			<a href="/deposit" class="btn primary">Make a deposit</a>
+		</div>
 
 
-<div class="container page-activity">
+		
+		<table class="table table-striped">
+			<% undeposited.each do |pdf| %>
+			<tr>
+				<!-- Time -->
+				<td class="col1">
+					<span>
+						<span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
+					</span>
+				</td>
+				<!-- Name -->
+				<td class="col2">
+					<!-- Display filename -->
+					<a href="<%= '/deposit/' + pdf['name'] %>">
+						<%= pdf['upload_filename'] %>
+					</a>
+				</td>
+				<td class="col3">
+					<!-- Display DOI if it exists-->
+					<% if pdf['doi'] %>
+					<span class="muted"><%= pdf['doi'] %></span>
+					<% end %>
 
-	<h1>Deposits</h1>
-	<div>
-		<a href="/deposit" class="btn btn-success">Make a deposit</a>
-	</div>
+				</td>
+				<!-- Status -->
+				<td class="col4">
+					<div class="cell-right">
 
-	<div class="row">
-		<div class="span12">
-			<table class="table table-striped">
-				<% undeposited.each do |pdf| %>
-				<tr>
-					<td class="cell-left">
-						<span class="row-time-info">
-							<i class="icon-time"></i> 
-							<span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
+						<!-- Extracted -->
+						<% if [:uploaded, :extracted].include?(pdf['status']) %>
+						<span class="label label-info">
+							<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
 						</span>
-					</td>
-					<!-- Name -->
-					<td>
 
-							<!-- Display filename -->
-							<a href="<%= '/deposit/' + pdf['name'] %>">
-								<%= pdf['upload_filename'] %>
-							</a>
-							
-							<!-- Display DOI if it exists-->
-							<% if pdf['doi'] %>
-								<span class="muted"><%= pdf['doi'] %></span>
-							<% end %>
+						<!-- Depositing -->
+						<% elsif [:extracting, :depositing].include?(pdf['status']) %>
+						<span class="label label-warning">
+							<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+						</span>
 
-					</td>
-					<!-- Status -->
-					<td>
-						<div class="cell-right">
-							<!-- Extracted -->
-							<% if [:uploaded, :extracted].include?(pdf['status']) %>
-							<span class="label label-info">
-								<i class="icon-thumbs-up"></i> 
-								<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-							</span>
-							<!-- Depositing -->
-							<% elsif [:extracting, :depositing].include?(pdf['status']) %>
-							<span class="label label-warning">
-								<i class="icon-cog"></i> 
-								<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-							</span>
+						<!-- Failed -->
+						<% elsif [:extract_failed, :deposit_failed].include?(pdf['status']) %>
+						<span class="label label-important">
+							<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+						</span>
 
-							<!-- Failed -->
-							<% elsif [:extract_failed, :deposit_failed].include?(pdf['status']) %>
-							<span class="label label-important">
-								<i class="icon-thumbs-down"></i> 
-								<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-							</span>
-							<!-- Done -->
-							<% elsif pdf['status'] == :deposited %>
-							<span class="label label-success">
-								<i class="icon-thumbs-up"></i> 
-								<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
-							</span>
-							<% else %>
-							<span class="label"><%= pdf['status'].to_s.gsub('_', ' ').capitalize %></span>
-							<% end %>
-						</div>
-					</td>
-				</tr>
-				<% end %>
-			</table>
+						<!-- Done -->
+						<% elsif pdf['status'] == :deposited %>
+						<span class="label label-success">
+							<%= pdf['status'].to_s.gsub('_', ' ').capitalize %>
+						</span>
+						<% else %>
+						<span class="label"><%= pdf['status'].to_s.gsub('_', ' ').capitalize %></span>
+						<% end %>
+					</div>
+				</td>
+			</tr>
+			<% end %>
+		</table>
 
-
+		<!-- todo: Combine into one table -->
+<!-- 
 			<table class="table table-striped">
 				<% deposited.each do |pdf| %>
 				<tr>
@@ -102,8 +102,9 @@
 					</td>
 				</tr>
 				<% end %>
-			</table>
+			</table> -->
 
 		</div>
 	</div>
+</div>
 </div>

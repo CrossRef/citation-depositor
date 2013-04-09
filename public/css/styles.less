@@ -1,25 +1,137 @@
-@linkColor: #2ec7e0;
-@linkColorNegative: #fff;
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection declarations have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Chrome Frame prompt
+   ========================================================================== */
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+@colorLink: #2ec7e0;
+@colorLinkNegative: #fff;
 @baseGrid : 12px;
 @baseFontSize : @baseGrid *1.25;
-@fontSerif:  'Open Sans', sans-serif;
-@fontSansSerif : Georgia, Times, "Times New Roman", serif;
+@fontSansSerif:  'Open Sans', sans-serif;
+@fontSerif: Georgia, Times, "Times New Roman", serif;
 
 // colours
-@lightgrey : #ccc;
+@colorBlack : #222;
+@colorLightGrey : #ddd;
+@colorLighterGrey: #eee;
 @colorBeigeDark: #9c8c7d;
+@colorBtn: #bbb;
+@colorHotSalmon : #ff4d5c;
+@colourWarmGrey : #c2b2b4;
+@colorBrick : #c27a80;
+@colorPaleBlue : #f5fafa;
+@colorPlum : #573a48;
+
+@colorLinkNegative : #fff;
+@colorBtnNegative : @colorPlum;
+
+@btnPrimary: @colorHotSalmon;
 
 
 // Bootstrap Overides
 html, body {
   font-size: @baseFontSize;
+  font-family: @fontSansSerif;
   line-height: 1.5em;
+  height: 100%;
 }
 
 // Mixins 
 
 .cite {
-  font-family: @fontSansSerif;
+  font-family: @fontSerif;
   font-weight: 400;
   line-height: 1.5em;
 }
@@ -27,20 +139,25 @@ html, body {
 .doi {
   font-family: @fontSansSerif;
   font-weight: 400;
-  color: @colorBeigeDark;
-  margin-bottom: 1em;
+  color: @colorBrick;
+  margin-bottom: @baseGrid;
 }
 
 a {
-  color: @linkColor;
+  color: @colorLink;
 }
 
 .negative{
   a {
-    color: @linkColorNegative;
+    color: @colorLinkNegative;
+  }
+  
+  .btn {
+    background-color: @colorBtnNegative;
   }
 }
 
+// Forms
 select,
 textarea,
 input[type="text"],
@@ -59,10 +176,18 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   width: 100%;
-  padding: 1.25em 0.5em;
+  font-size: 1em;
+  padding: 0.75em 0.5em;
+  margin: 0 0 1em 0;
   -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
   -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
    box-sizing:        border-box;   /* Everything else */
+   border: 1px solid @colorLightGrey;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
 }
 
 // Resets
@@ -72,15 +197,47 @@ ul, li {
   padding: 0;
 }
 
+// Type
+
+h1, h2, h3, h4, h5 {
+  margin: 0 0 0.25em 0;
+
+}
+
 h1 {
   font-size: @baseFontSize * 3;
   line-height: 1.5em;
 }
 
+p {
+  margin: 0 0 1em 0;
+}
+
 // Main CSS
 
+.row {
+  width: 100%;
+  display: block;
+}
+
+.row:before, .row:after {
+display: table;
+line-height: 0;
+content: "";
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.main {
+  padding: @baseGrid*2;
+  height: 100%;
+}
+
 header {
-  background-color: @linkColor;
+  background-color: @colorLink;
 }
 
 .jumbotron {
@@ -107,7 +264,12 @@ header {
 }
 
 .masthead .btn {
-  margin-bottom: @baseGrid;
+  font-size: 1.25em;
+  margin-bottom: @baseGrid*3;
+}
+
+.masthead p a {
+  color: @colorPlum;
 }
 
 .marketing {
@@ -136,11 +298,112 @@ header {
   top: -@baseGrid *3;
 }
 
+// Navigation
 .nav {
+  display: block;
   float: right;
 }
 
+.nav > li {
+  float: left;
+  margin: @baseGrid 0;
+}
+
+.nav > li > a {
+  display: block;
+  margin-right: 1em;
+  padding: 0.5em 0.75em;
+}
+
+.nav > li:last-child > a {
+  margin-right: 0;
+}
+
+.nav a:hover {
+  background-color: darken(@colorLink, 10%);
+
+   -moz-border-radius: 0.25em;
+-webkit-border-radius: 0.25em;
+        border-radius: 0.25em;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown ul {
+  position: absolute;
+  background-color: red;
+  right: 0;
+}
+
+.dropdown li {
+  padding: 0.5em 0.75em;
+}
+
+.triangle {
+  font-size: 0.75em;
+  margin-left: 0.5em;
+}
+
+// tables
+table {
+  border-top: 1px solid @colorLightGrey;
+}
+
+table td {
+  border-bottom: 1px solid @colorLightGrey;
+  padding: 0.5em 0;
+  margin: 0;
+}
+
+// links
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+// buttons
+
+.btn {
+  border: none;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  background: @colorBtn;
+  color: #fff;
+  padding: 0.5em 0.75em;
+
+     -moz-border-radius: 0.25em;
+  -webkit-border-radius: 0.25em;
+          border-radius: 0.25em;
+}
+
+.btn:hover {
+  background-color: lighten(@colorBtn, 5%);
+  cursor: pointer;
+}
+
+.btn.primary {
+  background-color: @btnPrimary;
+}
 // pages
+
+// Sign in
+.page-signin {
+  background-color: @colorLighterGrey;
+}
+
+.page-signin .container{
+  max-width: @baseGrid*36;
+  background-color: #fff;
+  padding: @baseGrid*3;
+}
 
 // DOI page
 .doi-page h1 {
@@ -156,18 +419,23 @@ header {
     display: block;
   }
 }
+
+.doi-page .block-bg {
+    background-color: @colorPaleBlue;
+  }
+
 .cite-list {
   padding: @baseGrid 0;
   margin: @baseGrid 0;
 }
 
 .cite-list li {
-  border-bottom: 1px solid @lightgrey;
+  border-bottom: 1px solid @colorLightGrey;
   padding: @baseGrid*2 0;
 }
 
 .cite-list li:first-child {
-    border-top: 1px solid @lightgrey;
+    border-top: 1px solid @colorLightGrey;
 }
 
 .cite-list .doi {
@@ -183,17 +451,204 @@ header {
 // Activity
 .page-activity table {
   margin: @baseGrid*2 0;
+  width: 100%;
 }
 
-// Forms 
+.page-activity table .col1 {
+  width:20%;
+}
 
-.upload form {
+.page-activity table .col12 {
+  width:40%;
+}
+
+.page-activity table .col3 {
+  width:20%;
+}
+
+.page-activity table .col3 {
+  width:20%;
+}
+
+// Upload
+
+.page-upload {
+  background-color: #eee;
+  padding: @baseGrid*4;
+  height: 100%;
+}
+
+.page-upload form {
   max-width: @baseGrid * 40;
-  border: 1px solid #ccc;
   padding: @baseGrid *3;
   margin: 0 auto;
+  background: #fff;
 }
 
 
 
 
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+// Clearfix
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   Theses examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 144dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow:none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

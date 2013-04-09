@@ -31,5 +31,10 @@ class App < Sinatra::Base
       erb :index
     end
   end
+ 
+  get '/signin' do
+    erb :signin
+  end
+  
 end
 
