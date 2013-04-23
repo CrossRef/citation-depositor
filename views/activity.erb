@@ -24,7 +24,7 @@
 				<!-- Name -->
 				<td class="col2">
 					<!-- Display filename -->
-					<a href="<%= '/deposit/' + pdf['name'] %>">
+					<a href="<%= '/deposit/' + pdf['name'] + '/doi' %>">
 						<%= pdf['upload_filename'] %>
 					</a>
 				</td>
@@ -85,7 +85,7 @@
 					<td>
 						<ul class="inline">
 							<li>
-								<a href="<%= '/deposit/' + pdf['name'] %>">
+								<a href="<%= '/deposit/' + pdf['name'] + '/doi' %>">
 									<i class="icon-link"></i> <%= pdf['upload_filename'] %>
 								</a>
 							</li>
