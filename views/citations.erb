@@ -6,9 +6,8 @@
   }
 </style>
 
-<div class="row">
+<div class="container">
   <div class="span10 offset1">
-    <%= partial :steps, :position => :citations %>
 
     <% if status == :finished %>
       <%= partial :citations_finished, :citations => citations %>

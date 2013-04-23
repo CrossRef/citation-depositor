@@ -11,7 +11,17 @@
 				<a href="/deposit" class="btn primary">Make a deposit</a>
 
 			</div>
-
+			
+			<div>
+				<select>
+					<option>Show all</option>
+					<option>Done</option>
+					<option>Processing</option>
+					<option>Incomplete</option>
+					<option>Failed</option>
+				</select>
+			</div>
+			
 			<table class="table table-striped">
 				<% undeposited.each do |pdf| %>
 				<tr>

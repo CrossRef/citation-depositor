@@ -1,73 +1,50 @@
 <% matched = citations.reject { |c| !c.has_key?('doi') }.count %>
 <% not_matched = citations.count - matched %>
 
-<div class="well">
-  <p>
-    <span class="badge badge-info"><%= citations.count %></span> citations
-    <span class="badge badge-success"><%= matched %></span> matched to DOIs
-    <span class="badge badge-important"><%= not_matched %></span> unmatched
-  </p>
-  <% if !not_matched.zero? %>
-  <p>
-    <i class="icon-warning-sign"></i>
-    Some citations are not matched to DOIs. You should try to match unmatched
-    citations by clicking on them and editing the citation text.
-  </p>
-  <% end %>   
+<div>
+	
+	<% if !not_matched.zero? %>
+		<h1><%= citations.count %>&nbsp;Citations</h1>
+	<% else %>
+	<h1><%= citations.count %>&nbsp;Citations</h1>
+	<% end %>
 </div>
-<table class="table table-bordered table-striped">
-  <% citations.each_index do |i| %>
-    <% citation = citations[i] %>
-    <tr class="citation-row" id="<%= i %>">
-      <td class="citation-number"><%= (i+1) %>.</td>
-      <td>
-	<textarea class="citation-text hide full-width lead" style="font-size: 1.3em;" rows="2">
-        </textarea>
-        <div class="citation-loading-text text-warning hide">
-	  <i class="icon-refresh icon-spin"></i>
-          Matching...
-        </div>
-	<div class="citation-body">
-          <% if citation['removed'] %>
-            <p class="citation-str lead text-error" style="text-decoration: line-through;">
-          <% else %>
-            <p class="citation-str lead">
-          <% end %>
-            <%= citation['text'] %>
-          </p>
-	  <% if citation.has_key?('doi') %>
-	    <span class="text-success citation-doi-text">
-              <i class="icon-ok-circle icon-white"></i>
-              Matched to
-              <strong><%= citation['doi'] %></strong>
-            </span>
-  	  <% else %>
-            <span class="text-error citation-doi-text">
-              <i class="icon-remove-circle icon-white"></i>
-              Not matched to a DOI
-            </span>
-          <% end %>
-          <div class="citation-controls">
-	    <div class="input-append input-prepend">
-	      <button class="btn btn-citation-edit">
-	        <i class="icon-edit"></i>
-	      </button>
-	      <button class="btn btn-citation-add-up">
-	        <i class="icon-double-angle-up"></i>
-	      </button>
-	      <button class="btn btn-citation-add-down">
-	        <i class="icon-double-angle-down"></i>
-	      </button>
-	      <button class="btn btn-citation-unremove <% if !citation['removed'] %>hide<% end %>">
-	        <i class="icon-undo"></i>
-	      </button>
-	      <button class="btn btn-citation-remove <% if citation['removed'] %>hide<% end %>">
-	        <i class="icon-remove"></i>
-	      </button>
-	    </div>
-	  </div>
-        </div>
-      </td>
-    </tr>
-  <% end %>
-</table>
+
+<h2><%= not_matched %> unmatched</h2>
+<!-- Insert unmatches citations -->
+
+<select>
+	<option>Show all</option>
+	<option>Linked</option>
+	<option>Unlinked</option>
+</select>
+<ul class="cite-list">
+	<% citations.each_index do |i| %>
+	<% citation = citations[i] %>
+	<li class="<%= i %>">
+		<a href="#" class="cite"><h2><%= citation['text'] %></h2></a>
+			<% if citation.has_key?('doi') %>
+			<div class="text-success citation-doi-text">
+				<i class="icon-ok-circle icon-white"></i>
+				Matched to
+				<strong><%= citation['doi'] %></strong>
+			</div>
+			<% end %>
+
+			<div class="citation-controls">
+			 <div class="input-append input-prepend">
+				 <a href="#" class="btn-citation-edit">
+					 Edit
+				 </a>
+				 <a href="#" class="btn-citation-unremove <% if !citation['removed'] %>hide<% end %>">
+					 Show
+				 </a>
+				 <a href="#" class="btn-citation-remove <% if citation['removed'] %>hide<% end %>">
+					 Hide
+				 </a>
+			 </div>
+		 </div>
+ 
+ 		<% end %>
+ </li>
+</ul>
