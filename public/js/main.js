@@ -105,8 +105,8 @@ $(document).ready(function() {
     $("#upload-form").attr("action", "/deposit/" + pdfName + "/doi");
     $("#btn-next-doi").removeClass('disabled');
     $(".before-upload").hide();
-    $("#pick-button").unbind("click");
-    $("#pick-button").html("<span class=\"text-success\">" + pdfFilename + " uploaded!</span>");
+    // $("#pick-button").unbind("click");
+    $("#pick-button").html("<a href=\"#\" class=\"text-success\" id=\"pick-button\">" + pdfFilename + "</a>");
     $("#pick-button").removeClass("btn").addClass("");
   };
 
