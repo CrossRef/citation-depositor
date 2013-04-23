@@ -18,5 +18,5 @@ mkdir xmls
 bundle install
 bundle exec rackup -p 9393 -D
 
-QUEUE=* nohup bundle exec rake resque:work &
+QUEUE=extract nohup bundle exec rake resque:work &
 
