@@ -124,7 +124,7 @@ textarea {
 html, body {
   font-size: @baseFontSize;
   font-family: @fontSansSerif;
-  line-height: 1.5em;
+  line-height: 1.5;
   height: 100%;
 }
 
@@ -133,7 +133,7 @@ html, body {
 .cite {
   font-family: @fontSerif;
   font-weight: 400;
-  line-height: 1.5em;
+  line-height: 1.5;
 }
 
 .doi {
@@ -177,7 +177,7 @@ input[type="color"],
 .uneditable-input {
   width: 100%;
   font-size: 1em;
-  padding: 0.75em 0.5em;
+  padding: 0.5em;
   margin: 0 0 1em 0;
   -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
   -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
@@ -195,8 +195,9 @@ form button {
   margin-bottom: @baseGrid;
 }
 
+
 // Resets
-ul, li {
+ul, li, ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -205,13 +206,14 @@ ul, li {
 // Type
 
 h1, h2, h3, h4, h5 {
-  margin: 0 0 0.25em 0;
+  margin: 0 0 0.5em 0;
 
 }
 
 h1 {
   font-size: @baseFontSize * 3;
-  line-height: 1.5em;
+  line-height: 1.25;
+  margin-bottom: 0.25em;
 }
 
 p {
@@ -236,10 +238,30 @@ content: "";
   margin: 0 auto;
 }
 
+.narrow {
+  background-color: @colorLighterGrey;
+}
+
+.narrow .container{
+  max-width: @baseGrid*36;
+  background-color: #fff;
+  padding: @baseGrid*3;
+}
+
 .main {
   padding: @baseGrid*2;
   height: 100%;
 }
+
+section {
+  margin-bottom: @baseGrid*2;
+}
+
+.three-col li {
+ padding: @baseGrid*2 0;
+ border-bottom: 1px solid  @colorLighterGrey;;
+}
+
 
 header {
   background-color: @colorLink;
@@ -257,15 +279,15 @@ header {
 }
 
 .masthead h1 {
-  font-size: 5em;
-  line-height: 1.5em;
+  font-size: 2em;
 }
 
 .masthead .byline {
-  font-size: 1.75em;
+  font-size: 1.25em;
   margin-bottom: 2em;
   font-weight: 100;
   letter-spacing: 0.07em;
+  line-height: 1.35;
 }
 
 .masthead .btn {
@@ -398,17 +420,21 @@ a:hover {
   background-color: @btnPrimary;
 }
 // pages
+// Index
 
-// Sign in
-.page-signin {
-  background-color: @colorLighterGrey;
+.explaination {
+  text-align: center;
+  margin-bottom: @baseGrid*6;
 }
 
-.page-signin .container{
+.explaination li {
+  font-size: 1.5em;
+  padding: @baseGrid*4;
+  font-weight: 300;
   max-width: @baseGrid*36;
-  background-color: #fff;
-  padding: @baseGrid*3;
+  margin:0 auto;
 }
+
 
 // DOI page
 .doi-page h1 {
@@ -420,7 +446,7 @@ a:hover {
   padding: @baseGrid*3 0;
   .doi {
     font-size: @baseFontSize *2;
-    line-height: 1.5em;
+    line-height: 1.5;
     display: block;
   }
 }
@@ -579,6 +605,25 @@ a:hover {
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+
+    input[type="text"].search {
+      width:24em;
+      float:right;
+    }
+
+    .masthead h1 {
+      font-size: 5em;
+    }
+
+    .masthead .byline {
+      font-size: 1.25em;
+    }
+
+    .three-col li {
+      width:33.3%;
+      float: left;
+      border: none;
+    }
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),

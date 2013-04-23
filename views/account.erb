@@ -1,19 +1,22 @@
 <%= partial :header %>
-<div class="row">
-	<div class="container">
-		<h1>Account</h1>
-		<h2>Settings</h2>
-		<form>
-			<label>Organisation name</label>
-			<input type="text" placeholder="Your organisation" value="Organisation name">
+<div class=" main narrow">
+	<div class="row">
+		<div class="container ">
+			<h1>Account</h1>
+			<section>
+				<form>
+					<label>Organisation name</label>
+					<input type="text" placeholder="Your organisation" value="<%= auth_info['user'] %>">
+					<a href="#">Change password</a>
+				</form>
+			</section>
+			
+			<section>
+				<h2>JS code for your CMS</h2>
+				<textarea>" value="<script>js here</script>"></textarea>
+				<a href="#" class="button">Copy to clipboard</a>
+			</section>
 
-			<a href="#">Change password</a>
-
-		</form>
-
-		<h2>JS code for your CMS</h2>
-		<textarea>" value="<script>js here</script>"></textarea>
-		<a href="#" class="button">Copy to clipboard</a>
-
+		</div>
 	</div>
 </div>
