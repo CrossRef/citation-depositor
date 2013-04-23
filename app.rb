@@ -35,6 +35,10 @@ class App < Sinatra::Base
   get '/signin' do
     erb :signin
   end
+
+  get '/auth/account' do
+    erb :account
+  end
   
 end
 

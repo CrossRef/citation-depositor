@@ -33,18 +33,19 @@
 			<a href="/"><img id="header-logo" src="/img/logo.png"></img></a>
 		</div>
 		<ul class="nav group">
+			<% if has_authed? %>
 			<li><a href="/activity">Deposits</a></li>
 			<li><a href="#">How it works</a></li>
 			<li><a href="http://depositor.labs.crossref.org/help">Support</a></li>
 			
-			<% if has_authed? %>
+			
 				<li class="dropdown">
 				<a href="#"><%= auth_info['user'] %><span class="triangle">&#9660;</span></a>
 					<ul class="visuallyhidden">
 						<li><a href="/auth/logout">Sign out</a></li>
 						<li><a href="/auth/account">Account</a></li>
-					</li>
-				</ul>
+					</ul>
+				</li>
 			<% else %>
 				<li><a href="/signin">Sign in</a></li>
 			<% end %>
