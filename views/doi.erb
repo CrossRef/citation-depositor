@@ -4,53 +4,68 @@
 		
 		<div class="container">
 			<div class="content ">
-			      <%= status %>
-                              <% if status == 'doi_missing' %>
-                                <p>Add a DOI</p>
-                              <% else %>
-			        <h1>
-                                  <%= info['title'] %>
-                                </h1>
-                                <h2>Published
-                                  <%= info['day'] %> <%= info['month'] %> <%= info['year'] %>
-                                </h2>
-                                <p>Authors
-                                  <ul>
-                                    <% info['author'].each do |author| %>
-                                      <li><%= author['name'] %></li>
-                                    <% end %>
-                                  </ul>
-                                </p>
-                                <p>Type <%= info['type'] %></p>
-                                <p>Volume <%= info['journal']['volume'] %></p>
-                                <p>Issue <%= info['journal']['issue'] %></p>
-				<p>First page <%= info['journal']['first_page'] %></p>
-                                <p>Last page <%= info['journal']['last_page'] %></p>
-                                <p>Journal <%= info['journal']['name'] %></p>
-				<p>ISSNs
-				  <ul>
-				    <% info['journal']['identifier'].each do |id| %>
-                                      <li><%= id['id'] %></li>
-                                    <% end %>
-                                  </ul>
-                                </p>
-                              <% end %>
-                              <% if status != 'owner_missing' %>
-                                <p><%= owner_name %> <%= owner_prefix %></p>
-                              <% end %>
-		    	<span class="doi"			><%= doi %></span>
-		    	<span class="author"		>Josiah Carberry</span> | 
-		    	<span class="publication"	>Journal of Psychoceramics</span> | 
-		    	<span class="issue"			>vol. 5, no. 11</span> |
-		    	<span class="updated"		>two days ago</span>
-				
+				<!-- No DOI -->
+				<% if status == 'doi_missing' %>
+					<form method="post" action="doi">
+						<label>Add a DOI</label>
+						<input type="text" name="article_doi">
+						<input type="submit">
+
+						<p>Not got a DOI? <a href="http://www.crossref.org/webDeposit/">Get one now</a></p>
+					</form>
+				<!-- Has DOI -->
+				<% else %>
+						<!-- Journal -->
+						<span class="journal">Journal <%= info['journal']['name'] %></span>
+						
+						<!-- Title -->
+						<h1><%= info['title'] %></h1>
+
+						<!-- Author -->
+						<% if info['author'].count < 6%>
+							<div class="author">
+								&mdash;&nbsp;<%= info['author'].map {|a| a['name']}.join(', ') %>
+							</div>
+						<% end %>
+
+						<!-- Meta -->
+						<div class="meta">
+							<!-- issue -->
+							<div class="issue">
+								<span>Vol. <%= info['journal']['volume'] %></span>&#44;
+								<span>Issue <%= info['journal']['issue'] %></span>&#44;
+								<span>Pages <%= info['journal']['first_page'] %>&ndash;<%= info['journal']['last_page'] %></span>
+							</div>
+
+							<!-- Published -->
+							<span class="published"><em>Published:&nbsp;</em><%= info['day'] %> <%= info['month'] %> <%= info['year'] %></span>
+							
+					
+							<!-- Owner -->
+							<% if status != 'owner_missing' %>
+								<div> <em>Owner:</em>&nbsp;<%= owner_name %></div>
+							<% end %>
+							
+
+							<!-- DOI and ISSN -->
+							<div>
+						    	<span><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></span>
+						    	&nbsp;&#124;&nbsp;
+						    	<span><em>ISSN:</em>&nbsp;<%= info['journal']['identifier'].map {|a| a['id']}.join(', ')%></span>
+						    </div>
+					    </div>
+						<!-- Multiple authors -->
+						<% if info['author'].count > 5%>
+							<div class="author-list">
+								<h2>Authors</h2>
+								<%= info['author'].map {|a| a['name']}.join(', ') %>
+							</div>
+						<% end %>
+		    	<% end %>				
 				<form id="form-doi" class="hidden" method="post">
 					<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
 				</form>
 
-				<p>Owned by
-				<a href="#" id="search-result-owner" class="owner"></a>
-				</p>
 				<!-- <div>
 					<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
 					<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>

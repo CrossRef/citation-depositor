@@ -104,6 +104,7 @@ textarea {
 
 // colours
 @colorBlack : #222;
+@colorMidGrey : #999;
 @colorLightGrey : #ddd;
 @colorLighterGrey: #eee;
 @colorBeigeDark: #9c8c7d;
@@ -134,13 +135,6 @@ html, body {
   font-family: @fontSerif;
   font-weight: 400;
   line-height: 1.5;
-}
-
-.doi {
-  font-family: @fontSansSerif;
-  font-weight: 400;
-  color: @colorBrick;
-  margin-bottom: @baseGrid;
 }
 
 a {
@@ -206,7 +200,7 @@ ul, li, ol {
 // Type
 
 h1, h2, h3, h4, h5 {
-  margin: 0 0 0.5em 0;
+  margin: 0 0 0.25em 0;
 
 }
 
@@ -214,6 +208,11 @@ h1 {
   font-size: @baseFontSize * 3;
   line-height: 1.25;
   margin-bottom: 0.25em;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 p {
@@ -444,16 +443,15 @@ a:hover {
 
 .doi-page .content {
   padding: @baseGrid*3 0;
-  .doi {
-    font-size: @baseFontSize *2;
-    line-height: 1.5;
-    display: block;
-  }
 }
 
 .doi-page .block-bg {
     background-color: @colorPaleBlue;
   }
+
+.doi-page .meta{
+  margin-bottom: @baseGrid;
+}
 
 .cite-list {
   padding: @baseGrid 0;
@@ -478,6 +476,26 @@ a:hover {
   display: block;
   font-size: 1.25em;
 }
+
+.doi-page .author {
+  font-size: 1.5em;
+  margin-bottom: @baseGrid*2;
+}
+
+.doi-page .journal {
+  font-size: 1.25em;
+  color: @colorMidGrey;
+}
+
+.doi-page .issue {
+  font-size: 1.5em;
+  font-family: @fontSerif;
+}
+
+.doi-page .author-list h2 {
+  font-size: 1em;
+}
+
 
 // Activity
 .page-activity table {
