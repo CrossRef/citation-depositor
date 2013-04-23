@@ -5,7 +5,32 @@
 		<div class="container">
 			<div class="content ">
 
-				<h1 id="search-result"><a href="#" class="cite-title" id="search-result"></a></h1>
+			        <h1>
+                                  <%= info['title'] %>
+                                </h1>
+                                <h2>Published
+                                  <%= info['day'] %> <%= info['month'] %> <%= info['year'] %>
+                                </h2>
+                                <p>Authors
+                                  <ul>
+                                    <% info['author'].each do |author| %>
+                                      <li><%= author['name'] %></li>
+                                    <% end %>
+                                  </ul>
+                                </p>
+                                <p>Type <%= info['type'] %></p>
+                                <p>Volume <%= info['volume'] %></p>
+                                <p>Issue <%= info['issue'] %></p>
+				<p>First page <%= info['first_page'] %></p>
+                                <p>Last page <%= info['last_page'] %></p>
+                                <p>Journal <%= info['journal']['name'] %></p>
+				<p>ISSNs
+				  <ul>
+				    <% info['journal']['identifier'].each do |id| %>
+                                      <li><%= id['id'] %></li>
+                                    <% end %>
+                                  </ul>
+                                </p>
 		    	<span class="doi"			><%= doi %></span>
 		    	<span class="author"		>Josiah Carberry</span> | 
 		    	<span class="publication"	>Journal of Psychoceramics</span> | 

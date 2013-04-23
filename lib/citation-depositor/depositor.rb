@@ -53,12 +53,15 @@ module CitationDepositor
 
       def fetch_doi_info doi
         fetch_method({}) do
-          resp = settings.search_service.get('/dois', :q => doi)
+          resp = settings.doi_data_service.get do |req|
+            req.url "/#{doi}"
+            req.headers['Content-Type'] = 'application/bibjson+json'
+          end
+
           result = {}
 
           if resp.status == 200
-            doi_json = JSON.parse(resp.body)
-            result = doi_json.first unless doi_json.count.zero?
+            result = JSON.parse(resp.body)
           end
 
           result
@@ -189,6 +192,22 @@ module CitationDepositor
 
         if pdf['doi']
           locals[:doi] = pdf['doi']
+          
+          owner_prefix = fetch_owner_prefix(pdf['doi'])
+          owner_name = fetch_owner_name(owner_prefix)
+          doi_info = fetch_doi_info(pdf['doi'])
+
+          if owner_name.empty?
+            json({:status => 'error'})
+          else
+            doc = {
+              :status => 'ok',
+              :owner_name => owner_name,
+              :owner_prefix => owner_prefix,
+              :info => doi_info
+            }
+            locals = locals.merge(doc)
+          end
         else
           locals[:doi] = ''
         end
