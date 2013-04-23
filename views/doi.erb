@@ -4,7 +4,10 @@
 		
 		<div class="container">
 			<div class="content ">
-                              <% if info %>
+			      <%= status %>
+                              <% if status == 'doi_missing' %>
+                                <p>Add a DOI</p>
+                              <% else %>
 			        <h1>
                                   <%= info['title'] %>
                                 </h1>
@@ -31,6 +34,9 @@
                                     <% end %>
                                   </ul>
                                 </p>
+                              <% end %>
+                              <% if status != 'owner_missing' %>
+                                <p><%= owner_name %> <%= owner_prefix %></p>
                               <% end %>
 		    	<span class="doi"			><%= doi %></span>
 		    	<span class="author"		>Josiah Carberry</span> | 

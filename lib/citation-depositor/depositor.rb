@@ -199,19 +199,21 @@ module CitationDepositor
           owner_name = fetch_owner_name(owner_prefix)
           doi_info = fetch_doi_info(pdf['doi'])
 
+          locals[:info] = doi_info
+
           if owner_name.empty?
-            json({:status => 'error'})
+            json({:status => 'owner_missing'})
           else
             doc = {
               :status => 'ok',
               :owner_name => owner_name,
               :owner_prefix => owner_prefix,
-              :info => doi_info
             }
             locals = locals.merge(doc)
           end
         else
           locals[:doi] = ''
+          locals[:status] = 'doi_missing'
         end
 
         erb :doi, :locals => locals
@@ -224,9 +226,9 @@ module CitationDepositor
         if pdf.nil?
           redirect '/deposit'
         else
-          pdf[:doi] = params[:doi]
+          pdf[:doi] = params[:article_doi]
           pdfs.save pdf
-          redirect("/deposit/#{params[:name]}/citations")
+          redirect("/deposit/#{params[:name]}/doi")
         end
       end
 

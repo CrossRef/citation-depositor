@@ -103,7 +103,7 @@ $(document).ready(function() {
 
   function afterFileUpload(pdfFilename, pdfName) {
     $("#btn-next-doi").click(function(e) {
-      window.location.href = "/deposit/" + pdfName + "/doi";
+      $("#upload-form").attr("action", "/deposit/" + pdfName + "/doi")
       e.preventDefault();
       return false;
     });
