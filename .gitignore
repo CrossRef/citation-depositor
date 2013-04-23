@@ -2,3 +2,4 @@ vendor
 rack.pid
 pdfs
 xmls
+.vagrant
