@@ -3,3 +3,5 @@ rack.pid
 pdfs
 xmls
 .vagrant
+log
+tmp

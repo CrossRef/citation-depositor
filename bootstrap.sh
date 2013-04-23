@@ -14,9 +14,9 @@ cd /vagrant
 
 mkdir pdfs
 mkdir xmls
+mkdir log
 
 bundle install
+bundle exec resque-pool --daemon
 bundle exec rackup -p 9393 -D
-
-QUEUE=extract nohup bundle exec rake resque:work &
 
