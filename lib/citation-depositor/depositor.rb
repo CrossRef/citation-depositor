@@ -120,6 +120,7 @@ module CitationDepositor
       app.post '/deposit', :auth => true, :licence => true do
         pdf_url = params[:url]
         pdf_upload_filename = params[:filename]
+        article_doi = params[:article_doi]
         pdf_name = SecureRandom.uuid
         pdf_filename = File.join(settings.pdf_repo_path, pdf_name)
         xml_filename = File.join(settings.xml_repo_path, pdf_name)
@@ -133,7 +134,8 @@ module CitationDepositor
           :xml_filename => xml_filename,
           :upload_filename => pdf_upload_filename,
           :status => :uploaded,
-          :status_at => now
+          :status_at => now,
+          :doi => article_doi
         }
 
         Config.collection('pdfs').insert(doc)

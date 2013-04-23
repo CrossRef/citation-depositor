@@ -4,7 +4,7 @@
 		
 		<div class="container">
 			<div class="content ">
-
+                              <% if info %>
 			        <h1>
                                   <%= info['title'] %>
                                 </h1>
@@ -31,6 +31,7 @@
                                     <% end %>
                                   </ul>
                                 </p>
+                              <% end %>
 		    	<span class="doi"			><%= doi %></span>
 		    	<span class="author"		>Josiah Carberry</span> | 
 		    	<span class="publication"	>Journal of Psychoceramics</span> | 
