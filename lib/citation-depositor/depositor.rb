@@ -196,14 +196,14 @@ module CitationDepositor
 
         puts pdf['doi']
 
-        if pdf['doi']
+        doi_info = fetch_doi_info(pdf['doi'])
+
+        if pdf['doi'] && !pdf['doi'].empty? && doi_info
           locals[:doi] = pdf['doi']
-          
+          locals[:info] = doi_info 
+         
           owner_prefix = fetch_owner_prefix(pdf['doi'])
           owner_name = fetch_owner_name(owner_prefix)
-          doi_info = fetch_doi_info(pdf['doi'])
-
-          locals[:info] = doi_info
 
           if owner_name.empty?
             json({:status => 'owner_missing'})
