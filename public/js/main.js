@@ -102,11 +102,7 @@ $(document).ready(function() {
   });
 
   function afterFileUpload(pdfFilename, pdfName) {
-    $("#btn-next-doi").click(function(e) {
-      $("#upload-form").attr("action", "/deposit/" + pdfName + "/doi")
-      e.preventDefault();
-      return false;
-    });
+    $("#upload-form").attr("action", "/deposit/" + pdfName + "/doi");
     $("#btn-next-doi").removeClass('disabled');
     $(".before-upload").hide();
     $("#pick-button").unbind("click");

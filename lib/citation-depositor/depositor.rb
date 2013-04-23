@@ -55,7 +55,7 @@ module CitationDepositor
         fetch_method({}) do
           resp = settings.doi_data_service.get do |req|
             req.url "/#{doi}"
-            req.headers['Content-Type'] = 'application/bibjson+json'
+            req.headers['Accept'] = 'application/bibjson+json'
           end
 
           result = {}
@@ -145,6 +145,7 @@ module CitationDepositor
       end
 
       app.get '/deposit/:name', :auth => true, :licence => true do
+        puts "Hit /deposit/name"
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
@@ -182,6 +183,7 @@ module CitationDepositor
       end
 
       app.get '/deposit/:name/doi', :auth => true, :licence => true do
+        puts "Hit /deposit/name/doi"
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
@@ -191,6 +193,8 @@ module CitationDepositor
         if extraction_job && extraction_job['doi']
           locals[:extracted_doi] = extraction_job['doi']
         end
+
+        puts pdf['doi']
 
         if pdf['doi']
           locals[:doi] = pdf['doi']
@@ -220,19 +224,21 @@ module CitationDepositor
       end
 
       app.post '/deposit/:name/doi', :auth => true, :licence => true do
+        puts "setting doi for #{params[:name]} to #{params['article_doi']}"
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => params[:name]})
 
         if pdf.nil?
           redirect '/deposit'
         else
-          pdf[:doi] = params[:article_doi]
+          pdf[:doi] = params['article_doi']
           pdfs.save pdf
           redirect("/deposit/#{params[:name]}/doi")
         end
       end
 
       app.get '/deposit/:name/citations', :auth => true, :licence => true do
+        puts "Hit /deposit/name/citations"
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
