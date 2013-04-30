@@ -545,25 +545,49 @@ a:hover {
 
 
 // Activity
-.page-activity table {
-	margin: @baseGrid*2 0;
-	width: 100%;
+
+input[type="text"].search {
+	margin-top: @baseGrid*2;
 }
 
-.page-activity table .col1 {
-	width:20%;
+.page-activity select {
+	margin:@baseGrid 0;
 }
 
-.page-activity table .col12 {
-	width:40%;
+.page-activity .select-container {
+	clear:both;
 }
 
-.page-activity table .col3 {
-	width:20%;
+.deposit-list {
+	width:100%;
+	clear:both;
 }
 
-.page-activity table .col3 {
-	width:20%;
+.deposit-list	 {
+	border-top: 1px solid #eee;
+}
+
+.deposit-list li {
+	padding:@baseGrid*1 0;
+	border-bottom: 1px solid #eee;
+	position:relative;
+}
+
+.deposit-list .status span {
+	background-color: #ccc;
+	color:#fff;
+	font-size: 0.75em;
+	padding:0.25em 0.5em;
+	text-transform: uppercase;
+	display:inline-block;
+	float:right;
+
+	border-radius: 0.25em;
+	/* Prevent background color leak outs */
+	-webkit-background-clip: padding-box; 
+	-moz-background-clip:    padding; 
+	background-clip:         padding-box;
+
 }
 
 // Upload
@@ -656,6 +680,7 @@ a:hover {
 }
 
 // Clearfix
+
 .group:after {
 	content: "";
 	display: table;
@@ -674,6 +699,7 @@ a:hover {
 		input[type="text"].search {
 			width:24em;
 			float:right;
+			margin-top:0;
 		}
 
 		.masthead h1 {
@@ -698,6 +724,12 @@ a:hover {
 
 		.explaination li:after {
 			display:none;
+		}
+
+		.page-activity select {
+			width:auto;
+			display:block;
+			float:right;
 		}
 
 }
