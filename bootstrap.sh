@@ -16,6 +16,10 @@ mkdir pdfs
 mkdir xmls
 mkdir log
 
+mkdir /tmp/db-dump
+tar xf /vagrant/test-data/db-dump.tar -C /tmp/db-dump
+mongorestore /tmp/db-dump/depositor-dump 
+
 bundle install
 bundle exec resque-pool --daemon
 bundle exec rackup -p 9393 -D
