@@ -11,8 +11,8 @@ $(document).ready(function() {
     $.get("/dois/search?q=" + encodeURIComponent(val)).done(function(data) {
       $.each(data, function(i, result) {
 	var row = $("<tr>").addClass("result-row");
-	row.append($("<td>").addClass("result-doi").text(result["doi"]));
 	row.append($("<td>").addClass("result-text").html(result["fullCitation"]));
+  row.append($("<td>").addClass("result-doi").text(result["doi"]));
 	$("#results-table").append(row);
       });
       addResultRowClickHandlers();

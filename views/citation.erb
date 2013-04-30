@@ -1,43 +1,40 @@
 <%= partial :header %>
+<div class="main">
+	<div class="container">
+		<div class="row ">
+			<div class-"breadcrumb">
+				<a href="#">Breadcrumb</a>
+				&rsaquo;
+			</div>
+			<h1>Edit citation</h1>
 
-<div class="row">
-  <div class="span10 offset1">
-    <textarea id="citation-textarea" name="text" class="lead full-width" rows="4"><%= citation['text'] %></textarea>
-  </div>
-</div>
+			<div id="citation-doi-info">
+				<% if citation.has_key?('doi') %>
 
-<div class="row">
-  <div id="citation-doi-info" class="span7 offset1">
-    <% if citation.has_key?('doi') %>
-      <div class="alert alert-success">
-        Matched to <%= citation['doi'] %>
-      </div>
-    <% else %>
-      <div class="alert alert-error">
-        Not matched to a DOI
-      </div>
-    <% end %>
-  </div>
-  <div class="span3">
-    <div class="pull-right">
-      <form id="change-citation-form" method="post">
-        <input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>">
-        </input>
-        <input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>">
-        </input>
-	<div class="btn-toolbar" style="margin-top: 4px;">
-	  <a class="btn" href="/deposit/<%= name %>/citations">Forget changes</a>
-	  <button class="btn btn-success" type="submit">Save</button>
+					Matched to <%= citation['doi'] %>
+				<% else %>
+						Not matched to a DOI
+				<% end %>
+			</div>
+			
+			<div class="span10 offset1">
+				<textarea id="citation-textarea" name="text" class="lead full-width" rows="4"><%= citation['text'] %></textarea>
+			</div>
+
+			<div>
+				<form id="change-citation-form" method="post">
+					<input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>"></input>
+					<input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>"></input>
+				</form>
+				<button class="btn confirm" type="submit">Save</button>
+				<a href="/deposit/<%= name %>/citations">Forget changes</a>
+			</div>
+
+		</div>	
+
+		<h2>Suggestions</h2>
+		<table class="table" id="results-table">
+		</table>
+
 	</div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span10 offset1">
-    <h3 class="muted">Suggestions</h3>
-    <table class="table" id="results-table">
-    </table>
-  </div>
-</div>
+<div>

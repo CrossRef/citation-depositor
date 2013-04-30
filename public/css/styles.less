@@ -114,6 +114,7 @@ textarea {
 @colorBrick : #c27a80;
 @colorPaleBlue : #f5fafa;
 @colorPlum : #573a48;
+@colorGreen : #A4BD6D;
 
 @colorLinkNegative : #fff;
 @colorBtnNegative : @colorPlum;
@@ -213,7 +214,6 @@ h1 {
 h2 {
 	font-size: 1.5em;
 	font-weight: 600;
-	color: red;
 }
 
 p {
@@ -249,7 +249,7 @@ content: "";
 }
 
 .main {
-	padding: @baseGrid*2;
+	padding: @baseGrid*2 0;
 	height: 100%;
 }
 
@@ -428,6 +428,10 @@ a:hover {
 .btn.primary {
 	background-color: @btnPrimary;
 }
+
+.btn.confirm {
+	background-color: @colorGreen;
+}
 // pages
 // Index
 
@@ -501,21 +505,33 @@ a:hover {
 }
 
 .cite-list {
-	padding: @baseGrid 0;
-	margin: @baseGrid 0;
+	margin: @baseGrid*2 0;
 }
 
 .cite-list li {
 	border-bottom: 1px solid @colorLightGrey;
-	padding: @baseGrid*2 0;
+	padding: @baseGrid*3 @baseGrid;
+	position:relative;
 }
 
 .cite-list li:first-child {
 		border-top: 1px solid @colorLightGrey;
 }
 
+.cite-list .cite {
+	font-size: 1.25em;
+}
+
 .cite-list .doi {
 	display: block;
+}
+
+.cite-list .removed *{
+	color:#ddd;
+}
+
+.cite-list .removed .citation-controls a {
+	color:@colorLink
 }
 
 .cite-title {
@@ -543,6 +559,20 @@ a:hover {
 	font-size: 1em;
 }
 
+// DOI Edit
+.result-row {
+	transition: background-color 0.1s ease-in-out;
+}
+
+.result-row:hover {
+	background-color: #fcfccc;
+	cursor: pointer;
+}
+.citation-controls {
+	position: absolute;
+	top: @baseGrid;
+	right: 0;
+}
 
 // Activity
 
@@ -550,12 +580,12 @@ input[type="text"].search {
 	margin-top: @baseGrid*2;
 }
 
-.page-activity select {
-	margin:@baseGrid 0;
+.filter {
+	clear:both;
 }
 
-.page-activity .select-container {
-	clear:both;
+.filter select {
+	margin:@baseGrid 0;
 }
 
 .deposit-list {
@@ -636,7 +666,8 @@ input[type="text"].search {
  * Hide from both screenreaders and browsers: h5bp.com/u
  */
 
-.hidden {
+.hidden,
+.hide {
 		display: none !important;
 		visibility: hidden;
 }
@@ -726,7 +757,7 @@ input[type="text"].search {
 			display:none;
 		}
 
-		.page-activity select {
+		.filter select {
 			width:auto;
 			display:block;
 			float:right;
