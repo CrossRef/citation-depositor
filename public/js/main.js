@@ -210,6 +210,7 @@ $(document).ready(function() {
     $('.btn-citation-add-up').unbind('click');
     $('.btn-citation-add-down').unbind('click');
 
+
     $('.citation-row').hover(function(e) {
       $(this).find('.citation-controls').show();
       e.preventDefault();

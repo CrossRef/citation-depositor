@@ -7,9 +7,10 @@
 				<!-- No DOI -->
 				<% if status == 'doi_missing' %>
 					<form method="post" action="doi">
+						<h1>PDF name here</h1>
 						<label>Add a DOI</label>
 						<input type="text" name="article_doi">
-						<input type="submit">
+						<input type="submit" class="btn primary">
 
 						<p>Not got a DOI? <a href="http://www.crossref.org/webDeposit/">Get one now</a></p>
 					</form>

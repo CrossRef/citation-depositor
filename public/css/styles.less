@@ -191,6 +191,12 @@ form button {
 }
 
 
+input[type="text"].search {
+	background: url(../img/mag.png)no-repeat 0.5em 0.5em;
+	background-size: 1.5em;
+	padding-left: 2.5em;
+}
+
 // Resets
 ul, li, ol {
 	list-style: none;
@@ -369,12 +375,20 @@ header {
 
 .dropdown ul {
 	position: absolute;
-	background-color: red;
+	background-color: @colorBlack;
 	right: 0;
+	margin-top: @baseGrid;
 }
 
-.dropdown li {
-	padding: 0.5em 0.75em;
+.dropdown li a {
+	display:block;
+	padding: 0.5em 0.5em 0.5em 4em;
+	border-top:1px solid @colorLightGrey;
+
+}
+
+.dropdown li:first-child a {
+	border:none;
 }
 
 .triangle {
@@ -440,7 +454,7 @@ a:hover {
 	margin-bottom: @baseGrid*6;
 	border-top:1px dotted #ccc;
 	// background-color: #eee;
-	padding:@baseGrid*2;
+	padding:@baseGrid*2 0;
 }
 
 .explaination h2 {
@@ -454,11 +468,11 @@ a:hover {
 }
 
 .explaination li h3 {
-	font-size: 1.2em;
+	font-size: 1em;
 	font-weight: 600;
 	max-width: @baseGrid*36;
 	margin:0 auto;
-	padding: @baseGrid;
+	padding: @baseGrid/2;
 	background-color: #fff;
 }
 
