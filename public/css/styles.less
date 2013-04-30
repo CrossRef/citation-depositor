@@ -7,22 +7,22 @@
  */
 
 /* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
+	 Base styles: opinionated defaults
+	 ========================================================================== */
 
 html,
 button,
 input,
 select,
 textarea {
-    color: #222;
+		color: #222;
 }
 
 body {
-    font-size: 1em;
-    line-height: 1.4;
-    margin: 0;
-    padding: 0;
+		font-size: 1em;
+		line-height: 1.4;
+		margin: 0;
+		padding: 0;
 }
 
 /*
@@ -32,13 +32,13 @@ body {
  */
 
 ::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
+		background: #b3d4fc;
+		text-shadow: none;
 }
 
 ::selection {
-    background: #b3d4fc;
-    text-shadow: none;
+		background: #b3d4fc;
+		text-shadow: none;
 }
 
 /*
@@ -46,12 +46,12 @@ body {
  */
 
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+		display: block;
+		height: 1px;
+		border: 0;
+		border-top: 1px solid #ccc;
+		margin: 1em 0;
+		padding: 0;
 }
 
 /*
@@ -59,7 +59,7 @@ hr {
  */
 
 img {
-    vertical-align: middle;
+		vertical-align: middle;
 }
 
 /*
@@ -67,9 +67,9 @@ img {
  */
 
 fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
+		border: 0;
+		margin: 0;
+		padding: 0;
 }
 
 /*
@@ -77,23 +77,23 @@ fieldset {
  */
 
 textarea {
-    resize: vertical;
+		resize: vertical;
 }
 
 /* ==========================================================================
-   Chrome Frame prompt
-   ========================================================================== */
+	 Chrome Frame prompt
+	 ========================================================================== */
 
 .chromeframe {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+		margin: 0.2em 0;
+		background: #ccc;
+		color: #000;
+		padding: 0.2em 0;
 }
 
 /* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+	 Author's custom styles
+	 ========================================================================== */
 
 @colorLink: #2ec7e0;
 @colorLinkNegative: #fff;
@@ -123,32 +123,32 @@ textarea {
 
 // Bootstrap Overides
 html, body {
-  font-size: @baseFontSize;
-  font-family: @fontSansSerif;
-  line-height: 1.5;
-  height: 100%;
+	font-size: @baseFontSize;
+	font-family: @fontSansSerif;
+	line-height: 1.5;
+	height: 100%;
 }
 
 // Mixins 
 
 .cite {
-  font-family: @fontSerif;
-  font-weight: 300;
-  line-height: 1.5;
+	font-family: @fontSerif;
+	font-weight: 300;
+	line-height: 1.5;
 }
 
 a {
-  color: @colorLink;
+	color: @colorLink;
 }
 
 .negative{
-  a {
-    color: @colorLinkNegative;
-  }
-  
-  .btn {
-    background-color: @colorBtnNegative;
-  }
+	a {
+		color: @colorLinkNegative;
+	}
+	
+	.btn {
+		background-color: @colorBtnNegative;
+	}
 }
 
 // Forms
@@ -169,61 +169,62 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-  width: 100%;
-  font-size: 1em;
-  padding: 0.5em;
-  margin: 0 0 1em 0;
-  -moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
-  -webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
-   box-sizing:        border-box;   /* Everything else */
-   border: 1px solid @colorLightGrey;
+	width: 100%;
+	font-size: 1em;
+	padding: 0.5em;
+	margin: 0 0 1em 0;
+	-moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
+	-webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
+	 box-sizing:        border-box;   /* Everything else */
+	 border: 1px solid @colorLightGrey;
 }
 
 label {
-  display: block;
-  margin-bottom: 0.5em;
+	display: block;
+	margin-bottom: 0.5em;
 }
 
 form .btn,
 form button {
-  margin-bottom: @baseGrid;
+	margin-bottom: @baseGrid;
 }
 
 
 // Resets
 ul, li, ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 // Type
 
 h1, h2, h3, h4, h5 {
-  margin: 0 0 0.25em 0;
+	margin: 0 0 0.25em 0;
 
 }
 
 h1 {
-  font-size: @baseFontSize * 3;
-  line-height: 1.25;
-  margin-bottom: 0.25em;
+	font-size: @baseFontSize * 3;
+	line-height: 1.25;
+	margin-bottom: 0.25em;
 }
 
 h2 {
-  font-size: 1.5em;
-  font-weight: 600;
+	font-size: 1.5em;
+	font-weight: 600;
+	color: red;
 }
 
 p {
-  margin: 0 0 1em 0;
+	margin: 0 0 1em 0;
 }
 
 // Main CSS
 
 .row {
-  width: 100%;
-  display: block;
+	width: 100%;
+	display: block;
 }
 
 .row:before, .row:after {
@@ -233,27 +234,32 @@ content: "";
 }
 
 .container {
-  max-width: 960px;
-  margin: 0 auto;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 .narrow {
-  background-color: @colorLighterGrey;
+	background-color: @colorLighterGrey;
 }
 
 .narrow .container{
-  max-width: @baseGrid*36;
-  background-color: #fff;
-  padding: @baseGrid*3;
+	max-width: @baseGrid*36;
+	background-color: #fff;
+	padding: @baseGrid*3;
 }
 
 .main {
-  padding: @baseGrid*2;
-  height: 100%;
+	padding: @baseGrid*2;
+	height: 100%;
 }
 
 section {
-  margin-bottom: @baseGrid*2;
+	margin-bottom: @baseGrid*2;
+}
+
+.three-col img,
+.four-col img {
+	width:100%;
 }
 
 .three-col li {
@@ -263,281 +269,316 @@ section {
 
 
 header {
-  background-color: @colorLink;
+	background-color: @colorLink;
 }
 
 .jumbotron {
-  text-align: center;
-  background-color: #2ec7e0;
+	text-align: center;
+	background-color: #2ec7e0;
 }
 
 
 .masthead {
-  padding: @baseGrid * 4 0;
-  color: #fff;
+	padding: @baseGrid * 4 0;
+	color: #fff;
 }
 
 .masthead h1 {
-  font-size: 2em;
+	font-size: 2em;
 }
 
 .masthead .byline {
-  font-size: 1.25em;
-  margin-bottom: 2em;
-  font-weight: 100;
-  letter-spacing: 0.07em;
-  line-height: 1.35;
+	font-size: 1.25em;
+	margin-bottom: 2em;
+	font-weight: 100;
+	letter-spacing: 0.07em;
+	line-height: 1.35;
 }
 
 .masthead .btn {
-  font-size: 1.25em;
-  margin-bottom: @baseGrid*3;
+	font-size: 1.25em;
+	margin-bottom: @baseGrid*3;
 }
 
 .masthead p a {
-  color: @colorPlum;
+	color: @colorPlum;
 }
 
 .marketing {
-  text-align: center;
+	text-align: center;
 }
 
 .marketing h2 {
-  font-size: 2em;
-  font-weight: 300;
+	font-size: 2em;
+	font-weight: 300;
+}
+
+.marketing li {
+	padding:@baseGrid*6 0;
 }
 
 .logo {
-  height: @baseGrid * 3;
-  padding: @baseGrid 0;
-  overflow: hidden;
-  float: left;
+	height: @baseGrid * 3;
+	padding: @baseGrid 0;
+	overflow: hidden;
+	float: left;
 
 }
 
 .logo img {
-  height: @baseGrid * 6;
-  position: relative;
+	height: @baseGrid * 6;
+	position: relative;
 }
 
 .negative .logo img {
-  top: -@baseGrid *3;
+	top: -@baseGrid *3;
 }
 
 // Navigation
 .nav {
-  display: block;
-  float: right;
+	display: block;
+	float: right;
 }
 
 .nav > li {
-  float: left;
-  margin: @baseGrid 0;
+	float: left;
+	margin: @baseGrid 0;
 }
 
 .nav > li > a {
-  display: block;
-  margin-right: 1em;
-  padding: 0.5em 0.75em;
+	display: block;
+	margin-right: 1em;
+	padding: 0.5em 0.75em;
 }
 
 .nav > li:last-child > a {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 .nav a:hover {
-  background-color: darken(@colorLink, 10%);
+	background-color: darken(@colorLink, 10%);
 
-   -moz-border-radius: 0.25em;
+	 -moz-border-radius: 0.25em;
 -webkit-border-radius: 0.25em;
-        border-radius: 0.25em;
+				border-radius: 0.25em;
 }
 
 .dropdown {
-  position: relative;
+	position: relative;
 }
 
 .dropdown ul {
-  position: absolute;
-  background-color: red;
-  right: 0;
+	position: absolute;
+	background-color: red;
+	right: 0;
 }
 
 .dropdown li {
-  padding: 0.5em 0.75em;
+	padding: 0.5em 0.75em;
 }
 
 .triangle {
-  font-size: 0.75em;
-  margin-left: 0.5em;
+	font-size: 0.75em;
+	margin-left: 0.5em;
 }
 
 // tables
 table {
-  border-top: 1px solid @colorLightGrey;
+	border-top: 1px solid @colorLightGrey;
 }
 
 table td {
-  border-bottom: 1px solid @colorLightGrey;
-  padding: 0.5em 0;
-  margin: 0;
+	border-bottom: 1px solid @colorLightGrey;
+	padding: 0.5em 0;
+	margin: 0;
 }
 
 // links
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 a:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 // buttons
 
 .btn {
-  border: none;
-  font-size: 1em;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  background: @colorBtn;
-  color: #fff;
-  padding: 0.5em 0.75em;
+	border: none;
+	font-size: 1em;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	background: @colorBtn;
+	color: #fff;
+	padding: 0.5em 0.75em;
 
-     -moz-border-radius: 0.25em;
-  -webkit-border-radius: 0.25em;
-          border-radius: 0.25em;
+		 -moz-border-radius: 0.25em;
+	-webkit-border-radius: 0.25em;
+					border-radius: 0.25em;
 }
 
 .btn:hover {
-  background-color: lighten(@colorBtn, 5%);
-  cursor: pointer;
+	background-color: lighten(@colorBtn, 5%);
+	cursor: pointer;
 }
 
 .btn.primary {
-  background-color: @btnPrimary;
+	background-color: @btnPrimary;
 }
 // pages
 // Index
 
 .explaination {
-  text-align: center;
-  margin-bottom: @baseGrid*6;
+	text-align: center;
+	margin-bottom: @baseGrid*6;
+	border-top:1px dotted #ccc;
+	// background-color: #eee;
+	padding:@baseGrid*2;
 }
 
-.explaination li {
-  font-size: 1.5em;
-  padding: @baseGrid*4;
-  font-weight: 300;
-  max-width: @baseGrid*36;
-  margin:0 auto;
+.explaination h2 {
+	font-size: 2em;
+	font-weight: 300;
+
+}
+
+.explaination ol {
+	padding: @baseGrid*2 0;
+}
+
+.explaination li h3 {
+	font-size: 1.2em;
+	font-weight: 600;
+	max-width: @baseGrid*36;
+	margin:0 auto;
+	padding: @baseGrid;
+	background-color: #fff;
+}
+
+.explaination li:after {
+	content: "\2193";
+	font-size: 2em;
+	text-align: center;
+	display:block;
+	color:#ccc;
+	margin: @baseGrid*1;
+}
+
+.explaination img {
+	width:80%;
+}
+
+.explaination li .last {
+		
 }
 
 // Deposits
 
 .first-deposit {
-  text-align: center;
-  margin-top: @baseGrid*6;
+	text-align: center;
+	margin-top: @baseGrid*6;
 }
 
 // DOI page
 .doi-page h1 {
-  font-size: @baseFontSize * 3;
-  .cite;
+	font-size: @baseFontSize * 3;
+	.cite;
 }
 
 .doi-page .content {
-  padding: @baseGrid*3 0;
+	padding: @baseGrid*3 0;
 }
 
 .doi-page .block-bg {
-    background-color: @colorPaleBlue;
-  }
+		background-color: @colorPaleBlue;
+	}
 
 .doi-page .meta{
-  margin-bottom: @baseGrid;
+	margin-bottom: @baseGrid;
 }
 
 .cite-list {
-  padding: @baseGrid 0;
-  margin: @baseGrid 0;
+	padding: @baseGrid 0;
+	margin: @baseGrid 0;
 }
 
 .cite-list li {
-  border-bottom: 1px solid @colorLightGrey;
-  padding: @baseGrid*2 0;
+	border-bottom: 1px solid @colorLightGrey;
+	padding: @baseGrid*2 0;
 }
 
 .cite-list li:first-child {
-    border-top: 1px solid @colorLightGrey;
+		border-top: 1px solid @colorLightGrey;
 }
 
 .cite-list .doi {
-  display: block;
+	display: block;
 }
 
 .cite-title {
-  .cite;
-  display: block;
-  font-size: 1.25em;
+	.cite;
+	display: block;
+	font-size: 1.25em;
 }
 
 .doi-page .author {
-  font-size: 1.5em;
-  margin-bottom: @baseGrid*2;
+	font-size: 1.5em;
+	margin-bottom: @baseGrid*2;
 }
 
 .doi-page .journal {
-  font-size: 1.25em;
-  color: @colorMidGrey;
+	font-size: 1.25em;
+	color: @colorMidGrey;
 }
 
 .doi-page .issue {
-  font-size: 1.5em;
-  font-family: @fontSerif;
+	font-size: 1.5em;
+	font-family: @fontSerif;
 }
 
 .doi-page .author-list h2 {
-  font-size: 1em;
+	font-size: 1em;
 }
 
 
 // Activity
 .page-activity table {
-  margin: @baseGrid*2 0;
-  width: 100%;
+	margin: @baseGrid*2 0;
+	width: 100%;
 }
 
 .page-activity table .col1 {
-  width:20%;
+	width:20%;
 }
 
 .page-activity table .col12 {
-  width:40%;
+	width:40%;
 }
 
 .page-activity table .col3 {
-  width:20%;
+	width:20%;
 }
 
 .page-activity table .col3 {
-  width:20%;
+	width:20%;
 }
 
 // Upload
 
 .page-upload {
-  background-color: #eee;
-  padding: @baseGrid*4;
-  height: 100%;
+	background-color: #eee;
+	padding: @baseGrid*4;
+	height: 100%;
 }
 
 .page-upload form {
-  max-width: @baseGrid * 40;
-  padding: @baseGrid *3;
-  margin: 0 auto;
-  background: #fff;
+	max-width: @baseGrid * 40;
+	padding: @baseGrid *3;
+	margin: 0 auto;
+	background: #fff;
 }
 
 
@@ -545,26 +586,26 @@ a:hover {
 
 
 /* ==========================================================================
-   Helper classes
-   ========================================================================== */
+	 Helper classes
+	 ========================================================================== */
 
 /*
  * Image replacement
  */
 
 .ir {
-    background-color: transparent;
-    border: 0;
-    overflow: hidden;
-    /* IE 6/7 fallback */
-    *text-indent: -9999px;
+		background-color: transparent;
+		border: 0;
+		overflow: hidden;
+		/* IE 6/7 fallback */
+		*text-indent: -9999px;
 }
 
 .ir:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 100%;
+		content: "";
+		display: block;
+		width: 0;
+		height: 100%;
 }
 
 /*
@@ -572,8 +613,8 @@ a:hover {
  */
 
 .hidden {
-    display: none !important;
-    visibility: hidden;
+		display: none !important;
+		visibility: hidden;
 }
 
 /*
@@ -581,14 +622,14 @@ a:hover {
  */
 
 .visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
+		border: 0;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
 }
 
 /*
@@ -598,12 +639,12 @@ a:hover {
 
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
 }
 
 /*
@@ -611,118 +652,129 @@ a:hover {
  */
 
 .invisible {
-    visibility: hidden;
+		visibility: hidden;
 }
 
 // Clearfix
 .group:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 /* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   Theses examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
+	 EXAMPLE Media Queries for Responsive Design.
+	 Theses examples override the primary ('mobile first') styles.
+	 Modify as content requires.
+	 ========================================================================== */
 
 @media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
+		/* Style adjustments for viewports that meet the condition */
 
-    input[type="text"].search {
-      width:24em;
-      float:right;
-    }
+		input[type="text"].search {
+			width:24em;
+			float:right;
+		}
 
-    .masthead h1 {
-      font-size: 5em;
-    }
+		.masthead h1 {
+			font-size: 5em;
+		}
 
-    .masthead .byline {
-      font-size: 1.25em;
-    }
+		.masthead .byline {
+			font-size: 1.25em;
+		}
 
-    .three-col li {
-      width:33.3%;
-      float: left;
-      border: none;
-    }
+		.three-col li {
+			width:33.3%;
+			float: left;
+			border: none;
+		}
+
+		.four-col li {
+			width:25%;
+			float:left;
+			border:none;
+		}
+
+		.explaination li:after {
+			display:none;
+		}
+
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-       only screen and (min-resolution: 144dpi) {
-    /* Style adjustments for high resolution devices */
+			 only screen and (min-resolution: 144dpi) {
+		/* Style adjustments for high resolution devices */
 }
 
 /* ==========================================================================
-   Print styles.
-   Inlined to avoid required HTTP connection: h5bp.com/r
-   ========================================================================== */
+	 Print styles.
+	 Inlined to avoid required HTTP connection: h5bp.com/r
+	 ========================================================================== */
 
 @media print {
-    * {
-        background: transparent !important;
-        color: #000 !important; /* Black prints faster: h5bp.com/s */
-        box-shadow:none !important;
-        text-shadow: none !important;
-    }
+		* {
+				background: transparent !important;
+				color: #000 !important; /* Black prints faster: h5bp.com/s */
+				box-shadow:none !important;
+				text-shadow: none !important;
+		}
 
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
+		a,
+		a:visited {
+				text-decoration: underline;
+		}
 
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
+		a[href]:after {
+				content: " (" attr(href) ")";
+		}
 
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
+		abbr[title]:after {
+				content: " (" attr(title) ")";
+		}
 
-    /*
-     * Don't show links for images, or javascript/internal links
-     */
+		/*
+		 * Don't show links for images, or javascript/internal links
+		 */
 
-    .ir a:after,
-    a[href^="javascript:"]:after,
-    a[href^="#"]:after {
-        content: "";
-    }
+		.ir a:after,
+		a[href^="javascript:"]:after,
+		a[href^="#"]:after {
+				content: "";
+		}
 
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
+		pre,
+		blockquote {
+				border: 1px solid #999;
+				page-break-inside: avoid;
+		}
 
-    thead {
-        display: table-header-group; /* h5bp.com/t */
-    }
+		thead {
+				display: table-header-group; /* h5bp.com/t */
+		}
 
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
+		tr,
+		img {
+				page-break-inside: avoid;
+		}
 
-    img {
-        max-width: 100% !important;
-    }
+		img {
+				max-width: 100% !important;
+		}
 
-    @page {
-        margin: 0.5cm;
-    }
+		@page {
+				margin: 0.5cm;
+		}
 
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
+		p,
+		h2,
+		h3 {
+				orphans: 3;
+				widows: 3;
+		}
 
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
+		h2,
+		h3 {
+				page-break-after: avoid;
+		}
 }
