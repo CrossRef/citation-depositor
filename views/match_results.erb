@@ -1,10 +1,14 @@
 <% results.each do |result| %>
   <tr class="result-row">
     <td class="result-text">
-      <%= result['fullCitation'] %>
-    </td>
-    <td class="result-title">
-      <%= result['title'] %>
+      Citation <b><%= result['fullCitation'] %></b>
+      Title <b><%= result['title'] %></b>
+      Journal <b><%= result['jtitle'] %></b>
+      Year <b><%= result['date'] %></b>
+      Volume <b><%= result['volume'] %></b>
+      Issue <b><%= result['issue'] %></b>
+      Pages <b><%= result['spage'] %>-<%= result['lpage'] %></b>
+      Authors <b><%= result['au'].join(', ') %></b>
     </td>
     <td class="result-doi">
       <%= result['doi'] %>

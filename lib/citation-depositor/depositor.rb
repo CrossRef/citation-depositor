@@ -10,6 +10,7 @@ require_relative 'config'
 require_relative 'extract'
 require_relative 'deposit'
 require_relative 'recorded_job'
+require_relative 'coins'
 
 module CitationDepositor
   module Depositor
@@ -171,8 +172,8 @@ module CitationDepositor
           elsif extraction_job
             # If the pdf has no DOI but has an extraction job, we must
             # ask for a DOI.
-            redirect "/deposit/#{name}/doi"
           elsif pdf['uploaded_at']
+            redirect "/deposit/#{name}/doi"
             # If the pdf has no jobs but has been uploaded it is time
             # to start an extraction job and ask for a DOI.
             redirect "/deposit/#{name}/doi"
@@ -389,7 +390,8 @@ module CitationDepositor
       app.get '/dois/search' do
         res = settings.search_service.get('/dois', :q => params[:q])
         status res.status
-        erb :match_results, :locals => {:results => JSON.parse(res.body)}, :layout => false
+        results = Coins.unpack_coins(JSON.parse(res.body))
+        erb :match_results, :locals => {:results => results}, :layout => false
       end
 
       # Shadow data proxy
