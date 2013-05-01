@@ -1,7 +1,7 @@
 module CitationDepositor
   module Coins
 
-    def self.parse_coins s
+    def parse_coins s
       s = CGI.unescapeHTML(s)
       m = {}
       kvs = s.split('&')
@@ -22,7 +22,7 @@ module CitationDepositor
       m
     end
 
-    def self.unpack_coins results
+    def unpack_coins results
       results.map do |result|
         puts result['coins']
         result.merge(parse_coins(result['coins']))

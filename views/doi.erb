@@ -4,6 +4,7 @@
 		
 		<div class="container">
 			<div class="content ">
+		                <%= partial :breadcrumb, {:crumbs => crumbs} %>
 				<!-- No DOI -->
 				<% if status == 'doi_missing' %>
 					<form method="post" action="doi">
@@ -17,7 +18,7 @@
 				<!-- Has DOI -->
 				<% else %>
 						<!-- Journal -->
-						<span class="journal">Journal <%= info['journal']['name'] %></span>
+						<span class="journal"><%= info['journal']['name'] %></span>
 						
 						<!-- Title -->
 						<h1><%= info['title'] %></h1>

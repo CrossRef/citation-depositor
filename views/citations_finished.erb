@@ -1,5 +1,5 @@
-<div class="main">
-	<div class="container">
+
+
 		<% matched = citations.reject { |c| !c.has_key?('doi') }.count %>
 		<% not_matched = citations.count - matched %>
 
@@ -54,5 +54,3 @@
 		 	</li>
 		 	<% end %>
 		</ul>
-	</div>
-</div>

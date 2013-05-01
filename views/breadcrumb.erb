@@ -1,0 +1,6 @@
+<div class="breadcrumb">
+  <% crumbs.each do |crumb| %>
+    <a href="<%= crumb['href'] %>"><%= crumb['label'] %></a>
+    &rsaquo;
+  <% end %>
+</div>

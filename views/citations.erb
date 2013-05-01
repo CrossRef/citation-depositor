@@ -1,8 +1,8 @@
 <%= partial :header %>
 
-<div class="container">
-	<div>
-
+<div class="main">
+	<div class="container">
+                <%= partial :breadcrumb, {:crumbs => crumbs} %>
 		<% if status == :finished %>
 		<%= partial :citations_finished, :citations => citations %>
 		<% elsif status == :started || status == :no_extraction %>

@@ -11,11 +11,15 @@ require_relative 'extract'
 require_relative 'deposit'
 require_relative 'recorded_job'
 require_relative 'coins'
+require_relative 'breadcrumb'
 
 module CitationDepositor
   module Depositor
 
     module Helpers
+      include Breadcrumb
+      include Coins
+
       def fetch_method error_result
         begin
           yield
@@ -184,7 +188,6 @@ module CitationDepositor
       end
 
       app.get '/deposit/:name/doi', :auth => true, :licence => true do
-        puts "Hit /deposit/name/doi"
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
@@ -194,8 +197,6 @@ module CitationDepositor
         if extraction_job && extraction_job['doi']
           locals[:extracted_doi] = extraction_job['doi']
         end
-
-        puts pdf['doi']
 
         doi_info = fetch_doi_info(pdf['doi'])
 
@@ -221,11 +222,14 @@ module CitationDepositor
           locals[:status] = 'doi_missing'
         end
 
-        erb :doi, :locals => locals
+        erb_with_crumbs :doi, {
+          :locals => locals,
+          :crumbs => ['Deposits', '/activity',
+                      pdf['upload_filename'], "#"]
+        }
       end
 
       app.post '/deposit/:name/doi', :auth => true, :licence => true do
-        puts "setting doi for #{params[:name]} to #{params['article_doi']}"
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => params[:name]})
 
@@ -239,7 +243,6 @@ module CitationDepositor
       end
 
       app.get '/deposit/:name/citations', :auth => true, :licence => true do
-        puts "Hit /deposit/name/citations"
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
@@ -254,7 +257,12 @@ module CitationDepositor
           locals[:status] = :no_extraction
         end
 
-        erb :citations, :locals => locals
+        erb_with_crumbs :citations, {
+          :locals => locals,
+          :crumbs => ['Deposits', '/activity',
+                      pdf['upload_filename'], "/deposit/#{pdf['name']}/doi",
+                      'Edit Citations', '#']
+        }
       end
 
       app.get '/deposit/:name/deposit', :auth => true, :licence => true do
@@ -295,13 +303,20 @@ module CitationDepositor
         name = params[:name]
         index = params[:index].to_i
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
-        locals = {:name => name, :index => index}
+        pdf = Config.collection('pdfs').find_one({:name => name})
+        locals = {:name => name, :index => index, :pdf => pdf}
 
         if extraction_job && extraction_job.has_key?('citations')
           locals[:citation] = extraction_job['citations'][index]
         end
 
-        erb :citation, :locals => locals
+        erb_with_crumbs :citation, {
+          :locals => locals,
+          :crumbs => ['Deposits', '/activity',
+                      pdf['upload_filename'], "/deposit/#{pdf['name']}/doi",
+                      'Edit Citations', "/deposit/#{pdf['name']}/citations",
+                      "#{(index+1)}", "#"]
+        }
       end
 
       app.post '/deposit/:name/citations/:index', :auth => true, :licence => true do
@@ -383,14 +398,17 @@ module CitationDepositor
         deposited_pdfs = pdfs.find({:user => auth_info['user'], :status => :deposited}, opts)
         undeposited_pdfs = pdfs.find({:user => auth_info['user'], :status => {'$ne' => :deposited}}, opts)
 
-        erb :activity, :locals => {:deposited => deposited_pdfs, :undeposited => undeposited_pdfs}
+        erb_with_crumbs :activity, {
+          :locals => {:deposited => deposited_pdfs, :undeposited => undeposited_pdfs},
+          :crumbs => ['Deposits', '#']
+        }
       end
 
       # Shadow doi search with an erb response
       app.get '/dois/search' do
         res = settings.search_service.get('/dois', :q => params[:q])
         status res.status
-        results = Coins.unpack_coins(JSON.parse(res.body))
+        results = unpack_coins(JSON.parse(res.body))
         erb :match_results, :locals => {:results => results}, :layout => false
       end
 
