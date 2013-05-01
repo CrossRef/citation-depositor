@@ -1,0 +1,13 @@
+<% results.each do |result| %>
+  <tr class="result-row">
+    <td class="result-text">
+      <%= result['fullCitation'] %>
+    </td>
+    <td class="result-title">
+      <%= result['title'] %>
+    </td>
+    <td class="result-doi">
+      <%= result['doi'] %>
+    </td>
+  </tr>
+<% end %>

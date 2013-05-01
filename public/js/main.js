@@ -7,15 +7,8 @@ $(document).ready(function() {
 
   function refreshResultList() {
     var val = $("#citation-textarea").text();
-    $("#results-table").html('');
-    $.get("/dois/search?q=" + encodeURIComponent(val)).done(function(data) {
-      $.each(data, function(i, result) {
-	var row = $("<tr>").addClass("result-row");
-	row.append($("<td>").addClass("result-text").html(result["fullCitation"]));
-  row.append($("<td>").addClass("result-doi").text(result["doi"]));
-	$("#results-table").append(row);
-      });
-      addResultRowClickHandlers();
+    $("#match-result").load("/dois/search?q=" + encodeURIComponent(val)).done(function() {
+	addResultRowClickHandlers();
     });
   }
 

@@ -385,12 +385,11 @@ module CitationDepositor
         erb :activity, :locals => {:deposited => deposited_pdfs, :undeposited => undeposited_pdfs}
       end
 
-      # Shadow doi search
+      # Shadow doi search with an erb response
       app.get '/dois/search' do
         res = settings.search_service.get('/dois', :q => params[:q])
-        content_type 'application/json', :charset => 'utf-8'
         status res.status
-        res.body
+        erb :match_results, :locals => {:results => JSON.parse(res.body)}, :layout => false
       end
 
       # Shadow data proxy
