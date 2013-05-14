@@ -1,42 +1,47 @@
 <%= partial :header %>
-<div class="main narrow">
+<div class="main match">
 	<div class="container">
 		<div class="row ">
 			<div class="breadcrumb">
 				&lsaquo;
-			    <a href="#">Back</a>
+				<a href="#">Back</a>
 			</div>
 
-			<h1>Edit citation</h1>
-
-			<span id="citation-textarea" class="cite"><%= citation['text'] %></span>
-			
-			<div id="citation-doi-info">
-				<% if citation.has_key?('doi') %>
-					<h3>Matched to</h3>
-					<span class="cite"><%= citation['text'] %></span>
-					<a href="#"><%= citation['doi'] %></a>
-				<% else %>
-						Not matched to an Article
-				<% end %>
-			</div>
-
+			<h1>Match citation</h1>
 			<div>
 				<form id="change-citation-form" method="post">
 					<input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>"></input>
 					<input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>"></input>
 				</form>
-				<button class="btn confirm" type="submit">Save</button>
+				<button class="btn confirm" type="submit">Verify</button>
 				<a href="/deposit/<%= name %>/citations">Forget changes</a>
 				<a href="#">delete</a>
 			</div>
 
-		</div>	
-		<div class="cite-list group">
-			<h2>Other suggestions</h2>
-	                <ul id="match-result">
-			</div>
-		</div>
+			<div>
+				<div>
+					<span id="citation-textarea" class="cite extracted"><%= citation['text'] %></span>
+				</div>
 
+			</div>		
+			<div class="cite-list">
+				<h2>Match to</h2>
+				<div id="citation-doi-info" class="col col2">
+					<% if citation.has_key?('doi') %>
+					<div class="matched">
+						<span class="cite"><%= citation['text'] %></span>
+						<a href="#"><%= citation['doi'] %></a>
+					</div>
+					<% else %>
+					Not matched to an Article
+					<% end %>
+				</div>
+				<input type="text" placeholder="Search" class="search">
+				<ul id="match-result" >
+				</ul>
+
+			</div>
+			
+		</div>	
 	</div>
-<div>
+</div>
