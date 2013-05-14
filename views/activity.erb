@@ -56,22 +56,18 @@
 							<span class="label"><%= pdf['status'].to_s.gsub('_', ' ').capitalize %></span>
 						<% end %>
 					</div>
-						
-					<!-- Time -->
-					<span>
-						<span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
-					</span>
-			
-					<!-- Name -->
+					
 			
 					<!-- Display filename -->
+					<div class="doi-name">
 					<a href="<%= '/deposit/' + pdf['name'] + '/doi' %>">
 						<%= pdf['upload_filename'] %>
 					</a>
-					
+					</div>
 
-					
-					
+					<!-- timeago -->
+					<span class="timeago" title="<%= pdf['status_at'].iso8601 %>"></span>
+
 				</li>
 				<% end %>
 			</ul>

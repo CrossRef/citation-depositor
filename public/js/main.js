@@ -326,12 +326,6 @@ $(document).ready(function() {
       e.preventDefault();
       return false;
     });
-
-    $('.btn-citation-edit').tooltip({title: 'Edit'});
-    $('.btn-citation-add-up').tooltip({title: 'Add above'});
-    $('.btn-citation-add-down').tooltip({title: 'Add below'});
-    $('.btn-citation-remove').tooltip({title: 'Remove'});
-    $('.btn-citation-unremove').tooltip({title: 'Undo remove'});
   };
 
   applyCitationRowCallbacks();
