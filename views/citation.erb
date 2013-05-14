@@ -1,22 +1,24 @@
 <%= partial :header %>
-<div class="main">
+<div class="main narrow">
 	<div class="container">
 		<div class="row ">
-		        <%= partial :breadcrumb, {:crumbs => crumbs} %>
+			<div class="breadcrumb">
+				&lsaquo;
+			    <a href="#">Back</a>
+			</div>
 
 			<h1>Edit citation</h1>
 
+			<span id="citation-textarea" class="cite"><%= citation['text'] %></span>
+			
 			<div id="citation-doi-info">
 				<% if citation.has_key?('doi') %>
-
-					Matched to <%= citation['doi'] %>
+					<h3>Matched to</h3>
+					<span class="cite"><%= citation['text'] %></span>
+					<a href="#"><%= citation['doi'] %></a>
 				<% else %>
-						Not matched to a DOI
+						Not matched to an Article
 				<% end %>
-			</div>
-			
-			<div class="span10 offset1">
-				<textarea id="citation-textarea" name="text" class="lead full-width" rows="4"><%= citation['text'] %></textarea>
 			</div>
 
 			<div>
@@ -26,12 +28,14 @@
 				</form>
 				<button class="btn confirm" type="submit">Save</button>
 				<a href="/deposit/<%= name %>/citations">Forget changes</a>
+				<a href="#">delete</a>
 			</div>
 
 		</div>	
-
-		<h2>Suggestions</h2>
-                <table id="match-result">
+		<div class="cite-list group">
+			<h2>Other suggestions</h2>
+	                <ul id="match-result">
+			</div>
 		</div>
 
 	</div>

@@ -1,17 +1,34 @@
 <% results.each do |result| %>
-  <tr class="result-row">
-    <td class="result-text">
-      Citation <b><%= result['fullCitation'] %></b>
-      Title <b><%= result['title'] %></b>
-      Journal <b><%= result['jtitle'] %></b>
-      Year <b><%= result['date'] %></b>
-      Volume <b><%= result['volume'] %></b>
-      Issue <b><%= result['issue'] %></b>
-      Pages <b><%= result['spage'] %>-<%= result['lpage'] %></b>
-      Authors <b><%= result['au'].join(', ') %></b>
-    </td>
-    <td class="result-doi">
-      <%= result['doi'] %>
-    </td>
-  </tr>
+
+		<li class="result-text">
+			<span class="cite">
+				<%= result['fullCitation'] %>
+			</span>
+			<span class="#title">
+				<%= result['title'] %>
+			</span>
+			<span class="journal">
+				<%= result['jtitle'] %>
+			</span>
+			<span class="year">
+				Year<%= result['date'] %>
+			</span>
+			<span class="volume">
+				<%= result['volume'] %>
+			</span>
+			<span class="issue">
+				<%= result['issue'] %>
+			</span>
+			<span class="pages">
+				<%= result['spage'] %>-<%= result['lpage'] %></b>
+			</span>
+			<span class="authors">
+				<%= result['au'].join(', ') %>
+			</span>
+
+			<span class="result-doi">
+				<%= result['doi'] %>
+			</span>
+		</li>
+		
 <% end %>

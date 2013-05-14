@@ -126,8 +126,7 @@ textarea {
 html, body {
 	font-size: @baseFontSize;
 	font-family: @fontSansSerif;
-	line-height: 1.5;
-	height: 100%;
+	line-height: 1.75;
 }
 
 // Mixins 
@@ -242,6 +241,7 @@ content: "";
 .container {
 	max-width: 960px;
 	margin: 0 auto;
+	padding: 0 @baseGrid;
 }
 
 .narrow {
@@ -261,6 +261,15 @@ content: "";
 
 section {
 	margin-bottom: @baseGrid*2;
+}
+
+.two-col .col {
+	width: 48%;
+	float: left;
+}
+
+.two-col .col1 {
+	margin-right: 4%;
 }
 
 .three-col img,
@@ -423,15 +432,13 @@ a:hover {
 	border: none;
 	font-size: 1em;
 	margin: 0;
-	padding: 0;
-	display: inline-block;
-	background: @colorBtn;
-	color: #fff;
 	padding: 0.5em 0.75em;
-
-		 -moz-border-radius: 0.25em;
-	-webkit-border-radius: 0.25em;
-					border-radius: 0.25em;
+	display: inline-block;
+	background: @colorLink;
+	color: #fff;
+		 -moz-border-radius: 0.2em;
+	-webkit-border-radius: 0.2em;
+			border-radius: 0.2em;
 }
 
 .btn:hover {
@@ -446,6 +453,12 @@ a:hover {
 .btn.confirm {
 	background-color: @colorGreen;
 }
+
+.btn-small {
+	font-size: 0.85em;
+	padding: 0.25em 0.5em;
+}
+
 // pages
 // Index
 
@@ -511,7 +524,7 @@ a:hover {
 }
 
 .doi-page .block-bg {
-		background-color: @colorPaleBlue;
+		background-color: #fff;
 	}
 
 .doi-page .meta{
@@ -520,24 +533,31 @@ a:hover {
 
 .cite-list {
 	margin: @baseGrid*2 0;
+	border-top: 4px solid @colorLightGrey;
+	padding: @baseGrid*2 0;
+}
+
+.cite-list>div {
+	width: :30%;
+	float: left;
+	margin-right: 10%;
+}
+.cite-list ul {
+	float: left;
 }
 
 .cite-list li {
 	border-bottom: 1px solid @colorLightGrey;
-	padding: @baseGrid*3 @baseGrid;
+	padding: @baseGrid*2 0;
 	position:relative;
 }
 
 .cite-list li:first-child {
-		border-top: 1px solid @colorLightGrey;
+	padding-top: 0;
 }
 
 .cite-list .cite {
 	font-size: 1.25em;
-}
-
-.cite-list .doi {
-	display: block;
 }
 
 .cite-list .removed *{
@@ -554,22 +574,27 @@ a:hover {
 	font-size: 1.25em;
 }
 
-.doi-page .author {
+.doi-page .content em {
+	font-weight: 600;
+	font-style: normal;
+}
+
+.doi-page .content .author {
 	font-size: 1.5em;
 	margin-bottom: @baseGrid*2;
 }
 
-.doi-page .journal {
+.doi-page .content .journal {
 	font-size: 1.25em;
 	color: @colorMidGrey;
 }
 
-.doi-page .issue {
+.doi-page .content .issue {
 	font-size: 1.5em;
 	font-family: @fontSerif;
 }
 
-.doi-page .author-list h2 {
+.doi-page .content .author-list h2 {
 	font-size: 1em;
 }
 
@@ -582,10 +607,57 @@ a:hover {
 	background-color: #fcfccc;
 	cursor: pointer;
 }
-.citation-controls {
-	position: absolute;
-	top: @baseGrid;
-	right: 0;
+
+.match-list {
+	border-top: 1px solid @colorLightGrey;
+}
+
+.match-list a * {
+	color: @colorBlack;
+}
+
+.match-list a {
+	overflow: hidden;
+	display: block;
+	padding: @baseGrid*2 0;
+}
+
+.match-list a:hover {
+	background-color: #fafafa;
+	cursor: pointer;
+}
+
+.match-list li {
+	
+	border-bottom: 1px solid @colorLightGrey;
+	position: relative;
+}
+
+.match-list .cite {
+	font-size: 1em;
+}
+
+.match-list h2 {
+	font-size: 2em;
+	font-weight: 600;
+	line-height: 1em;
+}
+
+.match-list .col0 {
+	float: left;
+	margin-right: 4%;
+	width: 12%;
+}
+
+.match-list .col {
+	width: 40%;
+}
+
+.match-list h3 {
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 1em;
+	color: @colorBrick;
 }
 
 // Activity
@@ -744,6 +816,10 @@ input[type="text"].search {
 
 @media only screen and (min-width: 35em) {
 		/* Style adjustments for viewports that meet the condition */
+
+		.container {
+			padding: 0 @baseGrid*4;
+		}
 
 		input[type="text"].search {
 			width:24em;

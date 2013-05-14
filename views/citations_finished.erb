@@ -1,56 +1,66 @@
 
 
-		<% matched = citations.reject { |c| !c.has_key?('doi') }.count %>
-		<% not_matched = citations.count - matched %>
+<% matched = citations.reject { |c| !c.has_key?('doi') }.count %>
+<% not_matched = citations.count - matched %>
 
-		<div>
-			
-			<% if !not_matched.zero? %>
-				<h1><%= citations.count %>&nbsp;Citations</h1>
-			<% else %>
-				<h1><%= citations.count %>&nbsp;Citations</h1>
-			<% end %>
-		</div>
+<div>
 
-		<p><%= not_matched %> unmatched</p>
-		<!-- Insert unmatches citations -->
-		<div class="filter group">
-			<select>
-				<option>Show all</option>
-				<option>Linked</option>
-				<option>Unlinked</option>
-			</select>
-		</div>
-		<ul class="cite-list">
-			<% citations.each_index do |i| %>
-			<% citation = citations[i] %>
-			<li class="
-				<%= i %>
-				<% if citation['removed'] %>
-					removed
-				<% else %>
-					shown
-				<% end %>
+	<% if !not_matched.zero? %>
+	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citations</h1>
+	<% else %>
+	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citation</h1>
+	<% end %>
+</div>
 
-				">
-				<a href="<%= i %>" class="btn-citation-edit">
-					<h2 class="cite"><%= citation['text'] %></h2>
-				</a>
-					<% if citation.has_key?('doi') %>
-						<div class="text-success citation-doi-text">
-							<h3>Matched to</h3>
-							<%= citation['doi'] %>
-						</div>
-					<% end %>
+<p><%= not_matched %> unmatched</p>
+<!-- Insert unmatches citations -->
+<div class="filter group">
+	<select>
+		<option>Show all</option>
+		<option>Matched</option>
+		<option>Unmatched</option>
+	</select>
+</div>
+<ul class="two-col match-list">
+	<% citations.each_index do |i| %>
+	<% citation = citations[i] %>
 
+	<li class="group
+	<%= i %>
+	<% if citation['removed'] %>
+	removed
+	<% else %>
+	shown
+	<% end %>
+	">
+			<a href="<%= i %>" class="btn-citation-edit">
+				<div class="col0">
+					<h2><%= i %>.</h2>
 					<div class="citation-controls">
 						<div class="input-append input-prepend">
-							<a href="#" class="btn-citation-unremove <% if !citation['removed'] %>hide<% end %>">Show</a>
-							<a href="#" class="btn-citation-remove <% if citation['removed'] %>hide<% end %>">Hide</a>
+							<!-- <a href="#" class="btn-citation-unremove <% if !citation['removed'] %>hide<% end %>">Show</a>
+							<a href="#" class="btn-citation-remove <% if citation['removed'] %>hide<% end %>">Hide</a> -->
 						</div>
-				 	</div>
-		 
-		 	
-		 	</li>
-		 	<% end %>
-		</ul>
+					</div>
+				</div>
+
+			
+				<div class="col col1 group">
+					<h3>Extracted</h3>
+					<span class="cite"><%= citation['text'] %></span>
+				</div>
+			
+				<div class="col col2 group">
+					<% if citation.has_key?('doi') %>
+					<div class="text-success citation-doi-text">
+						<h3>Matched to</h3>
+						<span class="cite"><%= citation['text'] %></span>
+					</div>
+					<% end %>
+				</div>
+			</a>
+		
+	</li>
+
+<% end %>
+</ul>
