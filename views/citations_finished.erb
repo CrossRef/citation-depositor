@@ -6,9 +6,9 @@
 <div>
 
 	<% if !not_matched.zero? %>
-	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citations</h1>
+	<h1>Manage&nbsp;<%= citations.count %>&nbsp;Citations</h1>
 	<% else %>
-	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citation</h1>
+	<h1>Manage&nbsp;<%= citations.count %>&nbsp;Citation</h1>
 	<% end %>
 </div>
 
@@ -33,7 +33,7 @@
 	shown
 	<% end %>
 	">
-			<a href="<%= i %>" class="btn-citation-edit">
+			
 				<div class="col0">
 					<h2><%= (i+1) %>.</h2>
 					<div class="citation-controls">
@@ -42,6 +42,7 @@
 							<a href="#" class="btn-citation-remove <% if citation['removed'] %>hide<% end %>">Hide</a> -->
 						</div>
 					</div>
+					
 				</div>
 
 			
@@ -55,11 +56,22 @@
 					<div class="text-success citation-doi-text">
 						<h3>Matched to</h3>
 						<span class="cite"><%= citation['text'] %></span>
-						<div>DOI:</div>
+						<div class="doi"><a href="#"><%= citation['doi'] %></a></div>
 					</div>
 					<% end %>
 				</div>
-			</a>
+
+				<div class=" col col4 group">
+					<div class="verify">
+						<a href="#" class="btn btn-small"><i class="icon-check-sign"></i>&nbsp;Verified</a>
+					</div>
+					<ul class="options">
+						<li><a href="<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
+						<li><a href="#" title="hide"><i class="icon-eye-open"></i></a></li>
+						<li><a href="#" title="delete" class="danger"><i class="icon-trash"></i></a></li>
+					</ul>
+					
+				</div>
 		
 	</li>
 

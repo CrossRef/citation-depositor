@@ -115,7 +115,7 @@ textarea {
 @colorPaleBlue : #f5fafa;
 @colorPlum : #573a48;
 @colorGreen : #A4BD6D;
-
+@colorDanger :#ff0000;
 @colorLinkNegative : #fff;
 @colorBtnNegative : @colorPlum;
 
@@ -261,6 +261,13 @@ content: "";
 
 section {
 	margin-bottom: @baseGrid*2;
+}
+
+.col,
+.col * {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .two-col .col {
@@ -607,23 +614,8 @@ a:hover {
 	border-top: 1px solid @colorLightGrey;
 }
 
-.match-list a * {
-	color: @colorBlack;
-}
-
-.match-list a {
-	overflow: hidden;
-	display: block;
-	padding: @baseGrid*2 0;
-}
-
-.match-list a:hover {
-	background-color: #fafafa;
-	cursor: pointer;
-}
-
-.match-list li {
-	
+.match-list > li {
+	padding: 1em;	
 	border-bottom: 1px solid @colorLightGrey;
 	position: relative;
 }
@@ -641,11 +633,18 @@ a:hover {
 .match-list .col0 {
 	float: left;
 	margin-right: 4%;
-	width: 12%;
+	width: 6%;
 }
 
 .match-list .col {
-	width: 40%;
+	width: 35.5%;
+}
+
+.match-list .col4 {
+	width: 15%;
+	text-align: left;
+	padding-left: 2em;
+	padding-top: 2em;
 }
 
 .match-list h3 {
@@ -653,6 +652,40 @@ a:hover {
 	text-transform: uppercase;
 	font-size: 1em;
 	color: @colorBrick;
+}
+
+.match-list .options {
+	font-size: 1.25em;
+	margin-top: 1em;
+	float: left
+}
+
+.match-list .options a {
+	color: @colorBlack;
+}
+
+.match-list .options li {
+	float: left;
+	padding: 0 0.5em;
+	line-height: 1em;
+	border-right:1px solid #ccc;
+}
+
+.match-list .options li:first-child {
+	padding-left: 0;
+}
+
+.match-list .options li:last-child {
+	border: none;
+}
+
+.match-list a.danger:hover {
+	color: @colorDanger;
+}
+
+.match-list .verify .btn {
+	text-align: center;
+	margin: 0 auto;
 }
 
 // Activity
