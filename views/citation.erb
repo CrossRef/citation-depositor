@@ -12,10 +12,12 @@
 				<form id="change-citation-form" method="post">
 					<input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>"></input>
 					<input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>"></input>
+					<button class="btn confirm" type="submit">Verify</button>
+					<a href="#" class="btn btn-link">Delete</a>
 				</form>
-				<button class="btn confirm" type="submit">Verify</button>
-				<a href="/deposit/<%= name %>/citations">Forget changes</a>
-				<a href="#">delete</a>
+				
+
+				
 			</div>
 
 			<div>
@@ -25,20 +27,27 @@
 
 			</div>		
 			<div class="cite-list">
-				<h2>Match to</h2>
-				<div id="citation-doi-info" class="col col2">
+				
+				<div id="citation-doi-info">
 					<% if citation.has_key?('doi') %>
-					<div class="matched">
-						<span class="cite"><%= citation['text'] %></span>
-						<a href="#"><%= citation['doi'] %></a>
-					</div>
-					<% else %>
-					Not matched to an Article
+						
+						<div class="matched">
+							<h2>Match to</h2>
+							<span class="cite"><%= citation['text'] %></span>
+							<a href="#"><%= citation['doi'] %></a>
+						</div>
 					<% end %>
 				</div>
-				<input type="text" placeholder="Search" class="search">
-				<ul id="match-result" >
+				
+				<h2>Suggestions</h2>
+				<form>
+					<input type="text" placeholder="Search" class="search">
+				</form>
+				<ul id="match-result">
 				</ul>
+				
+				
+				
 
 			</div>
 			

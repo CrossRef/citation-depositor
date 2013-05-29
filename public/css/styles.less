@@ -104,7 +104,7 @@ textarea {
 
 // colours
 @colorBlack : #222;
-@colorMidGrey : #999;
+@colorMidGrey : #666;
 @colorLightGrey : #ddd;
 @colorLighterGrey: #eee;
 @colorBeigeDark: #9c8c7d;
@@ -439,8 +439,9 @@ a:hover {
 	border: none;
 	font-size: 1em;
 	margin: 0;
-	padding: 0.5em 0.75em;
+	padding: 0.75em;
 	display: inline-block;
+	line-height: 1em;
 	background: @colorLink;
 	color: #fff;
 		 -moz-border-radius: 0.2em;
@@ -461,9 +462,14 @@ a:hover {
 	background-color: @colorGreen;
 }
 
+.btn.btn-link {
+	background-color: transparent;
+	color:@colorLink;
+}
+
 .btn-small {
 	font-size: 0.85em;
-	padding: 0.25em 0.5em;
+	padding: 0.75em;
 }
 
 // pages
@@ -540,12 +546,13 @@ a:hover {
 
 .cite-list {
 	margin: @baseGrid*2 0;
-	border-top: 4px solid @colorLightGrey;
-	padding: @baseGrid*2 0;
 }
 
 .cite-list ul {
 	float: left;
+	margin-top: @baseGrid*2;
+	padding-top: @baseGrid*2;
+	border-top: 1px solid @colorLightGrey;
 }
 
 .cite-list li {
@@ -576,9 +583,13 @@ a:hover {
 	font-size: 1.25em;
 }
 
+.doi-page .main {
+	background-color: #f6f6f6;
+}
+
 .doi-page .content em {
 	font-weight: 600;
-	font-style: normal;
+	font-style: normal
 }
 
 .doi-page .content .author {
@@ -638,6 +649,7 @@ a:hover {
 
 .match-list .col {
 	width: 35.5%;
+	min-height: 3em;
 }
 
 .match-list .col4 {
@@ -853,7 +865,7 @@ input[type="text"].search {
 			padding: 0 @baseGrid*4;
 		}
 
-		input[type="text"].search {
+		.page-activity input[type="text"].search {
 			width:24em;
 			float:right;
 			margin-top:0;

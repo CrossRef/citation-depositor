@@ -1,6 +1,6 @@
 <%= partial :header %>
 <div class="doi-page">
-	<div class="row">
+	<div class="row main">
 		<div class="container">
 			<div class="content">
 		                <!-- 
@@ -64,6 +64,8 @@
 								<%= info['author'].map {|a| a['name']}.join(', ') %>
 							</div>
 						<% end %>
+
+						<span>Cited by&nbsp;<a href="#">9 articles</a></span>
 		    	<% end %>				
 				<form id="form-doi" class="hidden" method="post">
 					<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
@@ -83,9 +85,9 @@
 		<div class="container">
 			<div class="cite-list group">
 				<div>
-					<h2>15 citations</h2>
-					<a href="citations" class="inline btn btn-small">Manage</a>
-					<a href="#" class="inline btn btn-small">Embed</a>
+					<h2>3 Citations</h2>
+					<a href="citations" class="inline btn btn-small"><i class="icon-edit"> </i>Edit</a>
+					<a href="#" class="inline btn btn-small btn-link">Embed</a>
 				</div>
 
 				<ul>
@@ -110,39 +112,6 @@
 				  	<li>	
 					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
 					    	<span class="doi"			>10.5555/12345678</span> | 
-					    	<span class="author"		>Josiah Carberry</span> | 
-					    	<span class="publication"	>Journal of Psychoceramics</span> | 
-					    	<span class="issue"			>vol. 5, no. 11</span>
-				  	</li>
-
-				</ul>	
-			</div>
-
-			<div class="cite-list">
-				<div>
-					<h2>Cited by 9 articles</h2>
-				</div>
-				<ul>
-					<li>	
-					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-					    	<span class="doi"			>10.5555/12345678</span>
-					    	<span class="author"		>Josiah Carberry</span> | 
-					    	<span class="publication"	>Journal of Psychoceramics</span> | 
-					    	<span class="issue"			>vol. 5, no. 11</span>
-					    	
-				  	</li>
-
-				  	<li>	
-					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-					    	<span class="doi"			>10.5555/12345678</span>
-					    	<span class="author"		>Josiah Carberry</span> | 
-					    	<span class="publication"	>Journal of Psychoceramics</span> | 
-					    	<span class="issue"			>vol. 5, no. 11</span>
-				  	</li>
-
-				  	<li>	
-					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-					    	<span class="doi"			>10.5555/12345678</span>
 					    	<span class="author"		>Josiah Carberry</span> | 
 					    	<span class="publication"	>Journal of Psychoceramics</span> | 
 					    	<span class="issue"			>vol. 5, no. 11</span>
