@@ -106,7 +106,7 @@ textarea {
 @colorBlack : #222;
 @colorMidGrey : #666;
 @colorLightGrey : #ddd;
-@colorLighterGrey: #eee;
+@colorLighterGrey: #f5f5f5;
 @colorBeigeDark: #9c8c7d;
 @colorBtn: #bbb;
 @colorHotSalmon : #ff4d5c;
@@ -127,6 +127,7 @@ html, body {
 	font-size: @baseFontSize;
 	font-family: @fontSansSerif;
 	line-height: 1.75;
+	background: @colorLighterGrey;
 }
 
 // Mixins 
@@ -177,6 +178,7 @@ input[type="color"],
 	-webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
 	 box-sizing:        border-box;   /* Everything else */
 	 border: 1px solid @colorLightGrey;
+	 background-color: #fff;
 }
 
 label {
@@ -191,9 +193,11 @@ form button {
 
 
 input[type="text"].search {
+	background-color: #fff;
 	background: url(../img/mag.png)no-repeat 0.5em 0.5em;
 	background-size: 1.5em;
 	padding-left: 2.5em;
+	
 }
 
 // Resets
@@ -519,6 +523,10 @@ a:hover {
 		
 }
 
+.page {
+	background: #fff;
+}
+
 // Deposits
 
 .first-deposit {
@@ -536,16 +544,14 @@ a:hover {
 	padding: @baseGrid*3 0;
 }
 
-.doi-page .block-bg {
-		background-color: #fff;
-	}
-
 .doi-page .meta{
 	margin-bottom: @baseGrid;
 }
 
 .cite-list {
-	margin: @baseGrid*2 0;
+	margin: @baseGrid 0;
+	padding: @baseGrid*2;
+	background-color: #fff;
 }
 
 .cite-list ul {
@@ -622,7 +628,7 @@ a:hover {
 }
 
 .match-list {
-	border-top: 1px solid @colorLightGrey;
+	background-color: #fff;
 }
 
 .match-list > li {
@@ -717,14 +723,11 @@ input[type="text"].search {
 .deposit-list {
 	width:100%;
 	clear:both;
-}
-
-.deposit-list {
-	border-top: 1px solid #eee;
+	background:#fff;
 }
 
 .deposit-list li {
-	padding:@baseGrid*1 0;
+	padding:@baseGrid*1;
 	border-bottom: 1px solid #eee;
 	position:relative;
 }
