@@ -2,7 +2,7 @@
 <div class="doi-page">
 	<div class="row main">
 		<div class="container">
-			<div class="content">
+			<div class="page">
 		                <!-- 
 		                	<%= partial :breadcrumb, {:crumbs => crumbs} %>
 		            	-->
@@ -18,9 +18,10 @@
 					</form>
 				<!-- Has DOI -->
 				<% else %>
-						<!-- Journal -->
-						<span class="journal"><%= info['journal']['name'] %></span>
+
+					<div class="doi">
 						
+
 						<!-- Title -->
 						<h1><%= info['title'] %></h1>
 
@@ -30,98 +31,101 @@
 								&mdash;&nbsp;<%= info['author'].map {|a| a['name']}.join(', ') %>
 							</div>
 						<% end %>
+						
+						<!-- Journal -->
+						<div class="journal">
+							<a href="#"><%= info['journal']['name'] %></a>
+						</div>
 
+						<div>
+							<span>Vol. <%= info['journal']['volume'] %></span>&#44;
+							<span>Issue <%= info['journal']['issue'] %></span>&#44;
+							<span>Pages <%= info['journal']['first_page'] %>&ndash;<%= info['journal']['last_page']%>&#44;</span>
+							<!-- Published -->
+							<span class="published"><%= info['day'] %>/<%= info['month'] %>/<%= info['year']%></span>
+						</div>
 						<!-- Meta -->
 						<div class="meta">
-							<!-- issue -->
-							<div class="issue">
-								<span>Vol. <%= info['journal']['volume'] %></span>&#44;
-								<span>Issue <%= info['journal']['issue'] %></span>&#44;
-								<span>Pages <%= info['journal']['first_page'] %>&ndash;<%= info['journal']['last_page'] %></span>
-							</div>
-
-							<!-- Published -->
-							<span class="published"><em>Published:&nbsp;</em><%= info['day'] %> <%= info['month'] %> <%= info['year'] %></span>
-							
-					
-							<!-- Owner -->
-							<% if status != 'owner_missing' %>
-								<div> <em>Owner:</em>&nbsp;<%= owner_name %></div>
-							<% end %>
-							
-
 							<!-- DOI and ISSN -->
 							<div>
-						    	<span><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></span>
-						    	&nbsp;&#124;&nbsp;
-						    	<span><em>ISSN:</em>&nbsp;<%= info['journal']['identifier'].map {|a| a['id']}.join(', ')%></span>
+						    	<div><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></div>
+						    	<div><em>ISSN:</em>&nbsp;<%= info['journal']['identifier'].map {|a| a['id']}.join(', ')%></div>
 						    </div>
-					    </div>
-						<!-- Multiple authors -->
-						<% if info['author'].count > 5%>
-							<div class="author-list">
-								<h2>Authors</h2>
-								<%= info['author'].map {|a| a['name']}.join(', ') %>
-							</div>
-						<% end %>
 
-						<span>Cited by&nbsp;<a href="#">9 articles</a></span>
-		    	<% end %>				
-				<form id="form-doi" class="hidden" method="post">
-					<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
-				</form>
+					    </div>
+
+
+					    <!-- Owner -->
+							<% if status != 'owner_missing' %>
+								<div> 
+									<i class="icon-user"></i>
+									&nbsp;
+									<a href="#"><%= owner_name %></a>
+								</div>
+							<% end %>
+
+						
+			    	<% end %>				
+					<form id="form-doi" class="hidden" method="post">
+						<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
+					</form>
+				</div>
 
 				<!-- <div>
 					<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
 					<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
 				</div> -->
+
+							<div>
+								<ul class="tabs">
+									<li class="active">
+										<h2>Citations (3)</h2>	
+									</li>
+									<li>
+										<h2>Cited by (9)</h2>
+									</li>
+								</ul>
+								
+								<div>
+									<a href="citations" class="inline btn btn-small"><i class="icon-edit"> </i>Edit</a>
+									<a href="#" class="inline btn btn-small btn-link">Embed</a>
+								</div>
+
+								<ul class="cite-list group">
+									<li>	
+									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+									    	<span class="author"		>Josiah Carberry</span>, 
+									    	<span class="publication"	>Journal of Psychoceramics</span>,
+									    	<span class="date"	>12/02/2012</span>
+
+									    	
+								  	</li>
+
+								  	<li>	
+									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+									    	<span class="author"		>Josiah Carberry</span>, 
+									    	<span class="publication"	>Journal of Psychoceramics</span>,
+									    	<span class="date"	>12/02/2012</span>
+								  	</li>
+
+								  	<li>	
+									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+									    	<span class="author"		>Josiah Carberry</span>, 
+									    	<span class="publication"	>Journal of Psychoceramics</span>,
+									    	<span class="date"	>12/02/2012</span>
+								  	</li>
+
+								</ul>	
+							</div>
+
+
+
 			</div>
 		</div>
 	</div>
 
 
 
-	<div class="row block-bg">
-		<div class="container">
-			<div class="cite-list group">
-				<div>
-					<h2>3 Citations</h2>
-					<a href="citations" class="inline btn btn-small"><i class="icon-edit"> </i>Edit</a>
-					<a href="#" class="inline btn btn-small btn-link">Embed</a>
-				</div>
-
-				<ul>
-					<li>	
-					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-					    	<span class="doi"			>10.5555/12345678</span> | 
-					    	<span class="author"		>Josiah Carberry</span> | 
-					    	<span class="publication"	>Journal of Psychoceramics</span> | 
-					    	<span class="issue"			>vol. 5, no. 11</span>
-
-					    	
-				  	</li>
-
-				  	<li>	
-					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-					    	<span class="doi"			>10.5555/12345678</span> | 
-					    	<span class="author"		>Josiah Carberry</span> | 
-					    	<span class="publication"	>Journal of Psychoceramics</span> | 
-					    	<span class="issue"			>vol. 5, no. 11</span>
-				  	</li>
-
-				  	<li>	
-					    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-					    	<span class="doi"			>10.5555/12345678</span> | 
-					    	<span class="author"		>Josiah Carberry</span> | 
-					    	<span class="publication"	>Journal of Psychoceramics</span> | 
-					    	<span class="issue"			>vol. 5, no. 11</span>
-				  	</li>
-
-				</ul>	
-			</div>
-
-
-		</div>
-	</div>
+	
 
 </div>

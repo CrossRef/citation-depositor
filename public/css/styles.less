@@ -525,6 +525,7 @@ a:hover {
 
 .page {
 	background: #fff;
+	padding:@baseGrid*4;
 }
 
 // Deposits
@@ -544,14 +545,15 @@ a:hover {
 	padding: @baseGrid*3 0;
 }
 
-.doi-page .meta{
+.doi-page .meta {
 	margin-bottom: @baseGrid;
+	border-top: 1px dotted @colorLightGrey;
+	margin: @baseGrid 0;
+	padding: @baseGrid 0;
 }
 
 .cite-list {
-	margin: @baseGrid 0;
-	padding: @baseGrid*2;
-	background-color: #fff;
+	margin-top: @baseGrid*2;
 }
 
 .cite-list ul {
@@ -580,7 +582,7 @@ a:hover {
 }
 
 .cite-list .removed .citation-controls a {
-	color:@colorLink
+	color:@colorLink;
 }
 
 .cite-title {
@@ -589,31 +591,59 @@ a:hover {
 	font-size: 1.25em;
 }
 
-.doi-page .main {
-	background-color: #f6f6f6;
+.page {
+	background-color: #fff;
 }
 
-.doi-page .content em {
-	font-weight: 600;
-	font-style: normal
+.tabs {
+	border-bottom: 1px solid @colorLightGrey;
+	margin: @baseGrid*2 0;
 }
 
-.doi-page .content .author {
+.doi-page .doi .author {
 	font-size: 1.5em;
 	margin-bottom: @baseGrid*2;
 }
 
-.doi-page .content .journal {
+.tabs li {
+	background-color: @colorLighterGrey;
+	display: inline-block;
+	margin:0;
+}
+
+.tabs li > * {
+	font-size: 0.9em;
+	padding: @baseGrid;
+	color: @colorLink;
+	line-height: 1em;
+	margin:0;
+}
+
+.tabs li.active > * {
+	border: 1px solid @colorLightGrey;
+	border-bottom: none;
+	background-color: #fff;
+	color: @colorBlack;
+	position:relative;
+	top:1px;
+}
+
+.doi-page .main {
+	background-color: #f6f6f6;
+}
+
+.doi-page .page em {
+	font-weight: 600;
+	font-style: normal
+}
+
+
+.doi-page .page .journal {
 	font-size: 1.25em;
 	color: @colorMidGrey;
 }
 
-.doi-page .content .issue {
-	font-size: 1.5em;
-	font-family: @fontSerif;
-}
-
-.doi-page .content .author-list h2 {
+.doi-page .pagepage .author-list h2 {
 	font-size: 1em;
 }
 
