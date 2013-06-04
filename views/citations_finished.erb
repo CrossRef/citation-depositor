@@ -14,71 +14,75 @@
 
 <p class="byline"><%= not_matched %> Unmatched</p>
 <!-- Insert unmatches citations -->
-<div class="filter group">
+
+<div class="option-bar filter group">
 	<select>
 		<option>Show all</option>
 		<option>Matched</option>
 		<option>Unmatched</option>
 	</select>
 </div>
-<ul class="two-col match-list">
-	<% citations.each_index do |i| %>
-	<% citation = citations[i] %>
+<div class="page">
+	<ul class="two-col match-list">
+		<% citations.each_index do |i| %>
+		<% citation = citations[i] %>
 
-	<li class="group
-	<%= i %>
-	<% if citation['removed'] %>
-	removed
-	<% else %>
-	shown
-	<% end %>
-	">
+		<li class="group
+		<%= i %>
+		<% if citation['removed'] %>
+		removed
+		<% else %>
+		shown
+		<% end %>
+		">
 
-	<div class="col0">
-		<h2><%= (i+1) %>.</h2>
-		<div class="citation-controls">
-			<div class="input-append input-prepend">
-							<!-- <a href="#" class="btn-citation-unremove <% if !citation['removed'] %>hide<% end %>">Show</a>
-							<a href="#" class="btn-citation-remove <% if citation['removed'] %>hide<% end %>">Hide</a> -->
+		<div class="col0">
+			<h2><%= (i+1) %>.</h2>
+			<div class="citation-controls">
+				<div class="input-append input-prepend">
+								<!-- <a href="#" class="btn-citation-unremove <% if !citation['removed'] %>hide<% end %>">Show</a>
+								<a href="#" class="btn-citation-remove <% if citation['removed'] %>hide<% end %>">Hide</a> -->
+							</div>
 						</div>
+						
 					</div>
-					
-				</div>
 
 
-				<div class="col col1 group">
-					<h3>Extracted</h3>
-					<span class="cite"><%= citation['text'] %></span>
-				</div>
-
-				<div class="col col2 group">
-					<% if citation.has_key?('doi') %>
-					<div class="text-success citation-doi-text">
-						<h3>Matched to</h3>
+					<div class="col col1 group">
+						<h3>Extracted</h3>
 						<span class="cite"><%= citation['text'] %></span>
-						<div class="doi"><a href="<%= citation['doi'] %>"><%= citation['doi'] %></a></div>
 					</div>
-					<% else %>
-					<div class="unmatched">
-						<h3>Unmatched</h3>
-						<a href="#">Search for an article</a>
+
+					<div class="col col2 group">
+						<% if citation.has_key?('doi') %>
+						<div class="text-success citation-doi-text">
+							<h3>Matched to</h3>
+							<span class="cite"><%= citation['text'] %></span>
+							<div class="doi"><a href="<%= citation['doi'] %>"><%= citation['doi'] %></a></div>
+						</div>
+						<% else %>
+						<div class="unmatched">
+							<h3>Unmatched</h3>
+							<a href="#">Search for an article</a>
+						</div>
+						<% end %>
 					</div>
-					<% end %>
-				</div>
 
-				<div class=" col col4 group">
-					<div class="verify">
-						<a href="#" class="btn btn-small"><i class="icon-check-sign"></i>&nbsp;Verified</a>
+					<div class=" col col4 group">
+						<div class="verify">
+							<a href="#" class="btn btn-small"><i class="icon-check-sign"></i>&nbsp;Verified</a>
+						</div>
+						<ul class="options">
+							<li><a href="<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
+							<li><a href="#" title="hide"><i class="icon-eye-open"></i></a></li>
+							<li><a href="#" title="delete" class="danger"><i class="icon-trash"></i></a></li>
+						</ul>
+						
 					</div>
-					<ul class="options">
-						<li><a href="<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
-						<li><a href="#" title="hide"><i class="icon-eye-open"></i></a></li>
-						<li><a href="#" title="delete" class="danger"><i class="icon-trash"></i></a></li>
-					</ul>
-					
-				</div>
 
-			</li>
+				</li>
 
-			<% end %>
-		</ul>
+				<% end %>
+			</ul>
+
+</div>
