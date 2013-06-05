@@ -5,14 +5,25 @@ $(document).ready(function() {
   $(".masthead h1").fadeTo(0, 0);
   $(".masthead .byline").fadeTo(0, 0);
   $(".masthead .btn").fadeTo(0, 0);
-  // 
-  $('.masthead').slideDown(600, 'swing', function() {
-    $('.masthead h1').delay(300).fadeTo( 300 , 1 , function() {
+  $( ".marketing li" ).each(function( index ) {
+    $(this).fadeTo(0, 0);
+  });
+  
+  $('.masthead').slideDown(300, 'swing', function() {
+    $('.masthead h1').delay(100).fadeTo( 200 , 1 , function() {
       $(".masthead .byline").fadeTo(300, 1, function() {
-        $(".masthead .btn").delay(600).fadeTo(300, 1);
+        $(".masthead .btn").delay(100).fadeTo(200, 1, function() {
+          $('.marketing li').each(function(i) {
+            $(this).delay(200*i).fadeTo(400, 1);
+          });
+          
+        });  
       });    
     });
   });
+
+  
+  
 
   // Navigation
   $(".dropdown a").click(function() {
