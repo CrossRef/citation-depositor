@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+  // Animation
+  $(".masthead ").hide();
+  $(".masthead h1").fadeTo(0, 0);
+  $(".masthead .byline").fadeTo(0, 0);
+  $(".masthead .btn").fadeTo(0, 0);
+  // 
+  $('.masthead').slideDown(600, 'swing', function() {
+    $('.masthead h1').delay(300).fadeTo( 300 , 1 , function() {
+      $(".masthead .byline").fadeTo(300, 1, function() {
+        $(".masthead .btn").delay(600).fadeTo(300, 1);
+      });    
+    });
+  });
+
   // Navigation
   $(".dropdown a").click(function() {
     $(this).parent().children('ul').toggleClass("visuallyhidden");

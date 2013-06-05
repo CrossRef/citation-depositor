@@ -336,6 +336,10 @@ header {
 	margin-top: @baseGrid*2;
 }
 
+.marketing .container {
+	border-bottom: 1px dashed @colorMidGrey;
+}
+
 .marketing h2 {
 	font-size: 2em;
 	font-weight: 300;
@@ -496,9 +500,13 @@ a:hover {
 
 .explaination {
 	text-align: center;
-	margin-bottom: @baseGrid*6;
+	margin-bottom: @baseGrid*2;
 	display:block;
 	padding:@baseGrid*2 0;
+}
+
+.explaination .container {
+	border-bottom: 1px dashed @colorMidGrey;
 }
 
 .explaination h2 {
@@ -532,13 +540,21 @@ a:hover {
 	width:80%;
 }
 
-.explaination li .last {
-		
+.signup {
+	text-align: center;
 }
 
-.§{
-	background: #fff;
+.signup .container {
+	margin-bottom: @baseGrid*12;
+	padding-bottom: @baseGrid*4;
+	border-bottom: 1px dashed @colorMidGrey;
+}
 
+.signup h2 {
+	font-size: 1.5em;
+	font-weight: 300;
+	max-width: 18em;
+	margin: 0 auto 1em auto;
 }
 
 // Deposits
@@ -564,7 +580,7 @@ a:hover {
 
 .doi-page .meta {
 	margin-bottom: @baseGrid;
-	border-top: 1px dotted @colorLightGrey;
+	border-bottom: 1px dashed @colorMidGrey;
 	margin: @baseGrid 0;
 	padding: @baseGrid 0;
 }
@@ -956,7 +972,7 @@ input[type="text"].search {
 		}
 
 		.marketing li {
-			padding:@baseGrid*12 2% @baseGrid*6 2%;
+			padding:@baseGrid*12 2% @baseGrid*2 2%;
 		}
 
 }
