@@ -26,7 +26,7 @@ class App < Sinatra::Base
 
   get '/' do
     if has_authed?
-      redirect '/activity'
+      redirect '/deposits'
     else
       erb :index
     end

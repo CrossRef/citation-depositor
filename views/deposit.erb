@@ -1,103 +1,147 @@
 <%= partial :header %>
+<div class="doi-page">
+	<div class="row main">
+		<div class="container">
+			<div class="page">
+		                <!-- 
+		                	<%= partial :breadcrumb, {:crumbs => crumbs} %>
+		            	-->
+				<!-- No DOI -->
+				<% if status == 'doi_missing' %>
+					<form method="post" action="doi">
+						<h1>PDF name here</h1>
+						<label>Add a DOI</label>
+						<input type="text" name="article_doi">
+						<input type="submit" class="btn primary">
 
-<div class="row">
-  <div class="span5 offset1">
+						<p>Not got a DOI? <a href="http://www.crossref.org/webDeposit/">Get one now</a></p>
+					</form>
+				<!-- Has DOI -->
+				<% else %>
 
-    <div class="page-header">
-      <h4>Deposit</h4>
-    </div>
+					<div class="doi">
+						
 
-    <div class="lead">
-      <span class="field-label"><i class="icon-file"></i> File</span>
-      <span class="field-value"><%= pdf['upload_filename'] %></span>
-    </div>
-    <div class="lead">
-      <span class="field-label"><i class="icon-link"></i> DOI</span>
-      <span class="field-value"><%= pdf['doi'] %></span>
-    </div>
-    <div class="lead">
-      <span class="field-label"><i class="icon-time"></i> Uploaded</span>
-      <span class="field-value timeago" title="<%= pdf['uploaded_at'].iso8601 %>"></span>
-    </div>
-    <div class="lead">
-      <span class="field-label"># Citations</span>
-      <span class="field-value"><%= extraction['citations'].count %></span>
-    </div>
-  
-  </div>
-  <div class="span5">
+						<!-- Title -->
+						<h1><%= info['title'] %></h1>
 
-    <div class="page-header">
-      <h4>Status</h4>
-    </div>
+						<!-- Author -->
+						<% if info['author'].count < 6%>
+							<div class="author">
+								&mdash;&nbsp;<%= info['author'].map {|a| a['name']}.join(', ') %>
+							</div>
+						<% end %>
+						
+						<!-- Journal -->
+						<div class="journal">
+							<a href="#"><%= info['journal']['name'] %></a>
+						</div>
 
-    <div class="text-success lead">
-      <div class="pull-right">
-	<i class="icon-ok"></i>
-      </div>
-      PDF uploaded
-    </div>
+						<div>
+							<span>Vol. <%= info['journal']['volume'] %></span>&#44;
+							<span>Issue <%= info['journal']['issue'] %></span>&#44;
+							<span>Pages <%= info['journal']['first_page'] %>&ndash;<%= info['journal']['last_page']%>&#44;</span>
+							<!-- Published -->
+							<span class="published"><%= info['day'] %>/<%= info['month'] %>/<%= info['year']%></span>
+						</div>
+						<!-- Meta -->
+						<div class="meta">
+							<!-- DOI and ISSN -->
+							<div>
+						    	<div><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></div>
+						    	<div><em>ISSN:</em>&nbsp;<%= info['journal']['identifier'].map {|a| a['id']}.join(', ')%></div>
+						    </div>
 
-    <div class="text-success lead">
-      <div class="pull-right">
-	<i class="icon-ok"></i>
-      </div>
-      DOI selected
-    </div>
+					    </div>
 
-    <div class="text-success lead">
-      <div class="pull-right">
-	<i class="icon-ok"></i>
-      </div>
-      Citations extracted
-    </div>
 
-    <% if deposit.nil? || deposit['status'] == :started %>
-      <div class="text-warning lead">
-	<div class="pull-right">
-	  <i class="icon-refresh"></i>
+					    <!-- Owner -->
+							<% if status != 'owner_missing' %>
+								<div> 
+									<i class="icon-user"></i>
+									&nbsp;
+									<a href="#"><%= owner_name %></a>
+								</div>
+							<% end %>
+
+						
+			    	<% end %>				
+					<form id="form-doi" class="hidden" method="post">
+						<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
+					</form>
+				</div>
+
+				<!-- <div>
+					<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
+					<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
+				</div> -->
+
+				<div>
+				  <h4>Deposit Status</h4>
+				  <% if deposit.nil?  %>
+				    Not yet deposited. <a href="<%= "#{name}/deposit" %>">Deposit now</a>
+				  <% elsif deposit['status'] == :started %>
+				    Depositing.
+				  <% elsif deposit['status'] == :finished %>
+				    Deposited. <a href="deposit">Redeposit</a>
+				  <% elsif deposit['status'] == :failed %>
+				    Depositing failed. <a href="deposit">Retry</a>
+				  <% else %>
+				    Not yet deposited. <a href="deposit">Deposit now</a>
+				  <% end %>
+				</div>
+				  
+
+							<div>
+								<ul class="tabs">
+									<li class="active">
+										<h2>Citations (3)</h2>	
+									</li>
+									<li>
+										<h2>Cited by (9)</h2>
+									</li>
+								</ul>
+								
+								<div>
+									<a href="<%= "#{name}/citations" %>" class="inline btn btn-small"><i class="icon-edit"> </i>Edit</a>
+									<a href="#" class="inline btn btn-small btn-link">Embed</a>
+								</div>
+
+								<ul class="cite-list group">
+									<li>	
+									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+									    	<span class="author"		>Josiah Carberry</span>, 
+									    	<span class="publication"	>Journal of Psychoceramics</span>,
+									    	<span class="date"	>12/02/2012</span>
+
+									    	
+								  	</li>
+
+								  	<li>	
+									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+									    	<span class="author"		>Josiah Carberry</span>, 
+									    	<span class="publication"	>Journal of Psychoceramics</span>,
+									    	<span class="date"	>12/02/2012</span>
+								  	</li>
+
+								  	<li>	
+									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
+									    	<span class="author"		>Josiah Carberry</span>, 
+									    	<span class="publication"	>Journal of Psychoceramics</span>,
+									    	<span class="date"	>12/02/2012</span>
+								  	</li>
+
+								</ul>	
+							</div>
+
+
+
+			</div>
+		</div>
 	</div>
-	Deposit is processing
-      </div>
-    <% elsif deposit['status'] == :finished %>
-      <div class="text-success lead">
-	<div class="pull-right">
-	  <i class="icon-ok"></i>
-	</div>
-	Deposit completed successfully
-      </div>
-    <% elsif deposit['status'] == :failed %>
-      <div class="text-error lead">
-	<div class="pull-right">
-	  <i class="icon-error"></i>
-	</div>
-	Deposit failed
-      </div>
-    <% end %>
 
-  </div>
+
+
+	
+
 </div>
-
-<div class="row">
-  <div class="span10 offset1">
-
-    <div class="page-header">
-      <h4>Citations</h4>
-    </div>
-
-    <table class="table">
-      <% unless deposit.nil? %>
-        <% deposit['citations'].each_index do |i| %>
-          <% citation = deposit['citations'][i] %>
-          <tr>
-            <td><%= (i+1) %>.</td>
-            <td><%= citation['text'] %></td>
-            <td><%= citation['doi'] %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </table>
-
-  </div>
-</div>
-

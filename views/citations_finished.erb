@@ -58,12 +58,12 @@
 						<div class="text-success citation-doi-text">
 							<h3>Matched to</h3>
 							<span class="cite"><%= citation['text'] %></span>
-							<div class="doi"><a href="<%= citation['doi'] %>"><%= citation['doi'] %></a></div>
+							<div class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></div>
 						</div>
 						<% else %>
 						<div class="unmatched">
 							<h3>Unmatched</h3>
-							<a href="#">Search for an article</a>
+							<a href="citations/<%= i %>">Search for a work</a>
 						</div>
 						<% end %>
 					</div>
@@ -73,7 +73,7 @@
 							<a href="#" class="btn btn-small"><i class="icon-check-sign"></i>&nbsp;Verified</a>
 						</div>
 						<ul class="options">
-							<li><a href="<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
+							<li><a href="citations/<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
 							<li><a href="#" title="hide"><i class="icon-eye-open"></i></a></li>
 							<li><a href="#" title="delete" class="danger"><i class="icon-trash"></i></a></li>
 						</ul>

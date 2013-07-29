@@ -150,49 +150,18 @@ module CitationDepositor
       end
 
       app.get '/deposit/:name', :auth => true, :licence => true do
-        puts "Hit /deposit/name"
-        name = params[:name]
-        pdfs = Config.collection('pdfs')
-        pdf = pdfs.find_one({:name => name})
-
-        # Put us in the right place depending on where in the process
-        # this deposit has got to in the past.
-        if pdf.nil?
-          error 404
-        else
-          extraction_job = RecordedJob.get_where('extractions', {:name => name})
-          deposit_job = RecordedJob.get_where('deposits', {:name => name})
-
-          if deposit_job
-            # If the pdf has a deposit job then show the result page.
-            # This will indicate either a complete deposit or
-            # processing deposit.
-            redirect "/deposit/#{name}/deposit"
-          elsif extraction_job && pdf['doi']
-            # If the pdf has an extraction job and DOI then show the citations
-            # page. This will show either citations or a loading
-            # indicator if the extraction job hasn't yet finished.
-            redirect "/deposit/#{name}/citations"
-          elsif extraction_job
-            # If the pdf has no DOI but has an extraction job, we must
-            # ask for a DOI.
-          elsif pdf['uploaded_at']
-            redirect "/deposit/#{name}/doi"
-            # If the pdf has no jobs but has been uploaded it is time
-            # to start an extraction job and ask for a DOI.
-            redirect "/deposit/#{name}/doi"
-          else
-            redirect '/deposit'
-          end
-        end
-      end
-
-      app.get '/deposit/:name/doi', :auth => true, :licence => true do
         name = params[:name]
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => name})
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
-        locals = {}
+        deposit_job = RecordedJob.get_where('deposits', {:name => name})
+
+        locals = {
+          :name => name,
+          :deposit => deposit_job,
+          :pdf => pdf,
+          :extraction => extraction_job
+        }
 
         if extraction_job && extraction_job['doi']
           locals[:extracted_doi] = extraction_job['doi']
@@ -222,9 +191,9 @@ module CitationDepositor
           locals[:status] = 'doi_missing'
         end
 
-        erb_with_crumbs :doi, {
+        erb_with_crumbs :deposit, {
           :locals => locals,
-          :crumbs => ['Deposits', '/activity',
+          :crumbs => ['Deposits', '/deposits',
                       pdf['upload_filename'], "#"]
         }
       end
@@ -259,21 +228,10 @@ module CitationDepositor
 
         erb_with_crumbs :citations, {
           :locals => locals,
-          :crumbs => ['Deposits', '/activity',
+          :crumbs => ['Deposits', '/deposits',
                       pdf['upload_filename'], "/deposit/#{pdf['name']}/doi",
                       'Edit Citations', '#']
         }
-      end
-
-      app.get '/deposit/:name/deposit', :auth => true, :licence => true do
-        name = params[:name]
-        locals = {
-          :deposit => RecordedJob.get_where('deposits', {:name => name}),
-          :pdf => Config.collection('pdfs').find_one({:name => name}),
-          :extraction => RecordedJob.get_where('extractions', {:name => name})
-        }
-
-        erb(:deposit, {:locals => locals})
       end
 
       app.post '/deposit/:name/deposit', :auth => true, :licence => true do
@@ -296,7 +254,7 @@ module CitationDepositor
           :deposit => nil
         }
 
-        erb(:deposit, {:locals => locals})
+        redirect "/deposit/#{name}"
       end
 
       app.get '/deposit/:name/citations/:index', :auth => true, :licence => true do
@@ -312,7 +270,7 @@ module CitationDepositor
 
         erb_with_crumbs :citation, {
           :locals => locals,
-          :crumbs => ['Deposits', '/activity',
+          :crumbs => ['Deposits', '/deposits',
                       pdf['upload_filename'], "/deposit/#{pdf['name']}/doi",
                       'Edit Citations', "/deposit/#{pdf['name']}/citations",
                       "#{(index+1)}", "#"]
@@ -392,13 +350,13 @@ module CitationDepositor
         json({:status => extraction_job['status']})
       end
 
-      app.get '/activity', :auth => true, :licence => true do
+      app.get '/deposits', :auth => true, :licence => true do
         opts = {:sort => [[:status_at, -1]]}
         pdfs = Config.collection('pdfs')
         deposited_pdfs = pdfs.find({:user => auth_info['user'], :status => :deposited}, opts)
         undeposited_pdfs = pdfs.find({:user => auth_info['user'], :status => {'$ne' => :deposited}}, opts)
 
-        erb_with_crumbs :activity, {
+        erb_with_crumbs :deposits, {
           :locals => {:deposited => deposited_pdfs, :undeposited => undeposited_pdfs},
           :crumbs => ['Deposits', '#']
         }
