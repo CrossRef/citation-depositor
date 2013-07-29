@@ -64,6 +64,22 @@
 								</div>
 							<% end %>
 
+				            <!-- System deposit status -->
+					    <div>
+					      <h4>Deposit Status</h4>
+					      <% if deposit.nil?  %>
+					      Not yet deposited. <a href="<%= "#{name}/deposit" %>">Deposit now</a>
+					      <% elsif deposit['status'] == :started %>
+					      Depositing.
+					      <% elsif deposit['status'] == :finished %>
+					      Deposited. <a href="deposit">Redeposit</a>
+					      <% elsif deposit['status'] == :failed %>
+					      Depositing failed. <a href="deposit">Retry</a>
+					      <% else %>
+					      Not yet deposited. <a href="deposit">Deposit now</a>
+					      <% end %>
+					    </div>
+
 						
 			    	<% end %>				
 					<form id="form-doi" class="hidden" method="post">
@@ -76,20 +92,7 @@
 					<button id="btn-back-upload" class="btn"><i class="icon-circle-arrow-left"></i> Upload a different PDF</button>
 				</div> -->
 
-				<div>
-				  <h4>Deposit Status</h4>
-				  <% if deposit.nil?  %>
-				    Not yet deposited. <a href="<%= "#{name}/deposit" %>">Deposit now</a>
-				  <% elsif deposit['status'] == :started %>
-				    Depositing.
-				  <% elsif deposit['status'] == :finished %>
-				    Deposited. <a href="deposit">Redeposit</a>
-				  <% elsif deposit['status'] == :failed %>
-				    Depositing failed. <a href="deposit">Retry</a>
-				  <% else %>
-				    Not yet deposited. <a href="deposit">Deposit now</a>
-				  <% end %>
-				</div>
+				
 				  
 
 							<div>
