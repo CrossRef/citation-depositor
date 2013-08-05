@@ -23,33 +23,33 @@
 						
 
 						<!-- Title -->
-						<h1><%= info['title'] %></h1>
+						<h1><%= pdf['metadata']['title'] %></h1>
 
 						<!-- Author -->
-						<% if info['author'].count < 6%>
+						<% if pdf['metadata']['author'].count < 6 %>
 							<div class="author">
-								&mdash;&nbsp;<%= info['author'].map {|a| a['name']}.join(', ') %>
+								&mdash;&nbsp;
+								<%= pdf['metadata']['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %>
 							</div>
 						<% end %>
 						
 						<!-- Journal -->
 						<div class="journal">
-							<a href="#"><%= info['journal']['name'] %></a>
+							<a href="#"><%= pdf['metadata']['jtitle'] %></a>
 						</div>
 
 						<div>
-							<span>Vol. <%= info['journal']['volume'] %></span>&#44;
-							<span>Issue <%= info['journal']['issue'] %></span>&#44;
-							<span>Pages <%= info['journal']['first_page'] %>&ndash;<%= info['journal']['last_page']%>&#44;</span>
+							<span>Vol. <%= pdf['metadata']['volume'] %></span>&#44;
+							<span>Issue <%= pdf['metadata']['issue'] %></span>&#44;
+							<span>Pages <%= pdf['metadata']['page'] %>&#44;</span>
 							<!-- Published -->
-							<span class="published"><%= info['day'] %>/<%= info['month'] %>/<%= info['year']%></span>
+							<span class="published"><%= pdf['metadata']['issued']['date-parts'].join('/') %></span>
 						</div>
 						<!-- Meta -->
 						<div class="meta">
 							<!-- DOI and ISSN -->
 							<div>
 						    	<div><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></div>
-						    	<div><em>ISSN:</em>&nbsp;<%= info['journal']['identifier'].map {|a| a['id']}.join(', ')%></div>
 						    </div>
 
 					    </div>

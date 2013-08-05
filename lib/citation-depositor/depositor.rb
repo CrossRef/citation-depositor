@@ -56,23 +56,6 @@ module CitationDepositor
         end
       end
 
-      def fetch_doi_info doi
-        fetch_method({}) do
-          resp = settings.doi_data_service.get do |req|
-            req.url "/#{doi}"
-            req.headers['Accept'] = 'application/bibjson+json'
-          end
-
-          result = {}
-
-          if resp.status == 200
-            result = JSON.parse(resp.body)
-          end
-
-          result
-        end
-      end
-
       def fetch_citations doi
         fetch_method([]) do
           resp = settings.doi_data_service.get("/#{doi}")
@@ -110,13 +93,10 @@ module CitationDepositor
         pdf = pdfs.find_one({:name => pdf_name})
 
         if pdf['metadata'].nil?
-          res = settings.search_service.get('/dois', :q => pdf['doi'])
+          res = settings.csl_service.get('/' + pdf['doi'])
           if res.status == 200
-            json = JSON.parse(res.body)
-            if !json.empty?
-              pdf['metadata'] = unpack_coins(json).first
-              pdfs.save(pdf)
-            end
+            pdf['metadata'] = JSON.parse(res.body)
+            pdfs.save(pdf)
           end
         end
       end
@@ -128,10 +108,14 @@ module CitationDepositor
       data_service = Faraday.new('http://data.crossref.org')
       data_service.headers[:accept] = 'application/vnd.crossref.unixref+xml'
 
+      csl_service = Faraday.new('http://data.crossref.org')
+      csl_service.headers[:accept] = 'application/vnd.citationstyles.csl+json'
+
       app.set :pdf_repo_path, File.join(app.settings.root, 'pdfs')
       app.set :xml_repo_path, File.join(app.settings.root, 'xmls')
       app.set :search_service, Faraday.new('http://search.crossref.org')
       app.set :doi_data_service, data_service
+      app.set :csl_service, csl_service
       app.set :cr_service, Faraday.new('http://www.crossref.org')
 
       app.get '/deposit', :auth => true, :licence => true do
@@ -184,11 +168,8 @@ module CitationDepositor
           locals[:extracted_doi] = extraction_job['doi']
         end
 
-        doi_info = fetch_doi_info(pdf['doi'])
-
         if pdf['doi'] && !pdf['doi'].empty? && doi_info
           locals[:doi] = pdf['doi']
-          locals[:info] = doi_info 
          
           owner_prefix = fetch_owner_prefix(pdf['doi'])
           owner_name = fetch_owner_name(owner_prefix)
@@ -397,27 +378,6 @@ module CitationDepositor
         status res.status
         results = unpack_coins(JSON.parse(res.body))
         erb :match_results, :locals => {:results => results}, :layout => false
-      end
-
-      # Shadow data proxy
-      app.get '/dois/info' do
-        response_data = {}
-        doi = params[:doi]
-        owner_prefix = fetch_owner_prefix(doi)
-        owner_name = fetch_owner_name(owner_prefix)
-        doi_info = fetch_doi_info(doi)
-
-        if owner_name.empty?
-          json({:status => 'error'})
-        else
-          doc = {
-            :status => 'ok',
-            :owner_name => owner_name,
-            :owner_prefix => owner_prefix,
-            :info => doi_info
-          }
-          json(doc)
-        end
       end
     end
 

@@ -64,8 +64,8 @@
 				            <%= pdf['upload_filename'] %>
                                           <% else %>
                                             <%= pdf['metadata']['title'] %>
-                                            <i><%= pdf['metadata']['jtitle'] %></i>
-                                            (<%= pdf['metadata']['year'] %>)
+                                            <i><%= pdf['metadata']['container-title'] %></i>
+                                            (<%= pdf['metadata']['issued']['date-parts'].first.first %>)
                                           <% end %>
 					</a>
 					</div>
