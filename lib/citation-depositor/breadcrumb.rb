@@ -9,7 +9,6 @@ module CitationDepositor
             'href' => slice[1]
           }
         end
-        puts crumbs
         opts[:locals] ||= {}
         opts[:locals][:crumbs] = crumbs
       end

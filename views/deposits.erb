@@ -57,10 +57,16 @@
 					</div>
 					
 			
-					<!-- Display filename -->
+					<!-- Display -->
 					<div class="doi-name">
 					<a href="<%= '/deposit/' + pdf['name'] %>">
-						<%= pdf['upload_filename'] %>
+					  <% if pdf['metadata'].nil? %>
+				            <%= pdf['upload_filename'] %>
+                                          <% else %>
+                                            <%= pdf['metadata']['title'] %>
+                                            <i><%= pdf['metadata']['jtitle'] %></i>
+                                            (<%= pdf['metadata']['year'] %>)
+                                          <% end %>
 					</a>
 					</div>
 

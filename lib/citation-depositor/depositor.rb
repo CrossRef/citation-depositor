@@ -104,6 +104,22 @@ module CitationDepositor
           resolved_citation
         end
       end
+
+      def resolve_pdf_metadata pdf_name
+        pdfs = Config.collection('pdfs')
+        pdf = pdfs.find_one({:name => pdf_name})
+
+        if pdf['metadata'].nil?
+          res = settings.search_service.get('/dois', :q => pdf['doi'])
+          if res.status == 200
+            json = JSON.parse(res.body)
+            if !json.empty?
+              pdf['metadata'] = unpack_coins(json).first
+              pdfs.save(pdf)
+            end
+          end
+        end
+      end
     end
 
     def self.registered app
@@ -144,6 +160,7 @@ module CitationDepositor
         }
 
         Config.collection('pdfs').insert(doc)
+        resolve_pdf_metadata(doc['name'])
         Resque.enqueue(Extract, pdf_url, pdf_filename, xml_filename, pdf_name)
 
         json({:pdf_name => pdf_name})
@@ -207,6 +224,7 @@ module CitationDepositor
         else
           pdf[:doi] = params['article_doi']
           pdfs.save pdf
+          resolve_pdf_metadata(pdf['name'])
           redirect("/deposit/#{params[:name]}/doi")
         end
       end
@@ -353,6 +371,17 @@ module CitationDepositor
       app.get '/deposits', :auth => true, :licence => true do
         opts = {:sort => [[:status_at, -1]]}
         pdfs = Config.collection('pdfs')
+        deposited_pdfs = pdfs.find({:user => auth_info['user'], :status => :deposited}, opts)
+        undeposited_pdfs = pdfs.find({:user => auth_info['user'], :status => {'$ne' => :deposited}}, opts)
+
+        deposited_pdfs.each do |pdf|
+          resolve_pdf_metadata(pdf['name'])
+        end
+
+        undeposited_pdfs.each do |pdf|
+          resolve_pdf_metadata(pdf['name'])
+        end
+
         deposited_pdfs = pdfs.find({:user => auth_info['user'], :status => :deposited}, opts)
         undeposited_pdfs = pdfs.find({:user => auth_info['user'], :status => {'$ne' => :deposited}}, opts)
 
