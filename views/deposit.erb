@@ -2,90 +2,87 @@
 <div class="doi-page">
 	<div class="row main">
 		<div class="container">
+				<div class="alert">
+					<% if deposit.nil?  %>
+					This citation is currently unpublished <a href="<%= "#{name}/deposit" %>" class="btn btn-small ">Publish now</a>
+					<% end %>
+					                	
+				</div>
+
 			<div class="page">
 		                <!-- 
 		                	<%= partial :breadcrumb, {:crumbs => crumbs} %>
-		            	-->
-				<!-- No DOI -->
-				<% if status == 'doi_missing' %>
-					<form method="post" action="doi">
-						<h1>PDF name here</h1>
-						<label>Add a DOI</label>
-						<input type="text" name="article_doi">
-						<input type="submit" class="btn primary">
+		                -->
+		                <!-- No DOI -->
+		                <% if status == 'doi_missing' %>
+		                <form method="post" action="doi">
+		                	<h1>PDF name here</h1>
+		                	<label>Add a DOI</label>
+		                	<input type="text" name="article_doi">
+		                	<input type="submit" class="btn primary">
 
-						<p>Not got a DOI? <a href="http://www.crossref.org/webDeposit/">Get one now</a></p>
-					</form>
-				<!-- Has DOI -->
-				<% else %>
+		                	<p>Not got a DOI? <a href="http://www.crossref.org/webDeposit/">Get one now</a></p>
+		                </form>
+		                <!-- Has DOI -->
+		                <% else %>
 
-					<div class="doi">
-						
+		                <div class="doi">
 
-						<!-- Title -->
-						<h1><%= pdf['metadata']['title'] %></h1>
+			                <div class="main-info">
+			                	<!-- Title -->
+			                	<h1 class="cite-title"><%= pdf['metadata']['title'] %></h1>
 
-						<!-- Author -->
-						<% if pdf['metadata']['author'].count < 6 %>
-							<div class="author">
-								&mdash;&nbsp;
-								<%= pdf['metadata']['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %>
-							</div>
-						<% end %>
-						
-						<!-- Journal -->
-						<div class="journal">
-							<a href="#"><%= pdf['metadata']['container-title'] %></a>
-						</div>
+			                	<!-- Author -->
+			                	<% if pdf['metadata']['author'].count < 6 %>
+			                	<div class="author">
+			                		&mdash;&nbsp;
+			                		<%= pdf['metadata']['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %>
+			                	</div>
+			                	<% end %>
+		                	</div>
+		                	<ul class="meta group">
+			                	<!-- Journal -->
+			                	<li class="journal">
+			                		<a href="#"><%= pdf['metadata']['container-title'] %></a>
+			                		<div>
+				                		<span>Vol. <%= pdf['metadata']['volume'] %></span>&#44;
+				                		<span>Issue <%= pdf['metadata']['issue'] %></span>&#44;
+				                		<span>Pages <%= pdf['metadata']['page'] %>&#44;</span>
+				                		<!-- Published -->
+				                		<span class="published"><%= pdf['metadata']['issued']['date-parts'].join('/') %></span>
+				                	</div>
+			                	</li>
 
-						<div>
-							<span>Vol. <%= pdf['metadata']['volume'] %></span>&#44;
-							<span>Issue <%= pdf['metadata']['issue'] %></span>&#44;
-							<span>Pages <%= pdf['metadata']['page'] %>&#44;</span>
-							<!-- Published -->
-							<span class="published"><%= pdf['metadata']['issued']['date-parts'].join('/') %></span>
-						</div>
-						<!-- Meta -->
-						<div class="meta">
-							<!-- DOI and ISSN -->
-							<div>
-						    	<div><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></div>
-						    </div>
+			                	
 
-					    </div>
+			                	<!-- Meta -->
+			                	<li>
+			                		<!-- DOI and ISSN -->
+			                		<div>
+			                			<div><em>DOI:</em>&nbsp;<a href="#" class="doi"><%= doi %></a></div>
+			                		</div>
+
+			                	</li>
 
 
-					    <!-- Owner -->
-							<% if status != 'owner_missing' %>
-								<div> 
-									<i class="icon-user"></i>
-									&nbsp;
-									<a href="#"><%= owner_name %></a>
-								</div>
-							<% end %>
+			                	<!-- Owner -->
+			                	<% if status != 'owner_missing' %>
+			                	<li> 
+			                		<i class="icon-user"></i>
+			                		&nbsp;
+			                		<a href="#"><%= owner_name %></a>
+			                	</li>
+			                	<% end %>
 
-				            <!-- System deposit status -->
-					    <div>
-					      <h4>Deposit Status</h4>
-					      <% if deposit.nil?  %>
-					      Not yet deposited. <a href="<%= "#{name}/deposit" %>">Deposit now</a>
-					      <% elsif deposit['status'] == :started %>
-					      Depositing.
-					      <% elsif deposit['status'] == :finished %>
-					      Deposited. <a href="deposit">Redeposit</a>
-					      <% elsif deposit['status'] == :failed %>
-					      Depositing failed. <a href="deposit">Retry</a>
-					      <% else %>
-					      Not yet deposited. <a href="deposit">Deposit now</a>
-					      <% end %>
-					    </div>
+			                	<!-- System deposit status -->
+			                	
+			                </ul>
 
-						
-			    	<% end %>				
-					<form id="form-doi" class="hidden" method="post">
-						<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
-					</form>
-				</div>
+		                	<% end %>				
+		                	<form id="form-doi" class="hidden" method="post">
+		                		<input type="text" id="doi-input" name="doi" placeholder="Enter a DOI" value="<%= doi %>">  
+		                	</form>
+
 
 				<!-- <div>
 					<button id="btn-next-citations" class="btn btn-success disabled"><i class="icon-circle-arrow-right"></i> Next</button>
@@ -93,54 +90,54 @@
 				</div> -->
 
 				
-				  
 
-							<div>
-								<ul class="tabs">
-									<li class="active">
-										<h2>Citations (<%= outbound.count %>)</h2>	
-									</li>
-									<li>
-										<h2>Cited by (<%= inbound.count %>)</h2>
-									</li>
-								</ul>
-								
-								<div>
-									<a href="<%= "#{name}/citations" %>" class="inline btn btn-small"><i class="icon-edit"> </i>Edit</a>
-									<a href="#" class="inline btn btn-small btn-link">Embed</a>
-								</div>
 
-								<ul class="cite-list group outbound">
-								  <% outbound.each do |citation| %>
-								  <li>
-								    <% if citation['coins'] %>
-								      <a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['coins']['atitle'] %></a>
-								      <span class="author"><%= citation['coins']['au'].join(', ') %></span>,
-								      <span class="publication"><%= citation['coins']['jtitle'] %></span>,
-								      <span class="date"><%= citation['coins']['date'] %></span>
-								      <span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
-								    <% else %>
-								      <a class="cite-title"><%= citation['text'] %></a>
-								      <% if citation['match'] %>
-								        <span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
-								      <% end %>
-								    <% end %>
-								  </li>
-								  <% end %>
-								</ul>
+				<div class="main-col">
+					<ul class="tabs">
+						<li class="active">
+							<h2>Citations (<%= outbound.count %>)</h2>	
+						</li>
+						<li>
+							<h2>Cited by (<%= inbound.count %>)</h2>
+						</li>
+					</ul>
 
-								<ul class="cite-list group inbound">
-								  <% inbound.each do |citation| %>
-								  <li>	
-								    <a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['title'] %></a>
-								    <span class="author"><%= citation['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %></span>, 
-								    <span class="publication"><%= citation['container-title'] %></span>,
-								    <span class="date"><%= citation['issued']['date-parts'].join('/') %></span>
-								    <span class="doi"><a href="http://dx.doi.org/<%= citation['DOI'] %>"><%= citation['DOI'] %></a></span>
-								  </li>
-								  <% end %>
-								</ul>
-							</div>
+					<div>
+						<a href="<%= "#{name}/citations" %>" class="inline btn btn-small"><i class="icon-edit"> </i>Edit</a>
+						<a href="#" class="inline btn btn-small btn-link">Embed</a>
+					</div>
+
+					<ul class="cite-list group outbound">
+						<% outbound.each do |citation| %>
+						<li>
+							<% if citation['coins'] %>
+							<a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['coins']['atitle'] %></a>
+							<span class="author"><%= citation['coins']['au'].join(', ') %></span>,
+							<span class="publication"><%= citation['coins']['jtitle'] %></span>,
+							<span class="date"><%= citation['coins']['date'] %></span>
+							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
+							<% else %>
+							<a class="cite-title"><%= citation['text'] %></a>
+							<% if citation['match'] %>
+							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
+							<% end %>
+							<% end %>
+						</li>
+						<% end %>
+					</ul>
+
+					<ul class="cite-list group inbound">
+						<% inbound.each do |citation| %>
+						<li>	
+							<a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['title'] %></a>
+							<span class="author"><%= citation['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %></span>, 
+							<span class="publication"><%= citation['container-title'] %></span>,
+							<span class="date"><%= citation['issued']['date-parts'].join('/') %></span>
+							<span class="doi"><a href="http://dx.doi.org/<%= citation['DOI'] %>"><%= citation['DOI'] %></a></span>
+						</li>
+						<% end %>
+					</ul>
+				</div>
 
 
 

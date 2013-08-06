@@ -257,7 +257,7 @@ content: "";
 }
 
 .container {
-	max-width: 960px;
+	max-width: 1200px;
 	margin: 0 auto;
 	padding: 0 @baseGrid;
 }
@@ -519,6 +519,17 @@ a:hover {
 // pages
 // Index
 
+.alert {
+	padding: @baseGrid @baseGrid*4;
+	background-color: @colorBlack;
+	color: #fff;
+
+}
+
+.alert .btn {
+	float: right;
+}
+
 .explaination {
 	text-align: center;
 	margin-bottom: @baseGrid*2;
@@ -603,25 +614,50 @@ a:hover {
 	margin-top: @baseGrid*6;
 }
 
+
+
 // DOI page
 .doi-page .page {
 	padding:@baseGrid*4;
 }
 
-.doi-page h1 {
-	font-size: @baseFontSize * 3;
-	.cite;
+
+.doi-page .doi {
+	position: relative;
+}
+
+.doi-page h1.cite-title {
+	font-size: @baseFontSize * 2.5;
 }
 
 .doi-page .content {
 	padding: @baseGrid*3 0;
 }
 
+.doi-page .main-info {
+	margin-right: @baseGrid*26;
+}
+
 .doi-page .meta {
-	margin-bottom: @baseGrid;
-	border-bottom: 1px dashed @colorMidGrey;
-	margin: @baseGrid 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: @baseGrid*22;
+}
+
+.doi-page .meta li {
+	border-bottom: 1px dotted @colorLightGrey;
 	padding: @baseGrid 0;
+}
+
+.doi-page .main-col {
+	margin-right: @baseGrid*26;
+}
+
+// Citation listing
+.cite-title {
+	.cite;
+	display: block;
 }
 
 .cite-list {
@@ -711,8 +747,10 @@ a:hover {
 
 
 .doi-page .page .journal {
-	font-size: 1.25em;
 	color: @colorMidGrey;
+}
+.doi-page .page .journal a {
+	font-size: 1.25em;
 }
 
 .doi-page .pagepage .author-list h2 {
@@ -827,13 +865,32 @@ input[type="text"].search {
 .deposit-list {
 	width:100%;
 	clear:both;
-	background:#fff;
+	background-color: #fff;
 }
 
-.deposit-list li {
+.deposit-list li a {
 	padding:@baseGrid*2;
 	border-bottom: 1px solid #eee;
 	position:relative;
+	display: block;
+	color: #333;
+	transition: all 0.1s ease;
+
+}
+
+.deposit-list li a .journal {
+	color: #666;
+}
+
+.deposit-list a:hover {
+	background-color:#f5fafa;
+	cursor: pointer;
+	display: block;
+	
+}
+
+.deposit-list a:hover .cite {
+	color: @colorLink;
 }
 
 .deposit-list .status span {
@@ -976,6 +1033,7 @@ input[type="text"].search {
 			width:24em;
 			float:right;
 			margin-top:0;
+			background-color: #fff;
 		}
 
 		.masthead h1 {
