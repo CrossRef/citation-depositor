@@ -42,7 +42,9 @@ module CitationDepositor
         json = JSON.parse(res.body)
         if json['query_ok']
           json['results'].each do |result|
-            result['coins'] = unpack_coins(result['coins'])
+            if result['match']
+              result['coins'] = unpack_coins(result['coins'])
+            end
           end
           json['results']
         end
@@ -70,7 +72,11 @@ module CitationDepositor
 
       begin
         conn = Faraday.new
-        response = conn.get @url
+        response = conn.get do |req|
+          req.url(@url)
+          req.options[:timeout] = 60
+          req.options[:open_timeout] = 60
+        end
         File.open(@pdf_filename, 'wb') do |file|
           file.write(response.body)
         end
