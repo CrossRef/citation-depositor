@@ -12,7 +12,7 @@ require_relative 'deposit'
 require_relative 'recorded_job'
 require_relative 'coins'
 require_relative 'breadcrumb'
-require_relatibe 'citedby'
+require_relative 'citedby'
 
 module CitationDepositor
   module Depositor
@@ -20,6 +20,7 @@ module CitationDepositor
     module Helpers
       include Breadcrumb
       include Coins
+      include CitedBy
 
       def fetch_method error_result
         begin
@@ -107,7 +108,7 @@ module CitationDepositor
         pdfs = Config.collection('pdfs')
         pdf = pdfs.find_one({:name => pdf_name})
 
-        if pdf['metadata'].nil?
+        if pdf['metadata'].nil? && !pdf['doi'].nil?
           res = settings.csl_service.get('/' + pdf['doi'])
           if res.status == 200
             pdf['metadata'] = JSON.parse(res.body)
@@ -182,14 +183,19 @@ module CitationDepositor
           :pdf => pdf,
           :extraction => extraction_job,
           :inbound => inbound,
-          :outbound => extraction_job['citations']
         }
 
         if extraction_job && extraction_job['doi']
           locals[:extracted_doi] = extraction_job['doi']
         end
 
-        if pdf['doi'] && !pdf['doi'].empty? && doi_info
+        if extraction_job && extraction_job['citations']
+          locals[:outbound] = extraction_job['citations']
+        else
+          locals[:outbound] = []
+        end
+
+        if pdf['doi'] && !pdf['doi'].empty?
           locals[:doi] = pdf['doi']
          
           owner_prefix = fetch_owner_prefix(pdf['doi'])

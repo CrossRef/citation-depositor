@@ -35,7 +35,7 @@
 						
 						<!-- Journal -->
 						<div class="journal">
-							<a href="#"><%= pdf['metadata'][container-title'] %></a>
+							<a href="#"><%= pdf['metadata']['container-title'] %></a>
 						</div>
 
 						<div>
@@ -127,7 +127,7 @@
 								    <a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['title'] %></a>
 								    <span class="author"><%= citation['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %></span>, 
 								    <span class="publication"><%= citation['container-title'] %></span>,
-								    <span class="date"><%= </span>
+								    <span class="date"><%= citation['issued']['date-parts'].join('/') %></span>
 								    <span class="doi"><a href="http://dx.doi.org/<%= citation['DOI'] %>"><%= citation['DOI'] %></a></span>
 								  </li>
 								  <% end %>
