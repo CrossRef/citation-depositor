@@ -33,6 +33,8 @@ module CitationDepositor
     def resolve_citations citations
       @@search_service ||= Faraday.new(:url => 'http://search.crossref.org')
       res = @@search_service.post do |req|
+        req.options[:timeout] = 600
+        req.options[:open_timeout] = 600
         req.url('/links')
         req.headers['Content-Type'] = 'application/json'
         req.body = citations.to_json
@@ -54,6 +56,8 @@ module CitationDepositor
     def parse_citations
       @@pdfx_service ||= Faraday.new(:url => 'http://pdfx.cs.man.ac.uk')
       res = @@pdfx_service.post do |req|
+        req.options[:timeout] = 600
+        req.options[:open_timeout] = 600
         req.url('/')
         req.headers['Content-Type'] = 'application/pdf'
         File.open(@pdf_filename, 'rb') {|file| req.body = file.read}
@@ -74,8 +78,8 @@ module CitationDepositor
         conn = Faraday.new
         response = conn.get do |req|
           req.url(@url)
-          req.options[:timeout] = 60
-          req.options[:open_timeout] = 60
+          req.options[:timeout] = 600
+          req.options[:open_timeout] = 600
         end
         File.open(@pdf_filename, 'wb') do |file|
           file.write(response.body)
