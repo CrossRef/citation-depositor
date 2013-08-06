@@ -34,7 +34,7 @@
 						<div class="matched">
 						  <h2>Match to</h2>
 						  <% if citation['coins'] %>
-						    <span><%= citation['atitle'] %></span>
+						    <span><%= citation['coins']['atitle'] %></span>
 						    <span class="author"><%= citation['coins']['au'].join(', ') %></span>,
 						    <span class="publication"><%= citation['coins']['jtitle'] %></span>,
 						    <span class="date"><%= citation['coins']['date'] %></span>
