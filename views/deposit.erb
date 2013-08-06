@@ -35,7 +35,7 @@
 						
 						<!-- Journal -->
 						<div class="journal">
-							<a href="#"><%= pdf['metadata']['jtitle'] %></a>
+							<a href="#"><%= pdf['metadata'][container-title'] %></a>
 						</div>
 
 						<div>
@@ -98,10 +98,10 @@
 							<div>
 								<ul class="tabs">
 									<li class="active">
-										<h2>Citations (3)</h2>	
+										<h2>Citations (<%= outbound.count %>)</h2>	
 									</li>
 									<li>
-										<h2>Cited by (9)</h2>
+										<h2>Cited by (<%= inbound.count %>)</h2>
 									</li>
 								</ul>
 								
@@ -110,31 +110,28 @@
 									<a href="#" class="inline btn btn-small btn-link">Embed</a>
 								</div>
 
-								<ul class="cite-list group">
-									<li>	
-									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-									    	<span class="author"		>Josiah Carberry</span>, 
-									    	<span class="publication"	>Journal of Psychoceramics</span>,
-									    	<span class="date"	>12/02/2012</span>
+								<ul class="cite-list group outbound">
+								  <% outbound.each do |citation| %>
+								  <li>	
+								    <a class="cite-title"><%= citation['text'] %></a>
+								    <% if citation['match'] %>
+								      <span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
+								    <% end %>
+								  </li>
+								  <% end %>
+								</ul>
 
-									    	
-								  	</li>
-
-								  	<li>	
-									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-									    	<span class="author"		>Josiah Carberry</span>, 
-									    	<span class="publication"	>Journal of Psychoceramics</span>,
-									    	<span class="date"	>12/02/2012</span>
-								  	</li>
-
-								  	<li>	
-									    	<a href="#" class="cite-title">Toward a Unified Theory of High-Energy Metaphysics: Silly String Theory</a>
-									    	<span class="author"		>Josiah Carberry</span>, 
-									    	<span class="publication"	>Journal of Psychoceramics</span>,
-									    	<span class="date"	>12/02/2012</span>
-								  	</li>
-
-								</ul>	
+								<ul class="cite-list group inbound">
+								  <% inbound.each do |citation| %>
+								  <li>	
+								    <a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['title'] %></a>
+								    <span class="author"><%= citation['author'].map {|a| a['given'] + ' ' + a['family']}.join(', ') %></span>, 
+								    <span class="publication"><%= citation['container-title'] %></span>,
+								    <span class="date"><%= </span>
+								    <span class="doi"><a href="http://dx.doi.org/<%= citation['DOI'] %>"><%= citation['DOI'] %></a></span>
+								  </li>
+								  <% end %>
+								</ul>
 							</div>
 
 

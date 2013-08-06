@@ -12,6 +12,7 @@ require_relative 'deposit'
 require_relative 'recorded_job'
 require_relative 'coins'
 require_relative 'breadcrumb'
+require_relatibe 'citedby'
 
 module CitationDepositor
   module Depositor
@@ -69,6 +70,20 @@ module CitationDepositor
         end
       end
 
+      def fetch_inbound_citations doi, user, pass
+        fetch_method([]) do
+          path = "/servlet/getForwardLinks?usr=#{user}&pwd=#{pass}&doi=#{doi}"
+          res = settings.cr_service.get(path)
+          
+          if res.status != 200
+            []
+          else
+            doc = Nokogiri::XML(res.body)
+            parse_citedby_citations(doc)
+          end
+        end
+      end
+
       def resolve_citation citation
         resolved_citation = citation.merge({:match => false, :reason => 'No match attempt'})
 
@@ -117,6 +132,7 @@ module CitationDepositor
       app.set :doi_data_service, data_service
       app.set :csl_service, csl_service
       app.set :cr_service, Faraday.new('http://www.crossref.org')
+      app.set :doi_service, Faraday.new('http://doi.crossref.org')
 
       app.get '/deposit', :auth => true, :licence => true do
         erb :upload
@@ -156,12 +172,17 @@ module CitationDepositor
         pdf = pdfs.find_one({:name => name})
         extraction_job = RecordedJob.get_where('extractions', {:name => name})
         deposit_job = RecordedJob.get_where('deposits', {:name => name})
+        user = auth_info['user']
+        pass = auth_info['pass']
+        inbound = fetch_inbound_citations(pdf['doi'], user, pass)
 
         locals = {
           :name => name,
           :deposit => deposit_job,
           :pdf => pdf,
-          :extraction => extraction_job
+          :extraction => extraction_job,
+          :inbound => inbound,
+          :outbound => extraction_job['citations']
         }
 
         if extraction_job && extraction_job['doi']
