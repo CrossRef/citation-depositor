@@ -255,7 +255,7 @@ module CitationDepositor
         erb_with_crumbs :citations, {
           :locals => locals,
           :crumbs => ['Deposits', '/deposits',
-                      pdf['upload_filename'], "/deposit/#{pdf['name']}/doi",
+                      pdf['upload_filename'], "/deposit/#{pdf['name']}",
                       'Edit Citations', '#']
         }
       end
@@ -297,7 +297,7 @@ module CitationDepositor
         erb_with_crumbs :citation, {
           :locals => locals,
           :crumbs => ['Deposits', '/deposits',
-                      pdf['upload_filename'], "/deposit/#{pdf['name']}/doi",
+                      pdf['upload_filename'], "/deposit/#{pdf['name']}",
                       'Edit Citations', "/deposit/#{pdf['name']}/citations",
                       "#{(index+1)}", "#"]
         }
