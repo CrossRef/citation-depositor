@@ -32,7 +32,7 @@ $(document).ready(function() {
 
   function refreshResultList() {
     var val = $("#search-input").val();
-    $("#match-result").load("/dois/search?q=" + encodeURIComponent(val)).done(function() {
+    $("#match-result").load("/dois/search?q=" + encodeURIComponent(val), function() {
 	addResultRowClickHandlers();
     });
   }
