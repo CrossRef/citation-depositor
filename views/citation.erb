@@ -32,9 +32,17 @@
 					<% if citation.has_key?('doi') %>
 						
 						<div class="matched">
-							<h2>Match to</h2>
-							<span class="cite"><%= citation['text'] %></span>
-							<a href="<%= citation['doi'] %>"><%= citation['doi'] %></a>
+						  <h2>Match to</h2>
+						  <% if citation['coins'] %>
+						    <span><%= citation['title'] %></span>
+						    <span class="author"><%= citation['coins']['au'].join(', ') %></span>,
+						    <span class="publication"><%= citation['coins']['jtitle'] %></span>,
+						    <span class="date"><%= citation['coins']['year'] %></span>
+						    <span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
+						  <% else %>
+						    <span class="cite"><%= citation['text'] %></span>
+						    <a href="<%= citation['doi'] %>"><%= citation['doi'] %></a>
+						  <% end %>
 						</div>
 					<% end %>
 				</div>

@@ -161,7 +161,7 @@ module CitationDepositor
         }
 
         Config.collection('pdfs').insert(doc)
-        resolve_pdf_metadata(doc['name'])
+        resolve_pdf_metadata(doc[:name])
         Resque.enqueue(Extract, pdf_url, pdf_filename, xml_filename, pdf_name)
 
         json({:pdf_name => pdf_name})
@@ -232,8 +232,8 @@ module CitationDepositor
         else
           pdf[:doi] = params['article_doi']
           pdfs.save pdf
-          resolve_pdf_metadata(pdf['name'])
-          redirect("/deposit/#{params[:name]}/doi")
+          resolve_pdf_metadata(params[:name])
+          redirect("/deposit/#{params[:name]}")
         end
       end
 

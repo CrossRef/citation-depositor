@@ -6,10 +6,13 @@ require 'nokogiri'
 require_relative 'recorded_job'
 require_relative 'config'
 require_relative 'resolve'
+require_relative 'coins'
 
 module CitationDepositor
 
   class Extract < RecordedJob
+    include Coins
+
     @queue = :extract
 
     def job_kind
@@ -38,6 +41,9 @@ module CitationDepositor
       if res.status == 200
         json = JSON.parse(res.body)
         if json['query_ok']
+          json['results'].each do |result|
+            result['coins'] = unpack_coins(result['coins'])
+          end
           json['results']
         end
       end
