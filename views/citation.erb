@@ -9,49 +9,60 @@
 
 			<h1>Match citation</h1>
 			<div>
-				<form id="change-citation-form" method="post">
-					<input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>"></input>
-					<input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>"></input>
-					<button class="btn confirm" type="submit">Verify</button>
-					<a href="#" class="btn btn-link">Delete</a>
-				</form>
 				
+				<ul class="options group">
+					<li>
+						<form id="change-citation-form" method="post">
+							<input id="citation-text-input" type="hidden" name="text" value="<%= citation['text'] %>"></input>
+							<input id="citation-doi-input" type="hidden" name="doi" value="<%= citation['doi'] or '' %>"></input>
+							<button class="btn confirm" type="submit">Save</button>
+						</form>
+					</li>
+
+					<li>
+						<a href="#" title="hide" class="btn-link"><i class="icon-eye-open"></i>&nbsp;Hide</a>
+					</li>
+					<li>
+						<a href="#" title="delete" class="danger btn-link"><i class="icon-trash"></i>&nbsp;Delete</a>
+					</li>
+				</ul>
 
 				
 			</div>
 
-			<div class="cite-list">
+			<div class="page">
 				
-				<span id="citation-textarea" class="cite extracted"><%= citation['text'] %></span>
-			
-
-			</div>		
-			<div class="cite-list">
-				
-				<div id="citation-doi-info">
-					<% if citation.has_key?('doi') %>
-						
+				<ul id="citation-doi-info" class="two-col match-list group">
+					<li class="col col1">
+						<h2>Extracted</h2>
+						<span id="citation-textarea" class="cite extracted"><%= citation['text'] %></span>
+						<% if citation.has_key?('doi') %>
+					</li>
+					<li class="col col2">
 						<div class="matched">
-						  <h2>Match to</h2>
-						  <% if citation['coins'] %>
-						    <span><%= citation['coins']['atitle'] %></span>
-						    <span class="author"><%= citation['coins']['au'].join(', ') %></span>,
-						    <span class="publication"><%= citation['coins']['jtitle'] %></span>,
-						    <span class="date"><%= citation['coins']['date'] %></span>
-						    <span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
-						  <% else %>
-						    <span class="cite"><%= citation['text'] %></span>
-						    <a href="<%= citation['doi'] %>"><%= citation['doi'] %></a>
-						  <% end %>
+							<h2>Match to</h2>
+							<% if citation['coins'] %>
+							<span><%= citation['coins']['atitle'] %></span>
+							<span class="author"><%= citation['coins']['au'].join(', ') %></span>,
+							<span class="publication"><%= citation['coins']['jtitle'] %></span>,
+							<span class="date"><%= citation['coins']['date'] %></span>
+							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
+							<% else %>
+							<span class="cite"><%= citation['text'] %></span>
+							<a href="<%= citation['doi'] %>"><%= citation['doi'] %></a>
+							<% end %>
+							<a href="#" class="btn">Match to another DOI</a>
 						</div>
-					<% end %>
+						<% end %>
+					</li>
 				</div>
-				
-				<h2>Search for a Match</h2>
-				<form>
-				  <input id="search-input" type="text" placeholder="Search" class="search"></input>
-				</form>
-				<div id="match-result">
+				<div>
+					<h2>Search for a Match</h2>
+					<form>
+						<input id="search-input" type="text" placeholder="Search" class="search"></input>
+					</form>
+					<div id="match-result">
+					</div>
 				</div>
 				
 				

@@ -498,10 +498,18 @@ a:hover {
 	background-color: @colorGreen;
 }
 
+.btn.danger {
+	background-color: @colorDanger;
+}
+
 .btn.btn-link {
 	background-color: transparent;
 	color:@colorLink;
 }
+
+.btn.btn-link.danger {
+	color: @colorDanger;
+	}
 
 .btn-small {
 	font-size: 0.85em;
@@ -721,12 +729,10 @@ a:hover {
 	cursor: pointer;
 }
 
-
-
 .match-list > li {
 	padding: @baseGrid*2;	
-	border-bottom: 1px solid @colorLightGrey;
 	position: relative;
+	border-bottom: 1px solid @colorLightGrey;
 }
 
 .match-list .cite {
@@ -746,18 +752,22 @@ a:hover {
 }
 
 .match-list .col {
-	width: 35.5%;
+	width: 43%;
 	min-height: 3em;
 }
 
-.match-list .col4 {
-	width: 15%;
-	text-align: left;
-	padding-left: 2em;
-	padding-top: 2em;
+.match-list .col2 {
+	padding: 0 0 @baseGrid 0;
+	margin: 0;
 }
 
-.match-list h3 {
+.match-list .col2 .doi {
+	padding-bottom: @baseGrid;
+}
+
+
+.match-list h3,
+.match .match-list h2 {
 	font-weight: 600;
 	text-transform: uppercase;
 	font-size: 1em;
@@ -765,29 +775,19 @@ a:hover {
 }
 
 .match-list .options {
-	font-size: 1.25em;
-	margin-top: 1em;
-	float: left
+	margin-top: 2em;
+	clear: left; 
+	border-top: 1px solid @colorLighterGrey;
+	padding-top: @baseGrid*1;
 }
 
-.match-list .options a {
-	color: @colorBlack;
-}
+	.match-list .options ul {
+		float: right;
+	}
 
-.match-list .options li {
-	float: left;
-	padding: 0 0.5em;
-	line-height: 1em;
-	border-right:1px solid #ccc;
-}
-
-.match-list .options li:first-child {
-	padding-left: 0;
-}
-
-.match-list .options li:last-child {
-	border: none;
-}
+	.match-list .options li {
+		float: left;
+	}
 
 .match-list a.danger:hover {
 	color: @colorDanger;
@@ -817,10 +817,11 @@ input[type="text"].search {
 
 .filter {
 	clear:both;
+	padding:@baseGrid;
 }
 
 .filter select {
-	margin:@baseGrid 0;
+	margin: 0;
 }
 
 .deposit-list {

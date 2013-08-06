@@ -3,27 +3,22 @@
 <% matched = citations.reject { |c| !c.has_key?('doi') }.count %>
 <% not_matched = citations.count - matched %>
 
-<div>
 
-	<% if !not_matched.zero? %>
-	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citations</h1>
-	<% else %>
-	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citation</h1>
-	<% end %>
-</div>
+<h1>Edit</h1>
 <div class="visibility">
 	<form>
 		<label>Visibility: </label>
 		<select>
 			<option>Public</option>
 			<option>Private</option>
-	</select>
+		</select>
 	</form>
 </div>
 <!-- Insert unmatches citations -->
 
 <div class="option-bar filter group">
-	<p class="byline"><%= not_matched %> Unmatched</p>
+	<span><%= citations.count %>&nbsp;Citations</span> &nbsp;|&nbsp;
+	<span class="byline"><%= not_matched %> Unmatched</span>
 	<select>
 		<option>Show all</option>
 		<option>Matched</option>
@@ -43,8 +38,9 @@
 		shown
 		<% end %>
 		">
-
+		
 		<div class="col0">
+
 			<h2><%= (i+1) %>.</h2>
 			<div class="citation-controls">
 				<div class="input-append input-prepend">
@@ -66,7 +62,10 @@
 						<div class="text-success citation-doi-text">
 							<h3>Matched to</h3>
 							<span class="cite"><%= citation['text'] %></span>
-							<div class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></div>
+							<div class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a>
+							</div>
+
+							<a href="#" class="btn btn-small"><i class="icon-edit"></i>&nbsp;Edit</a>
 						</div>
 						<% else %>
 						<div class="unmatched">
@@ -74,16 +73,15 @@
 							<a href="citations/<%= i %>">Search for a work</a>
 						</div>
 						<% end %>
-					</div>
 
-					<div class=" col col4 group">
-						
-						<ul class="options">
-							<li><a href="citations/<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
-							<li><a href="#" title="hide"><i class="icon-eye-open"></i></a></li>
-							<li><a href="#" title="delete" class="danger"><i class="icon-trash"></i></a></li>
+
+					</div>
+					<div class="options">
+						<ul class="group">
+							<li><a href="#" class="btn btn-link "><i class="icon-eye-open"></i> Hide</a>
+							</li>
+							<li><a href="#" class="btn btn-link danger"><i class="icon-trash"></i> Delete</a></li>
 						</ul>
-						
 					</div>
 
 				</li>
@@ -91,4 +89,4 @@
 				<% end %>
 			</ul>
 
-</div>
+		</div>
