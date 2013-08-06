@@ -11,11 +11,19 @@
 	<h1>Edit&nbsp;<%= citations.count %>&nbsp;Citation</h1>
 	<% end %>
 </div>
-
-<p class="byline"><%= not_matched %> Unmatched</p>
+<div class="visibility">
+	<form>
+		<label>Visibility: </label>
+		<select>
+			<option>Public</option>
+			<option>Private</option>
+	</select>
+	</form>
+</div>
 <!-- Insert unmatches citations -->
 
 <div class="option-bar filter group">
+	<p class="byline"><%= not_matched %> Unmatched</p>
 	<select>
 		<option>Show all</option>
 		<option>Matched</option>
@@ -69,9 +77,7 @@
 					</div>
 
 					<div class=" col col4 group">
-						<div class="verify">
-							<a href="#" class="btn btn-small"><i class="icon-check-sign"></i>&nbsp;Verified</a>
-						</div>
+						
 						<ul class="options">
 							<li><a href="citations/<%= i %>" title="Edit" class="btn-citation-edit"><i class="icon-edit"></i></a></li>
 							<li><a href="#" title="hide"><i class="icon-eye-open"></i></a></li>
