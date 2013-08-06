@@ -114,10 +114,10 @@
 								  <% outbound.each do |citation| %>
 								  <li>
 								    <% if citation['coins'] %>
-								      <a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['title'] %></a>
+								      <a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['atitle'] %></a>
 								      <span class="author"><%= citation['coins']['au'].join(', ') %></span>,
 								      <span class="publication"><%= citation['coins']['jtitle'] %></span>,
-								      <span class="date"><%= citation['coins']['year'] %></span>
+								      <span class="date"><%= citation['coins']['date'] %></span>
 								      <span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
 								    <% else %>
 								      <a class="cite-title"><%= citation['text'] %></a>
