@@ -22,10 +22,11 @@
 			<span class="pages">
 				<%= result['spage'] %>-<%= result['lpage'] %></b>
 			</span>
-			<span class="authors">
-				<%= result['au'].join(', ') %>
-			</span>
-
+			<% if result['au'] %>			
+			  <span class="authors">
+			  	<%= result['au'].join(', ') %>
+			  </span>
+			<% end %>
 			<span class="result-doi">
 				<%= result['doi'] %>
 			</span>

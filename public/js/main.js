@@ -31,7 +31,7 @@ $(document).ready(function() {
   });
 
   function refreshResultList() {
-    var val = $("#citation-textarea").text();
+    var val = $("#search-input").val();
     $("#match-result").load("/dois/search?q=" + encodeURIComponent(val)).done(function() {
 	addResultRowClickHandlers();
     });
@@ -94,8 +94,8 @@ $(document).ready(function() {
     timeIt(refreshDoiResult, 500);
   });
 
-  $("#citation-textarea").bind('paste keyup', function(e) {
-    $("#results-table").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
+  $("#search-input").bind('paste keyup', function(e) {
+    $("#match-result").html("<center><img class=\"loader\" src=\"/img/loader.gif\"></img></center>");
     timeIt(refreshResultList, 500);
   });
 
