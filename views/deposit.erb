@@ -43,7 +43,9 @@
 		                	<ul class="meta group">
 			                	<!-- Journal -->
 			                	<li class="journal">
-			                		<a href="#"><%= pdf['metadata']['container-title'] %></a>
+			                		<a href="<%= "http://search.crossref.org/?q=#{pdf['metadata']['container-title']}&publication=#{pdf['metadata']['container-title']}" %>">
+							   <%= pdf['metadata']['container-title'] %>
+							</a>
 			                		<div>
 				                		<span>Vol. <%= pdf['metadata']['volume'] %></span>&#44;
 				                		<span>Issue <%= pdf['metadata']['issue'] %></span>&#44;
@@ -97,9 +99,10 @@
 						<li class="active">
 							<h2>Citations (<%= outbound.count %>)</h2>	
 						</li>
-						<li>
+						<!-- Removed until implemented. -->
+						<!--<li>
 							<h2>Cited by (<%= inbound.count %>)</h2>
-						</li>
+						</li>-->
 					</ul>
 
 					<div>
@@ -108,16 +111,17 @@
 					</div>
 
 					<ul class="cite-list group outbound">
-						<% outbound.each do |citation| %>
+						<% outbound.each_with_index do |citation, i| %>
 						<li>
+						        <h2 style="display:inline;"><%= "#{(i+1)}." %></h2>
 							<% if citation['coins'] %>
-							<a href="http://dx.doi.org/<%= citation['DOI'] %>" class="cite-title"><%= citation['coins']['atitle'] %></a>
+							<span class="cite-title"><%= citation['coins']['atitle'] %></span>
 							<span class="author"><%= citation['coins']['au'].join(', ') %></span>,
 							<span class="publication"><%= citation['coins']['jtitle'] %></span>,
 							<span class="date"><%= citation['coins']['date'] %></span>
 							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
 							<% else %>
-							<a class="cite-title"><%= citation['text'] %></a>
+							<span class="cite-title"><%= citation['text'] %></span>
 							<% if citation['match'] %>
 							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
 							<% end %>
@@ -126,6 +130,7 @@
 						<% end %>
 					</ul>
 
+					<!--
 					<ul class="cite-list group inbound">
 						<% inbound.each do |citation| %>
 						<li>	
@@ -137,6 +142,7 @@
 						</li>
 						<% end %>
 					</ul>
+					-->
 				</div>
 
 
