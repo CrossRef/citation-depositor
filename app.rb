@@ -11,6 +11,7 @@ require_relative 'lib/citation-depositor/widget'
 require_relative 'lib/citation-depositor/help'
 
 require_relative 'lib/citation-depositor/dummy_auth'
+require_relative 'lib/citation-depositor/labs_auth'
 
 class App < Sinatra::Base
   register CitationDepositor::LabsBase
@@ -22,7 +23,10 @@ class App < Sinatra::Base
 
   set(:alive) { true }
   set(:stats) { {} }
-  set(:authorize) { |user, pass| CitationDepositor::DummyAuth.can_auth?(user, pass) }
+  set(:authorize) { |user, pass| CitationDepositor::LabsAuth.can_auth?(user, pass) }
+
+  # An alternative is CitationDepositor::DummyAuth.can_auth? which will
+  # auth by attempting to make an empty deposit to the deposit system
 
   get '/' do
     if has_authed?
