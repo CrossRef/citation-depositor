@@ -4,7 +4,7 @@
 		<div class="container">
 				<div class="alert group">
 					<% if deposit.nil?  %>
-					This citation is currently unpublished <a href="<%= "#{name}/deposit" %>" class="btn btn-small ">Publish now</a>
+					This reference list is currently unpublished <a href="<%= "#{name}/deposit" %>" class="btn btn-small ">Publish now</a>
 					<% end %>
 					                	
 				</div>
@@ -115,13 +115,15 @@
 						<li>
 						        <h2 style="display:inline;"><%= "#{(i+1)}." %></h2>
 							<% if citation['coins'] %>
-							<span class="cite-title"><%= citation['coins']['atitle'] %></span>
-							<span class="author"><%= citation['coins']['au'].join(', ') %></span>,
-							<span class="publication"><%= citation['coins']['jtitle'] %></span>,
-							<span class="date"><%= citation['coins']['date'] %></span>
-							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
+							<span style="font-size: 1.6em;" class="cite-title"><%= citation['coins']['atitle'] %></span>
+							<div><span class="cite-publication"><%= citation['coins']['jtitle'] %></span>
+							<span class="cite-date"><%= citation['coins']['date'] %></span></div>
+							<% if citation['coins']['au'] %>
+							  <span class="cite-author">-&nbsp;<%= citation['coins']['au'].join(', ') %></span>,
+							<% end %>
+							<div><span class="cite-doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span></div>
 							<% else %>
-							<span class="cite-title"><%= citation['text'] %></span>
+							<span class="cite-title" style="color: grey;"><%= citation['text'] %></span>
 							<% if citation['match'] %>
 							<span class="doi"><a href="http://dx.doi.org/<%= citation['doi'] %>"><%= citation['doi'] %></a></span>
 							<% end %>

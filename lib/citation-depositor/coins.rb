@@ -22,12 +22,6 @@ module CitationDepositor
       m
     end
 
-    def unpack_coins results
-      results.map do |result|
-        puts result['coins']
-        result.merge(parse_coins(result['coins']))
-      end
-    end
   end
 end
         

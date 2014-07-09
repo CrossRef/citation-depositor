@@ -45,10 +45,9 @@ module CitationDepositor
         if json['query_ok']
           json['results'].each do |result|
             if result['match']
-              result['coins'] = unpack_coins(result['coins'])
+              result['coins'] = parse_coins(result['coins'])
             end
           end
-          json['results']
         end
       end
     end
@@ -85,7 +84,9 @@ module CitationDepositor
           file.write(response.body)
         end
 
-        citations = resolve_citations(parse_citations)
+        cs = parse_citations
+
+        citations = resolve_citations(cs)
 
         #mark_finished(:citations => citations,
         #              :doi => result[:dois].first)
